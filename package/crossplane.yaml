@@ -1,0 +1,11 @@
+apiVersion: meta.pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-upjet-zitadel
+  annotations:
+    meta.crossplane.io/source: github.com/crossplane-contrib/provider-upjet-zitadel
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: The Zitadel Crossplane Provider based on Upjet framework.
+spec:
+  capabilities:
+    - SafeStart
