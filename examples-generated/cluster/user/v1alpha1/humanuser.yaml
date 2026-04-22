@@ -1,0 +1,27 @@
+apiVersion: user.zitadel.crossplane.io/v1alpha1
+kind: HumanUser
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/humanuser
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    displayName: displayname
+    email: test@zitadel.com
+    firstName: firstname
+    gender: GENDER_MALE
+    initialPasswordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    initialSkipPasswordChange: true
+    isEmailVerified: true
+    isPhoneVerified: true
+    lastName: lastname
+    nickName: nickname
+    orgId: ${data.zitadel_org.default.id}
+    phone: "+41799999999"
+    preferredLanguage: de
+    userName: humanfull@localhost.com

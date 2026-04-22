@@ -1,0 +1,19 @@
+apiVersion: org.zitadel.m.crossplane.io/v1alpha1
+kind: IdpJwt
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/idpjwt
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    autoRegister: false
+    headerName: x-auth-token
+    issuer: https://google.com
+    jwtEndpoint: https://jwtendpoint.com/jwt
+    keysEndpoint: https://jwtendpoint.com/keys
+    name: jwtidp
+    orgId: ${data.zitadel_org.default.id}
+    stylingType: STYLING_TYPE_UNSPECIFIED

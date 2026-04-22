@@ -1,0 +1,18 @@
+apiVersion: project.zitadel.m.crossplane.io/v1alpha1
+kind: Member
+metadata:
+  annotations:
+    meta.upbound.io/example-id: project/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    orgId: ${data.zitadel_org.default.id}
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_project
+    roles:
+    - PROJECT_OWNER
+    userId: ${data.zitadel_human_user.default.id}

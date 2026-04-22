@@ -1,0 +1,12 @@
+apiVersion: default.zitadel.crossplane.io/v1alpha1
+kind: VerifySMSOtpMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/verifysmsotpmessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    language: en
+    text: text example

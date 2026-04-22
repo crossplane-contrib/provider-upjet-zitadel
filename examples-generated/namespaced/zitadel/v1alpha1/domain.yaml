@@ -1,0 +1,14 @@
+apiVersion: zitadel.zitadel.m.crossplane.io/v1alpha1
+kind: Domain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zitadel/v1alpha1/domain
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    isPrimary: false
+    name: zitadel.default.127.0.0.1.sslip.io
+    orgId: ${data.zitadel_org.default.id}

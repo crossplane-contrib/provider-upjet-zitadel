@@ -1,0 +1,16 @@
+apiVersion: org.zitadel.crossplane.io/v1alpha1
+kind: Member
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
+    roles:
+    - ORG_OWNER
+    userId: ${data.zitadel_human_user.default.id}

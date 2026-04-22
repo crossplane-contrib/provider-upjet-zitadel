@@ -2,6 +2,7 @@
 Copyright 2024 The Crossplane Authors.
 */
 
+// Package config contains the provider configuration and resource external-name mappings.
 package config
 
 import "github.com/crossplane/upjet/v2/pkg/config"

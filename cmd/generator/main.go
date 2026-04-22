@@ -2,6 +2,7 @@
 Copyright 2024 The Crossplane Authors.
 */
 
+// Package main is the entry point for the provider code generator.
 package main
 
 import (

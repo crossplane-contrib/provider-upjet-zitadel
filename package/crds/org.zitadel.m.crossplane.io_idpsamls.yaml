@@ -1,0 +1,446 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: idpsamls.org.zitadel.m.crossplane.io
+spec:
+  group: org.zitadel.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - zitadel
+    kind: IdpSAML
+    listKind: IdpSAMLList
+    plural: idpsamls
+    singular: idpsaml
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: IdpSAML is the Schema for the IdpSAMLs API. Resource representing
+          a SAML IdP on the organization.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: IdpSAMLSpec defines the desired state of IdpSAML
+            properties:
+              forProvider:
+                properties:
+                  autoLinking:
+                    description: |-
+                      (String) Enable if users should get prompted to link an existing ZITADEL user to an external account if the selected attribute matches, supported values: AUTO_LINKING_OPTION_UNSPECIFIED, AUTO_LINKING_OPTION_USERNAME, AUTO_LINKING_OPTION_EMAIL
+                      Enable if users should get prompted to link an existing ZITADEL user to an external account if the selected attribute matches, supported values: AUTO_LINKING_OPTION_UNSPECIFIED, AUTO_LINKING_OPTION_USERNAME, AUTO_LINKING_OPTION_EMAIL
+                    type: string
+                  binding:
+                    description: |-
+                      (String) The binding, supported values: SAML_BINDING_UNSPECIFIED, SAML_BINDING_POST, SAML_BINDING_REDIRECT, SAML_BINDING_ARTIFACT
+                      The binding, supported values: SAML_BINDING_UNSPECIFIED, SAML_BINDING_POST, SAML_BINDING_REDIRECT, SAML_BINDING_ARTIFACT
+                    type: string
+                  federatedLogoutEnabled:
+                    description: |-
+                      (Boolean) If enabled, ZITADEL will send a logout request to the identity provider when the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.
+                      If enabled, ZITADEL will send a logout request to the identity provider when the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.
+                    type: boolean
+                  isAutoCreation:
+                    description: |-
+                      (Boolean) enable if a new account in ZITADEL should be created automatically on login with an external account
+                      enable if a new account in ZITADEL should be created automatically on login with an external account
+                    type: boolean
+                  isAutoUpdate:
+                    description: |-
+                      (Boolean) enable if a the ZITADEL account fields should be updated automatically on each login
+                      enable if a the ZITADEL account fields should be updated automatically on each login
+                    type: boolean
+                  isCreationAllowed:
+                    description: |-
+                      (Boolean) enable if users should be able to create a new account in ZITADEL when using an external account
+                      enable if users should be able to create a new account in ZITADEL when using an external account
+                    type: boolean
+                  isLinkingAllowed:
+                    description: |-
+                      (Boolean) enable if users should be able to link an existing ZITADEL user with an external account
+                      enable if users should be able to link an existing ZITADEL user with an external account
+                    type: boolean
+                  metadataUrl:
+                    description: |-
+                      (String) URL to the metadata of the SAML identity provider
+                      URL to the metadata of the SAML identity provider
+                    type: string
+                  metadataXml:
+                    description: |-
+                      (String) The metadata XML as plain string
+                      The metadata XML as plain string
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the IDP
+                      Name of the IDP
+                    type: string
+                  nameIdFormat:
+                    description: |-
+                      format requested, supported values: SAML_NAME_ID_FORMAT_UNSPECIFIED, SAML_NAME_ID_FORMAT_EMAIL_ADDRESS, SAML_NAME_ID_FORMAT_PERSISTENT, SAML_NAME_ID_FORMAT_TRANSIENT
+                      The nameid-format requested, supported values: SAML_NAME_ID_FORMAT_UNSPECIFIED, SAML_NAME_ID_FORMAT_EMAIL_ADDRESS, SAML_NAME_ID_FORMAT_PERSISTENT, SAML_NAME_ID_FORMAT_TRANSIENT
+                    type: string
+                  orgId:
+                    description: |-
+                      (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+                      ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+                    type: string
+                  signatureAlgorithm:
+                    description: |-
+                      (String) Signature Algorithm used to sign SAML requests and responses. Can be used only if with_signed_request is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
+                      Signature Algorithm used to sign SAML requests and responses. Can be used only if `with_signed_request` is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
+                    type: string
+                  transientMappingAttributeName:
+                    description: |-
+                      format is urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                      Name of the attribute used to map the user in case the nameid-format is `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.
+                    type: string
+                  withSignedRequest:
+                    description: |-
+                      (Boolean) Whether the SAML IDP requires signed requests
+                      Whether the SAML IDP requires signed requests
+                    type: boolean
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  autoLinking:
+                    description: |-
+                      (String) Enable if users should get prompted to link an existing ZITADEL user to an external account if the selected attribute matches, supported values: AUTO_LINKING_OPTION_UNSPECIFIED, AUTO_LINKING_OPTION_USERNAME, AUTO_LINKING_OPTION_EMAIL
+                      Enable if users should get prompted to link an existing ZITADEL user to an external account if the selected attribute matches, supported values: AUTO_LINKING_OPTION_UNSPECIFIED, AUTO_LINKING_OPTION_USERNAME, AUTO_LINKING_OPTION_EMAIL
+                    type: string
+                  binding:
+                    description: |-
+                      (String) The binding, supported values: SAML_BINDING_UNSPECIFIED, SAML_BINDING_POST, SAML_BINDING_REDIRECT, SAML_BINDING_ARTIFACT
+                      The binding, supported values: SAML_BINDING_UNSPECIFIED, SAML_BINDING_POST, SAML_BINDING_REDIRECT, SAML_BINDING_ARTIFACT
+                    type: string
+                  federatedLogoutEnabled:
+                    description: |-
+                      (Boolean) If enabled, ZITADEL will send a logout request to the identity provider when the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.
+                      If enabled, ZITADEL will send a logout request to the identity provider when the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.
+                    type: boolean
+                  isAutoCreation:
+                    description: |-
+                      (Boolean) enable if a new account in ZITADEL should be created automatically on login with an external account
+                      enable if a new account in ZITADEL should be created automatically on login with an external account
+                    type: boolean
+                  isAutoUpdate:
+                    description: |-
+                      (Boolean) enable if a the ZITADEL account fields should be updated automatically on each login
+                      enable if a the ZITADEL account fields should be updated automatically on each login
+                    type: boolean
+                  isCreationAllowed:
+                    description: |-
+                      (Boolean) enable if users should be able to create a new account in ZITADEL when using an external account
+                      enable if users should be able to create a new account in ZITADEL when using an external account
+                    type: boolean
+                  isLinkingAllowed:
+                    description: |-
+                      (Boolean) enable if users should be able to link an existing ZITADEL user with an external account
+                      enable if users should be able to link an existing ZITADEL user with an external account
+                    type: boolean
+                  metadataUrl:
+                    description: |-
+                      (String) URL to the metadata of the SAML identity provider
+                      URL to the metadata of the SAML identity provider
+                    type: string
+                  metadataXml:
+                    description: |-
+                      (String) The metadata XML as plain string
+                      The metadata XML as plain string
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the IDP
+                      Name of the IDP
+                    type: string
+                  nameIdFormat:
+                    description: |-
+                      format requested, supported values: SAML_NAME_ID_FORMAT_UNSPECIFIED, SAML_NAME_ID_FORMAT_EMAIL_ADDRESS, SAML_NAME_ID_FORMAT_PERSISTENT, SAML_NAME_ID_FORMAT_TRANSIENT
+                      The nameid-format requested, supported values: SAML_NAME_ID_FORMAT_UNSPECIFIED, SAML_NAME_ID_FORMAT_EMAIL_ADDRESS, SAML_NAME_ID_FORMAT_PERSISTENT, SAML_NAME_ID_FORMAT_TRANSIENT
+                    type: string
+                  orgId:
+                    description: |-
+                      (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+                      ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+                    type: string
+                  signatureAlgorithm:
+                    description: |-
+                      (String) Signature Algorithm used to sign SAML requests and responses. Can be used only if with_signed_request is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
+                      Signature Algorithm used to sign SAML requests and responses. Can be used only if `with_signed_request` is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
+                    type: string
+                  transientMappingAttributeName:
+                    description: |-
+                      format is urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                      Name of the attribute used to map the user in case the nameid-format is `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.
+                    type: string
+                  withSignedRequest:
+                    description: |-
+                      (Boolean) Whether the SAML IDP requires signed requests
+                      Whether the SAML IDP requires signed requests
+                    type: boolean
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.isAutoCreation is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.isAutoCreation)
+                || (has(self.initProvider) && has(self.initProvider.isAutoCreation))'
+            - message: spec.forProvider.isAutoUpdate is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.isAutoUpdate)
+                || (has(self.initProvider) && has(self.initProvider.isAutoUpdate))'
+            - message: spec.forProvider.isCreationAllowed is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.isCreationAllowed)
+                || (has(self.initProvider) && has(self.initProvider.isCreationAllowed))'
+            - message: spec.forProvider.isLinkingAllowed is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.isLinkingAllowed)
+                || (has(self.initProvider) && has(self.initProvider.isLinkingAllowed))'
+          status:
+            description: IdpSAMLStatus defines the observed state of IdpSAML.
+            properties:
+              atProvider:
+                properties:
+                  autoLinking:
+                    description: |-
+                      (String) Enable if users should get prompted to link an existing ZITADEL user to an external account if the selected attribute matches, supported values: AUTO_LINKING_OPTION_UNSPECIFIED, AUTO_LINKING_OPTION_USERNAME, AUTO_LINKING_OPTION_EMAIL
+                      Enable if users should get prompted to link an existing ZITADEL user to an external account if the selected attribute matches, supported values: AUTO_LINKING_OPTION_UNSPECIFIED, AUTO_LINKING_OPTION_USERNAME, AUTO_LINKING_OPTION_EMAIL
+                    type: string
+                  binding:
+                    description: |-
+                      (String) The binding, supported values: SAML_BINDING_UNSPECIFIED, SAML_BINDING_POST, SAML_BINDING_REDIRECT, SAML_BINDING_ARTIFACT
+                      The binding, supported values: SAML_BINDING_UNSPECIFIED, SAML_BINDING_POST, SAML_BINDING_REDIRECT, SAML_BINDING_ARTIFACT
+                    type: string
+                  federatedLogoutEnabled:
+                    description: |-
+                      (Boolean) If enabled, ZITADEL will send a logout request to the identity provider when the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.
+                      If enabled, ZITADEL will send a logout request to the identity provider when the user terminates the session in ZITADEL. Be sure to provide a SLO endpoint as part of the metadata.
+                    type: boolean
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  isAutoCreation:
+                    description: |-
+                      (Boolean) enable if a new account in ZITADEL should be created automatically on login with an external account
+                      enable if a new account in ZITADEL should be created automatically on login with an external account
+                    type: boolean
+                  isAutoUpdate:
+                    description: |-
+                      (Boolean) enable if a the ZITADEL account fields should be updated automatically on each login
+                      enable if a the ZITADEL account fields should be updated automatically on each login
+                    type: boolean
+                  isCreationAllowed:
+                    description: |-
+                      (Boolean) enable if users should be able to create a new account in ZITADEL when using an external account
+                      enable if users should be able to create a new account in ZITADEL when using an external account
+                    type: boolean
+                  isLinkingAllowed:
+                    description: |-
+                      (Boolean) enable if users should be able to link an existing ZITADEL user with an external account
+                      enable if users should be able to link an existing ZITADEL user with an external account
+                    type: boolean
+                  metadataUrl:
+                    description: |-
+                      (String) URL to the metadata of the SAML identity provider
+                      URL to the metadata of the SAML identity provider
+                    type: string
+                  metadataXml:
+                    description: |-
+                      (String) The metadata XML as plain string
+                      The metadata XML as plain string
+                    type: string
+                  name:
+                    description: |-
+                      (String) Name of the IDP
+                      Name of the IDP
+                    type: string
+                  nameIdFormat:
+                    description: |-
+                      format requested, supported values: SAML_NAME_ID_FORMAT_UNSPECIFIED, SAML_NAME_ID_FORMAT_EMAIL_ADDRESS, SAML_NAME_ID_FORMAT_PERSISTENT, SAML_NAME_ID_FORMAT_TRANSIENT
+                      The nameid-format requested, supported values: SAML_NAME_ID_FORMAT_UNSPECIFIED, SAML_NAME_ID_FORMAT_EMAIL_ADDRESS, SAML_NAME_ID_FORMAT_PERSISTENT, SAML_NAME_ID_FORMAT_TRANSIENT
+                    type: string
+                  orgId:
+                    description: |-
+                      (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+                      ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+                    type: string
+                  signatureAlgorithm:
+                    description: |-
+                      (String) Signature Algorithm used to sign SAML requests and responses. Can be used only if with_signed_request is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
+                      Signature Algorithm used to sign SAML requests and responses. Can be used only if `with_signed_request` is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
+                    type: string
+                  transientMappingAttributeName:
+                    description: |-
+                      format is urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                      Name of the attribute used to map the user in case the nameid-format is `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.
+                    type: string
+                  withSignedRequest:
+                    description: |-
+                      (Boolean) Whether the SAML IDP requires signed requests
+                      Whether the SAML IDP requires signed requests
+                    type: boolean
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

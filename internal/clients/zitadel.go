@@ -2,6 +2,7 @@
 Copyright 2024 The Crossplane Authors.
 */
 
+// Package clients provides the Zitadel API client used by managed resource controllers.
 package clients
 
 import (

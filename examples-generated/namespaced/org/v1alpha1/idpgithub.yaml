@@ -1,0 +1,26 @@
+apiVersion: org.zitadel.m.crossplane.io/v1alpha1
+kind: IdpGithub
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/idpgithub
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    clientId: 86a165...
+    clientSecretSecretRef:
+      key: example-key
+      name: example-secret
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isLinkingAllowed: false
+    name: GitHub
+    orgId: ${data.zitadel_org.default.id}
+    scopes:
+    - openid
+    - profile
+    - email

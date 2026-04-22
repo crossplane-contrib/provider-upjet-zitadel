@@ -1,0 +1,2674 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.18.0
+  name: logintexts.default.zitadel.m.crossplane.io
+spec:
+  group: default.zitadel.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - zitadel
+    kind: LoginTexts
+    listKind: LoginTextsList
+    plural: logintexts
+    singular: logintexts
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: LoginTexts is the Schema for the LoginTextss API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: LoginTextsSpec defines the desired state of LoginTexts
+            properties:
+              forProvider:
+                properties:
+                  emailVerificationDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  emailVerificationText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  externalRegistrationUserOverviewText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      languageLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      nicknameLabel:
+                        description: (String)
+                        type: string
+                      phoneLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  externalUserNotFoundText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      autoRegisterButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      linkButtonText:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                    type: object
+                  footerText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      help:
+                        description: (String)
+                        type: string
+                      privacyPolicy:
+                        description: (String)
+                        type: string
+                      supportEmail:
+                        description: (String)
+                        type: string
+                      tos:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaOtpText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionOtp:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      secretLabel:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      otpOption:
+                        description: (String)
+                        type: string
+                      skipButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      u2fOption:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaU2FText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      registerTokenButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tokenNameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  initPasswordDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initPasswordText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initializeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initializeUserText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  language:
+                    description: (String)
+                    type: string
+                  linkingUserDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  linkingUserPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      linkButtonText:
+                        description: (String)
+                        type: string
+                      otherButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  loginText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionLinkingProcess:
+                        description: (String)
+                        type: string
+                      externalUserDescription:
+                        description: (String)
+                        type: string
+                      loginNameLabel:
+                        description: (String)
+                        type: string
+                      loginNamePlaceholder:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      registerButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      titleLinkingProcess:
+                        description: (String)
+                        type: string
+                      userMustBeMemberOfOrg:
+                        description: (String)
+                        type: string
+                      userNamePlaceholder:
+                        description: (String)
+                        type: string
+                    type: object
+                  logoutText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  mfaProvidersText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      chooseOther:
+                        description: (String)
+                        type: string
+                      otp:
+                        description: (String)
+                        type: string
+                      u2f:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordChangeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordChangeText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      expiredDescription:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      oldPasswordLabel:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordResetDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      confirmation:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      hasLowercase:
+                        description: (String)
+                        type: string
+                      hasNumber:
+                        description: (String)
+                        type: string
+                      hasSymbol:
+                        description: (String)
+                        type: string
+                      hasUppercase:
+                        description: (String)
+                        type: string
+                      minLength:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      resetLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionInit:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordlessButtonText:
+                        description: (String)
+                        type: string
+                      skipButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessRegistrationDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionClose:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessRegistrationText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      registerTokenButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tokenNameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      loginWithPwButtonText:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      validateTokenButtonText:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationOptionText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      externalLoginDescription:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      userNameButtonText:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationOrgText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      orgnameLabel:
+                        description: (String)
+                        type: string
+                      passwordConfirmLabel:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      saveButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationUserText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionOrgRegister:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      genderLabel:
+                        description: (String)
+                        type: string
+                      languageLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordConfirmLabel:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  selectAccountText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionLinkingProcess:
+                        description: (String)
+                        type: string
+                      otherUser:
+                        description: (String)
+                        type: string
+                      sessionStateActive:
+                        description: (String)
+                        type: string
+                      sessionStateInactive:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      titleLinkingProcess:
+                        description: (String)
+                        type: string
+                      userMustBeMemberOfOrg:
+                        description: (String)
+                        type: string
+                    type: object
+                  successLoginText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      autoRedirectDescription:
+                        description: |-
+                          redirect should happen after successful login
+                          Text to describe that auto-redirect should happen after successful login
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      redirectedDescription:
+                        description: |-
+                          (String) Text to describe that the window can be closed after redirect
+                          Text to describe that the window can be closed after redirect
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  usernameChangeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  usernameChangeText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  verifyMfaOtpText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  verifyMfaU2FText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      validateTokenText:
+                        description: (String)
+                        type: string
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  emailVerificationDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  emailVerificationText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  externalRegistrationUserOverviewText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      languageLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      nicknameLabel:
+                        description: (String)
+                        type: string
+                      phoneLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  externalUserNotFoundText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      autoRegisterButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      linkButtonText:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                    type: object
+                  footerText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      help:
+                        description: (String)
+                        type: string
+                      privacyPolicy:
+                        description: (String)
+                        type: string
+                      supportEmail:
+                        description: (String)
+                        type: string
+                      tos:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaOtpText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionOtp:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      secretLabel:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      otpOption:
+                        description: (String)
+                        type: string
+                      skipButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      u2fOption:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaU2FText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      registerTokenButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tokenNameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  initPasswordDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initPasswordText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initializeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initializeUserText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  language:
+                    description: (String)
+                    type: string
+                  linkingUserDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  linkingUserPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      linkButtonText:
+                        description: (String)
+                        type: string
+                      otherButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  loginText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionLinkingProcess:
+                        description: (String)
+                        type: string
+                      externalUserDescription:
+                        description: (String)
+                        type: string
+                      loginNameLabel:
+                        description: (String)
+                        type: string
+                      loginNamePlaceholder:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      registerButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      titleLinkingProcess:
+                        description: (String)
+                        type: string
+                      userMustBeMemberOfOrg:
+                        description: (String)
+                        type: string
+                      userNamePlaceholder:
+                        description: (String)
+                        type: string
+                    type: object
+                  logoutText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  mfaProvidersText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      chooseOther:
+                        description: (String)
+                        type: string
+                      otp:
+                        description: (String)
+                        type: string
+                      u2f:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordChangeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordChangeText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      expiredDescription:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      oldPasswordLabel:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordResetDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      confirmation:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      hasLowercase:
+                        description: (String)
+                        type: string
+                      hasNumber:
+                        description: (String)
+                        type: string
+                      hasSymbol:
+                        description: (String)
+                        type: string
+                      hasUppercase:
+                        description: (String)
+                        type: string
+                      minLength:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      resetLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionInit:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordlessButtonText:
+                        description: (String)
+                        type: string
+                      skipButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessRegistrationDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionClose:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessRegistrationText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      registerTokenButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tokenNameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      loginWithPwButtonText:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      validateTokenButtonText:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationOptionText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      externalLoginDescription:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      userNameButtonText:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationOrgText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      orgnameLabel:
+                        description: (String)
+                        type: string
+                      passwordConfirmLabel:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      saveButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationUserText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionOrgRegister:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      genderLabel:
+                        description: (String)
+                        type: string
+                      languageLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordConfirmLabel:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  selectAccountText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionLinkingProcess:
+                        description: (String)
+                        type: string
+                      otherUser:
+                        description: (String)
+                        type: string
+                      sessionStateActive:
+                        description: (String)
+                        type: string
+                      sessionStateInactive:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      titleLinkingProcess:
+                        description: (String)
+                        type: string
+                      userMustBeMemberOfOrg:
+                        description: (String)
+                        type: string
+                    type: object
+                  successLoginText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      autoRedirectDescription:
+                        description: |-
+                          redirect should happen after successful login
+                          Text to describe that auto-redirect should happen after successful login
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      redirectedDescription:
+                        description: |-
+                          (String) Text to describe that the window can be closed after redirect
+                          Text to describe that the window can be closed after redirect
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  usernameChangeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  usernameChangeText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  verifyMfaOtpText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  verifyMfaU2FText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      validateTokenText:
+                        description: (String)
+                        type: string
+                    type: object
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.language is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.language)
+                || (has(self.initProvider) && has(self.initProvider.language))'
+          status:
+            description: LoginTextsStatus defines the observed state of LoginTexts.
+            properties:
+              atProvider:
+                properties:
+                  emailVerificationDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  emailVerificationText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  externalRegistrationUserOverviewText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      languageLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      nicknameLabel:
+                        description: (String)
+                        type: string
+                      phoneLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  externalUserNotFoundText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      autoRegisterButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      linkButtonText:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                    type: object
+                  footerText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      help:
+                        description: (String)
+                        type: string
+                      privacyPolicy:
+                        description: (String)
+                        type: string
+                      supportEmail:
+                        description: (String)
+                        type: string
+                      tos:
+                        description: (String)
+                        type: string
+                    type: object
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  initMfaDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaOtpText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionOtp:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      secretLabel:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      otpOption:
+                        description: (String)
+                        type: string
+                      skipButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      u2fOption:
+                        description: (String)
+                        type: string
+                    type: object
+                  initMfaU2FText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      registerTokenButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tokenNameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  initPasswordDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initPasswordText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initializeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  initializeUserText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      resendButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  language:
+                    description: (String)
+                    type: string
+                  linkingUserDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  linkingUserPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      linkButtonText:
+                        description: (String)
+                        type: string
+                      otherButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  loginText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionLinkingProcess:
+                        description: (String)
+                        type: string
+                      externalUserDescription:
+                        description: (String)
+                        type: string
+                      loginNameLabel:
+                        description: (String)
+                        type: string
+                      loginNamePlaceholder:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      registerButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      titleLinkingProcess:
+                        description: (String)
+                        type: string
+                      userMustBeMemberOfOrg:
+                        description: (String)
+                        type: string
+                      userNamePlaceholder:
+                        description: (String)
+                        type: string
+                    type: object
+                  logoutText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  mfaProvidersText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      chooseOther:
+                        description: (String)
+                        type: string
+                      otp:
+                        description: (String)
+                        type: string
+                      u2f:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordChangeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordChangeText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      expiredDescription:
+                        description: (String)
+                        type: string
+                      newPasswordConfirmLabel:
+                        description: (String)
+                        type: string
+                      newPasswordLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      oldPasswordLabel:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordResetDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      confirmation:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      hasLowercase:
+                        description: (String)
+                        type: string
+                      hasNumber:
+                        description: (String)
+                        type: string
+                      hasSymbol:
+                        description: (String)
+                        type: string
+                      hasUppercase:
+                        description: (String)
+                        type: string
+                      minLength:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      resetLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessPromptText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionInit:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordlessButtonText:
+                        description: (String)
+                        type: string
+                      skipButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessRegistrationDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionClose:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessRegistrationText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      registerTokenButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tokenNameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  passwordlessText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      loginWithPwButtonText:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      validateTokenButtonText:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationOptionText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      externalLoginDescription:
+                        description: (String)
+                        type: string
+                      loginButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      userNameButtonText:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationOrgText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      orgnameLabel:
+                        description: (String)
+                        type: string
+                      passwordConfirmLabel:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      saveButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  registrationUserText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      backButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionOrgRegister:
+                        description: (String)
+                        type: string
+                      emailLabel:
+                        description: (String)
+                        type: string
+                      firstnameLabel:
+                        description: (String)
+                        type: string
+                      genderLabel:
+                        description: (String)
+                        type: string
+                      languageLabel:
+                        description: (String)
+                        type: string
+                      lastnameLabel:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      passwordConfirmLabel:
+                        description: (String)
+                        type: string
+                      passwordLabel:
+                        description: (String)
+                        type: string
+                      privacyConfirm:
+                        description: (String)
+                        type: string
+                      privacyLinkText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      tosAndPrivacyLabel:
+                        description: (String)
+                        type: string
+                      tosConfirm:
+                        description: (String)
+                        type: string
+                      tosLinkText:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  selectAccountText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      descriptionLinkingProcess:
+                        description: (String)
+                        type: string
+                      otherUser:
+                        description: (String)
+                        type: string
+                      sessionStateActive:
+                        description: (String)
+                        type: string
+                      sessionStateInactive:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      titleLinkingProcess:
+                        description: (String)
+                        type: string
+                      userMustBeMemberOfOrg:
+                        description: (String)
+                        type: string
+                    type: object
+                  successLoginText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      autoRedirectDescription:
+                        description: |-
+                          redirect should happen after successful login
+                          Text to describe that auto-redirect should happen after successful login
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      redirectedDescription:
+                        description: |-
+                          (String) Text to describe that the window can be closed after redirect
+                          Text to describe that the window can be closed after redirect
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  usernameChangeDoneText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  usernameChangeText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      cancelButtonText:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      usernameLabel:
+                        description: (String)
+                        type: string
+                    type: object
+                  verifyMfaOtpText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      codeLabel:
+                        description: (String)
+                        type: string
+                      description:
+                        description: (String)
+                        type: string
+                      nextButtonText:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                    type: object
+                  verifyMfaU2FText:
+                    description: (Attributes) (see below for nested schema)
+                    properties:
+                      description:
+                        description: (String)
+                        type: string
+                      errorRetry:
+                        description: (String)
+                        type: string
+                      notSupported:
+                        description: (String)
+                        type: string
+                      title:
+                        description: (String)
+                        type: string
+                      validateTokenText:
+                        description: (String)
+                        type: string
+                    type: object
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

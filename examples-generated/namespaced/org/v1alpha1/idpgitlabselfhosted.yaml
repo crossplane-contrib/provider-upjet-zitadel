@@ -1,0 +1,27 @@
+apiVersion: org.zitadel.m.crossplane.io/v1alpha1
+kind: IdpGitlabSelfHosted
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/idpgitlabselfhosted
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    clientId: 15765e...
+    clientSecretSecretRef:
+      key: example-key
+      name: example-secret
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isLinkingAllowed: false
+    issuer: https://my.issuer
+    name: GitLab Self Hosted
+    orgId: ${data.zitadel_org.default.id}
+    scopes:
+    - openid
+    - profile
+    - email

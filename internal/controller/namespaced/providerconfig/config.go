@@ -2,6 +2,7 @@
 Copyright 2024 The Crossplane Authors.
 */
 
+// Package providerconfig implements controllers for namespaced and cluster-scoped ProviderConfigs.
 package providerconfig
 
 import (

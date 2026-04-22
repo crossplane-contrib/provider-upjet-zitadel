@@ -18,8 +18,10 @@ const (
 )
 
 var (
+	// SchemeGroupVersion is the group version used to register these objects.
 	SchemeGroupVersion = schema.GroupVersion{Group: Group, Version: Version}
-	SchemeBuilder      = &scheme.Builder{GroupVersion: SchemeGroupVersion}
+	// SchemeBuilder is used to add Go types to the GroupVersionKind scheme.
+	SchemeBuilder = &scheme.Builder{GroupVersion: SchemeGroupVersion}
 )
 
 // ProviderConfig type metadata.

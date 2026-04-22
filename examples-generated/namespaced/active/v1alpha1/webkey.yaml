@@ -1,0 +1,47 @@
+apiVersion: active.zitadel.m.crossplane.io/v1alpha1
+kind: Webkey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: active/v1alpha1/webkey
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    keyId: ${zitadel_webkey.key_v1.id}
+    orgId: ${data.zitadel_org.default.id}
+
+---
+
+apiVersion: zitadel.zitadel.m.crossplane.io/v1alpha1
+kind: Webkey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: active/v1alpha1/webkey
+  labels:
+    testing.upbound.io/example-name: key_v1
+  name: key-v1
+  namespace: crossplane-system
+spec:
+  forProvider:
+    orgId: ${data.zitadel_org.default.id}
+    rsa:
+    - {}
+
+---
+
+apiVersion: zitadel.zitadel.m.crossplane.io/v1alpha1
+kind: Webkey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: active/v1alpha1/webkey
+  labels:
+    testing.upbound.io/example-name: key_v2
+  name: key-v2
+  namespace: crossplane-system
+spec:
+  forProvider:
+    ecdsa:
+    - {}
+    orgId: ${data.zitadel_org.default.id}

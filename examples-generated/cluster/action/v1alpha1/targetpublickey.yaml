@@ -1,0 +1,12 @@
+apiVersion: action.zitadel.crossplane.io/v1alpha1
+kind: TargetPublicKey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/targetpublickey
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    publicKey: ${file("path/to/public_key.pem")}
+    targetId: ${zitadel_action_target.default.id}

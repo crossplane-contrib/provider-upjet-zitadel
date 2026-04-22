@@ -1,0 +1,28 @@
+apiVersion: org.zitadel.crossplane.io/v1alpha1
+kind: IdpOidc
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/idpoidc
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    clientId: a_client_id
+    clientSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isIdTokenMapping: true
+    isLinkingAllowed: false
+    issuer: https://example.com
+    name: My Generic OIDC IDP
+    orgId: ${data.zitadel_org.default.id}
+    scopes:
+    - openid
+    - profile
+    - email

@@ -1,0 +1,14 @@
+apiVersion: password.zitadel.m.crossplane.io/v1alpha1
+kind: AgePolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: password/v1alpha1/agepolicy
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    expireWarnDays: 5
+    maxAgeDays: 30
+    orgId: ${data.zitadel_org.default.id}

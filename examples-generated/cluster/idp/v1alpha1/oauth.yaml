@@ -1,0 +1,30 @@
+apiVersion: idp.zitadel.crossplane.io/v1alpha1
+kind: Oauth
+metadata:
+  annotations:
+    meta.upbound.io/example-id: idp/v1alpha1/oauth
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    authorizationEndpoint: https://accounts.google.com/o/oauth2/v2/auth
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    clientId: 15765e...
+    clientSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    idAttribute: user_id
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isLinkingAllowed: false
+    name: GitLab
+    scopes:
+    - openid
+    - profile
+    - email
+    tokenEndpoint: https://oauth2.googleapis.com/token
+    usePkce: false
+    userEndpoint: https://openidconnect.googleapis.com/v1/userinfo

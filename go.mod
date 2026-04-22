@@ -3,6 +3,7 @@ module github.com/crossplane-contrib/provider-upjet-zitadel
 go 1.24.7
 
 require (
+	dario.cat/mergo v1.0.2
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/crossplane/crossplane-runtime/v2 v2.0.0-20250730220209-c306b1c8b181
 	github.com/crossplane/crossplane-tools v0.0.0-20250731192036-00d407d8b7ec
@@ -17,7 +18,6 @@ require (
 )
 
 require (
-	dario.cat/mergo v1.0.2 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b // indirect
 	github.com/antchfx/htmlquery v1.2.4 // indirect

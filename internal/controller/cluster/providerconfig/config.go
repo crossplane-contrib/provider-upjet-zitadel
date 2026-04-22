@@ -2,6 +2,7 @@
 Copyright 2024 The Crossplane Authors.
 */
 
+// Package providerconfig implements the cluster-scoped ProviderConfig controller.
 package providerconfig
 
 import (
@@ -14,6 +15,7 @@ import (
 	"github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/v1beta1"
 )
 
+// Setup adds a controller that reconciles ProviderConfigs.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	name := providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind)
 
@@ -33,6 +35,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
 }
 
+// SetupGated registers Setup behind a gate that fires once the required CRDs are installed.
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	o.Gate.Register(func() {
 		if err := Setup(mgr, o); err != nil {

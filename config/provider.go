@@ -26,14 +26,14 @@ var providerMetadata string
 // provider.
 var ExternalNameConfigs = map[string]ujconfig.ExternalName{
 	// Actions
-	"zitadel_action":                      ujconfig.IdentifierFromProvider,
-	"zitadel_action_execution_event":      ujconfig.IdentifierFromProvider,
-	"zitadel_action_execution_function":   ujconfig.IdentifierFromProvider,
-	"zitadel_action_execution_request":    ujconfig.IdentifierFromProvider,
-	"zitadel_action_execution_response":   ujconfig.IdentifierFromProvider,
-	"zitadel_action_target":               ujconfig.IdentifierFromProvider,
-	"zitadel_action_target_public_key":    ujconfig.IdentifierFromProvider,
-	"zitadel_trigger_actions":             ujconfig.IdentifierFromProvider,
+	"zitadel_action":                    ujconfig.IdentifierFromProvider,
+	"zitadel_action_execution_event":    ujconfig.IdentifierFromProvider,
+	"zitadel_action_execution_function": ujconfig.IdentifierFromProvider,
+	"zitadel_action_execution_request":  ujconfig.IdentifierFromProvider,
+	"zitadel_action_execution_response": ujconfig.IdentifierFromProvider,
+	"zitadel_action_target":             ujconfig.IdentifierFromProvider,
+	"zitadel_action_target_public_key":  ujconfig.IdentifierFromProvider,
+	"zitadel_trigger_actions":           ujconfig.IdentifierFromProvider,
 
 	// Applications
 	"zitadel_application_api":  ujconfig.IdentifierFromProvider,
@@ -78,11 +78,11 @@ var ExternalNameConfigs = map[string]ujconfig.ExternalName{
 	"zitadel_organization_metadata":       ujconfig.IdentifierFromProvider,
 
 	// Email & SMS providers
-	"zitadel_email_provider_http":  ujconfig.IdentifierFromProvider,
-	"zitadel_email_provider_smtp":  ujconfig.IdentifierFromProvider,
-	"zitadel_sms_provider_http":    ujconfig.IdentifierFromProvider,
-	"zitadel_sms_provider_twilio":  ujconfig.IdentifierFromProvider,
-	"zitadel_smtp_config":          ujconfig.IdentifierFromProvider,
+	"zitadel_email_provider_http": ujconfig.IdentifierFromProvider,
+	"zitadel_email_provider_smtp": ujconfig.IdentifierFromProvider,
+	"zitadel_sms_provider_http":   ujconfig.IdentifierFromProvider,
+	"zitadel_sms_provider_twilio": ujconfig.IdentifierFromProvider,
+	"zitadel_smtp_config":         ujconfig.IdentifierFromProvider,
 
 	// Identity Providers — Instance-Level
 	"zitadel_idp_apple":              ujconfig.IdentifierFromProvider,
@@ -105,7 +105,7 @@ var ExternalNameConfigs = map[string]ujconfig.ExternalName{
 	"zitadel_org_idp_gitlab":             ujconfig.IdentifierFromProvider,
 	"zitadel_org_idp_gitlab_self_hosted": ujconfig.IdentifierFromProvider,
 	"zitadel_org_idp_google":             ujconfig.IdentifierFromProvider,
-	"zitadel_org_idp_jwt":               ujconfig.IdentifierFromProvider,
+	"zitadel_org_idp_jwt":                ujconfig.IdentifierFromProvider,
 	"zitadel_org_idp_ldap":               ujconfig.IdentifierFromProvider,
 	"zitadel_org_idp_oauth":              ujconfig.IdentifierFromProvider,
 	"zitadel_org_idp_oidc":               ujconfig.IdentifierFromProvider,
@@ -162,6 +162,17 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		ujconfig.WithShortName("zitadel"),
 		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithFeaturesPackage("internal/features"),
+		ujconfig.WithBasePackages(ujconfig.BasePackages{
+			APIVersion: []string{
+				"v1beta1",
+			},
+			Controller: []string{
+				"providerconfig",
+			},
+			ControllerMap: map[string]string{
+				"providerconfig": ujconfig.PackageNameConfig,
+			},
+		}),
 		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
 			ManagedResourceNamespace: "crossplane-system",
 		}),
@@ -247,9 +258,11 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	// Users
 	pc.AddResourceConfigurator("zitadel_human_user", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.Kind = "HumanUser"
 	})
 	pc.AddResourceConfigurator("zitadel_machine_user", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.Kind = "MachineUser"
 	})
 	pc.AddResourceConfigurator("zitadel_machine_key", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"

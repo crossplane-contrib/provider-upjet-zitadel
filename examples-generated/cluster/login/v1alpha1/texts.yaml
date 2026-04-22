@@ -1,0 +1,264 @@
+apiVersion: login.zitadel.crossplane.io/v1alpha1
+kind: Texts
+metadata:
+  annotations:
+    meta.upbound.io/example-id: login/v1alpha1/texts
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    emailVerificationDoneText:
+      cancelButtonText: example
+      description: example
+      loginButtonText: example
+      nextButtonText: example
+      title: example
+    emailVerificationText:
+      codeLabel: example
+      description: example
+      nextButtonText: example
+      resendButtonText: example
+      title: example
+    externalRegistrationUserOverviewText:
+      backButtonText: example
+      description: example
+      emailLabel: example
+      firstnameLabel: example
+      languageLabel: example
+      lastnameLabel: example
+      nextButtonText: example
+      nicknameLabel: example
+      phoneLabel: example
+      privacyLinkText: example
+      title: example
+      tos_confirm_and: example
+      tosAndPrivacyLabel: example
+      tosConfirm: example
+      tosLinkText: example
+      usernameLabel: example
+    externalUserNotFoundText:
+      autoRegisterButtonText: example
+      description: example
+      linkButtonText: example
+      privacyLinkText: example
+      title: example
+      tos_confirm_and: example
+      tosAndPrivacyLabel: example
+      tosConfirm: example
+      tosLinkText: example
+    footerText:
+      help: example
+      privacyPolicy: example
+      tos: example
+    initMfaDoneText:
+      cancelButtonText: example
+      description: example
+      nextButtonText: example
+      title: example
+    initMfaOtpText:
+      cancelButtonText: example
+      codeLabel: example
+      description: example
+      descriptionOtp: example
+      nextButtonText: example
+      secretLabel: example
+      title: example
+    initMfaPromptText:
+      description: example
+      nextButtonText: example
+      otpOption: example
+      skipButtonText: example
+      title: example
+      u2fOption: example
+    initMfaU2FText:
+      description: example
+      errorRetry: example
+      notSupported: example
+      registerTokenButtonText: example
+      title: example
+      tokenNameLabel: example
+    initPasswordDoneText:
+      cancelButtonText: example
+      description: example
+      nextButtonText: example
+      title: example
+    initPasswordText:
+      codeLabel: example
+      description: example
+      newPasswordConfirmLabel: example
+      newPasswordLabel: example
+      nextButtonText: example
+      resendButtonText: example
+      title: example
+    initializeDoneText:
+      cancelButtonText: example
+      description: example
+      nextButtonText: example
+      title: example
+    initializeUserText:
+      codeLabel: example
+      description: example
+      newPasswordConfirmLabel: example
+      newPasswordLabel: example
+      nextButtonText: example
+      resendButtonText: example
+      title: example
+    language: en
+    linkingUserDoneText:
+      cancelButtonText: example
+      description: example
+      nextButtonText: example
+      title: example
+    loginText:
+      description: example
+      descriptionLinkingProcess: example
+      externalUserDescription: example
+      loginNameLabel: example
+      loginNamePlaceholder: example
+      nextButtonText: example
+      registerButtonText: example
+      title: example
+      titleLinkingProcess: example
+      userMustBeMemberOfOrg: example
+      userNamePlaceholder: example
+    logoutText:
+      description: example
+      loginButtonText: example
+      title: example
+    mfaProvidersText:
+      chooseOther: example
+      otp: example
+      u2f: example
+    orgId: ${data.zitadel_org.default.id}
+    passwordChangeDoneText:
+      description: example
+      nextButtonText: example
+      title: example
+    passwordChangeText:
+      cancelButtonText: example
+      description: example
+      newPasswordConfirmLabel: example
+      newPasswordLabel: example
+      nextButtonText: example
+      oldPasswordLabel: example
+      title: example
+    passwordResetDoneText:
+      description: example
+      nextButtonText: example
+      title: example
+    passwordText:
+      backButtonText: example
+      confirmation: example
+      description: example
+      hasLowercase: example
+      hasNumber: example
+      hasSymbol: example
+      hasUppercase: example
+      minLength: example
+      nextButtonText: example
+      passwordLabel: example
+      resetLinkText: example
+      title: example
+    passwordlessPromptText:
+      description: example
+      descriptionInit: example
+      nextButtonText: example
+      passwordlessButtonText: example
+      skipButtonText: example
+      title: example
+    passwordlessRegistrationDoneText:
+      cancelButtonText: example
+      description: example
+      descriptionClose: example
+      nextButtonText: example
+      title: example
+    passwordlessRegistrationText:
+      description: example
+      errorRetry: example
+      notSupported: example
+      registerTokenButtonText: example
+      title: example
+      tokenNameLabel: example
+    passwordlessText:
+      description: example
+      errorRetry: example
+      loginWithPwButtonText: example
+      notSupported: example
+      title: example
+      validateTokenButtonText: example
+    registrationOptionText:
+      description: example
+      externalLoginDescription: example
+      title: example
+      userNameButtonText: example
+    registrationOrgText:
+      description: example
+      emailLabel: example
+      firstnameLabel: example
+      lastnameLabel: example
+      orgnameLabel: example
+      passwordConfirmLabel: example
+      passwordLabel: example
+      privacyLinkText: example
+      saveButtonText: example
+      title: example
+      tos_confirm_and: example
+      tosAndPrivacyLabel: example
+      tosConfirm: example
+      tosLinkText: example
+      usernameLabel: example
+    registrationUserText:
+      backButtonText: example
+      description: example
+      descriptionOrgRegister: example
+      emailLabel: example
+      firstnameLabel: example
+      genderLabel: example
+      languageLabel: example
+      lastnameLabel: example
+      nextButtonText: example
+      passwordConfirmLabel: example
+      passwordLabel: example
+      privacyLinkText: example
+      title: example
+      tos_confirm_and: example
+      tosAndPrivacyLabel: example
+      tosConfirm: example
+      tosLinkText: example
+      usernameLabel: example
+    selectAccountText:
+      description: example
+      descriptionLinkingProcess: example
+      otherUser: example
+      sessionStateActive: example
+      sessionStateInactive: example
+      title: example
+      titleLinkingProcess: example
+      userMustBeMemberOfOrg: example
+    successLoginText:
+      autoRedirectDescription: example
+      nextButtonText: example
+      redirectedDescription: example
+      title: example
+    usernameChangeDoneText:
+      description: example
+      nextButtonText: example
+      title: example
+    usernameChangeText:
+      cancelButtonText: example
+      description: example
+      nextButtonText: example
+      title: example
+      usernameLabel: example
+    verifyMfaOtpText:
+      codeLabel: example
+      description: example
+      nextButtonText: example
+      title: example
+    verifyMfaU2FText:
+      description: example
+      errorRetry: example
+      notSupported: example
+      title: example
+      validateTokenText: example

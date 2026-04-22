@@ -1,0 +1,19 @@
+apiVersion: application.zitadel.m.crossplane.io/v1alpha1
+kind: SAML
+metadata:
+  annotations:
+    meta.upbound.io/example-id: application/v1alpha1/saml
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    metadataXmlSecretRef:
+      key: example-key
+      name: example-secret
+    name: applicationapi
+    orgId: ${data.zitadel_org.default.id}
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_project

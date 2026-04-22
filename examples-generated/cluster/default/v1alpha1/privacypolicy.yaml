@@ -1,0 +1,14 @@
+apiVersion: default.zitadel.crossplane.io/v1alpha1
+kind: PrivacyPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/privacypolicy
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    helpLink: https://example.com/help
+    privacyLink: https://example.com/privacy
+    supportEmail: support@example.com
+    tosLink: https://example.com/tos

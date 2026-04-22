@@ -1,0 +1,14 @@
+apiVersion: zitadel.zitadel.m.crossplane.io/v1alpha1
+kind: Webkey
+metadata:
+  annotations:
+    meta.upbound.io/example-id: zitadel/v1alpha1/webkey
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    orgId: ${data.zitadel_org.default.id}
+    rsa:
+    - bits: RSA_BITS_2048

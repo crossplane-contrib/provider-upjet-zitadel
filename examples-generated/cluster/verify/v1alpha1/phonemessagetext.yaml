@@ -1,0 +1,13 @@
+apiVersion: verify.zitadel.crossplane.io/v1alpha1
+kind: PhoneMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: verify/v1alpha1/phonemessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    language: en
+    orgId: ${data.zitadel_org.default.id}
+    text: text example

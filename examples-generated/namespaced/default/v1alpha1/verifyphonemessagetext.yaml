@@ -1,0 +1,13 @@
+apiVersion: default.zitadel.m.crossplane.io/v1alpha1
+kind: VerifyPhoneMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/verifyphonemessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    language: en
+    text: text example

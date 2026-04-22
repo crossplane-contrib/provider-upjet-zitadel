@@ -1,0 +1,16 @@
+apiVersion: action.zitadel.crossplane.io/v1alpha1
+kind: Target
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/target
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    endpoint: https://example.com/target
+    interruptOnError: false
+    name: test-target-name
+    payloadType: PAYLOAD_TYPE_JSON
+    targetType: REST_WEBHOOK
+    timeout: 15s

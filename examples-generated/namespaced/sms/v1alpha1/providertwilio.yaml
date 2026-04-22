@@ -1,0 +1,19 @@
+apiVersion: sms.zitadel.m.crossplane.io/v1alpha1
+kind: ProviderTwilio
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sms/v1alpha1/providertwilio
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: My Twilio SMS Provider
+    senderNumber: "019920892"
+    setActive: false
+    sid: sid
+    tokenSecretRef:
+      key: example-key
+      name: example-secret
+    verifyServiceSid: ""

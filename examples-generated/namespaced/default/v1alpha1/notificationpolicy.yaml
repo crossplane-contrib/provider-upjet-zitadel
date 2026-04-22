@@ -1,0 +1,12 @@
+apiVersion: default.zitadel.m.crossplane.io/v1alpha1
+kind: NotificationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/notificationpolicy
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    passwordChange: false

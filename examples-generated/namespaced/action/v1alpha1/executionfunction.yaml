@@ -1,0 +1,33 @@
+apiVersion: action.zitadel.m.crossplane.io/v1alpha1
+kind: ExecutionFunction
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/executionfunction
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    name: preaccesstoken
+    targetIds:
+    - ${zitadel_action_target.default.id}
+
+---
+
+apiVersion: action.zitadel.m.crossplane.io/v1alpha1
+kind: Target
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/executionfunction
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    endpoint: https://example.com/oidc/enrich
+    interruptOnError: true
+    name: token-enricher
+    targetType: REST_CALL
+    timeout: 10s

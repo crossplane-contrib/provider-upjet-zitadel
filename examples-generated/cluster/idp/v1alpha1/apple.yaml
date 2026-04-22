@@ -1,0 +1,26 @@
+apiVersion: idp.zitadel.crossplane.io/v1alpha1
+kind: Apple
+metadata:
+  annotations:
+    meta.upbound.io/example-id: idp/v1alpha1/apple
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    clientId: com.example.app
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isLinkingAllowed: false
+    keyId: FGHIJ67890
+    name: Apple
+    privateKeySecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    scopes:
+    - name
+    - email
+    teamId: ABCDE12345

@@ -1,0 +1,15 @@
+apiVersion: user.zitadel.crossplane.io/v1alpha1
+kind: Grant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/grant
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    orgId: ${data.zitadel_org.default.id}
+    projectId: ${data.zitadel_project.default.id}
+    roleKeys:
+    - super-user
+    userId: ${data.zitadel_human_user.default.id}

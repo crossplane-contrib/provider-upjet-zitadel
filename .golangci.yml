@@ -5,6 +5,7 @@ run:
 
 formatters:
   enable:
+    - gofmt
     - goimports
   settings:
     goimports:
@@ -27,8 +28,6 @@ linters:
     - gocheckcompilerdirectives
     - gochecksumtype
     - gocritic
-    - gofmt
-    - gosimple
     - gosmopolitan
     - govet
     - ineffassign
@@ -51,9 +50,7 @@ linters:
     - spancheck
     - sqlclosecheck
     - staticcheck
-    - stylecheck
     - testifylint
-    - typecheck
     - unconvert
     - unparam
     - unused
@@ -65,14 +62,12 @@ linters:
       allow-unused: false
       require-explanation: true
       require-specific: true
+  exclusions:
+    rules:
+      - path: zz_
+        linters:
+          - all
+      - linters:
+          - errcheck
+        text: Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv). is not checked
 
-issues:
-  max-issues-per-linter: 0
-  max-same-issues: 0
-  exclude-rules:
-    - path: zz_
-      linters:
-        - all
-    - linters:
-        - errcheck
-      text: Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv). is not checked

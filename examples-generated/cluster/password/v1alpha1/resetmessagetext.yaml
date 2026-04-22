@@ -1,0 +1,19 @@
+apiVersion: password.zitadel.crossplane.io/v1alpha1
+kind: ResetMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: password/v1alpha1/resetmessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    buttonText: button_text example
+    footerText: footer_text example
+    greeting: greeting example
+    language: en
+    orgId: ${data.zitadel_org.default.id}
+    preHeader: pre_header example
+    subject: subject example
+    text: text example
+    title: title example

@@ -2,6 +2,7 @@
 Copyright 2024 The Crossplane Authors.
 */
 
+// Package features defines feature flags for this provider.
 package features
 
 import (
@@ -9,5 +10,6 @@ import (
 )
 
 const (
+	// EnableBetaManagementPolicies enables beta management policy support.
 	EnableBetaManagementPolicies xpfeature.Flag = xpfeature.EnableBetaManagementPolicies
 )

@@ -1,0 +1,16 @@
+apiVersion: password.zitadel.crossplane.io/v1alpha1
+kind: ComplexityPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: password/v1alpha1/complexitypolicy
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    hasLowercase: true
+    hasNumber: true
+    hasSymbol: true
+    hasUppercase: true
+    minLength: "8"
+    orgId: ${data.zitadel_org.default.id}

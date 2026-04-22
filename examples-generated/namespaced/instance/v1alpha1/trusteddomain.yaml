@@ -1,0 +1,13 @@
+apiVersion: instance.zitadel.m.crossplane.io/v1alpha1
+kind: TrustedDomain
+metadata:
+  annotations:
+    meta.upbound.io/example-id: instance/v1alpha1/trusteddomain
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    domain: idp.partner.com
+    instanceId: "123456789012345678"

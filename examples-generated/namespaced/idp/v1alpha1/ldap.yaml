@@ -1,0 +1,36 @@
+apiVersion: idp.zitadel.m.crossplane.io/v1alpha1
+kind: Ldap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: idp/v1alpha1/ldap
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    baseDn: dc=example,dc=com
+    bindDn: cn=admin,dc=example,dc=com
+    bindPasswordSecretRef:
+      key: example-key
+      name: example-secret
+    firstNameAttribute: firstname
+    idAttribute: uid
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isLinkingAllowed: false
+    lastNameAttribute: lastname
+    name: LDAP
+    servers:
+    - ldaps://my.primary.server:389
+    - ldaps://my.secondary.server:389
+    startTls: false
+    timeout: 10s
+    userBase: dn
+    userFilters:
+    - uid
+    - email
+    userObjectClasses:
+    - inetOrgPerson

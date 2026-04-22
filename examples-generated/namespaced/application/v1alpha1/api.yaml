@@ -1,0 +1,17 @@
+apiVersion: application.zitadel.m.crossplane.io/v1alpha1
+kind: API
+metadata:
+  annotations:
+    meta.upbound.io/example-id: application/v1alpha1/api
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    authMethodType: API_AUTH_METHOD_TYPE_BASIC
+    name: applicationapi
+    orgId: ${data.zitadel_org.default.id}
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_project

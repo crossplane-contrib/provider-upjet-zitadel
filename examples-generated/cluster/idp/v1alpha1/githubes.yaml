@@ -1,0 +1,28 @@
+apiVersion: idp.zitadel.crossplane.io/v1alpha1
+kind: GithubEs
+metadata:
+  annotations:
+    meta.upbound.io/example-id: idp/v1alpha1/githubes
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    authorizationEndpoint: https://auth.endpoint
+    autoLinking: AUTO_LINKING_OPTION_USERNAME
+    clientId: 86a165...
+    clientSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: crossplane-system
+    isAutoCreation: false
+    isAutoUpdate: true
+    isCreationAllowed: true
+    isLinkingAllowed: false
+    name: GitHub Enterprise Server
+    scopes:
+    - openid
+    - profile
+    - email
+    tokenEndpoint: https://token.endpoint
+    userEndpoint: https://user.endpoint

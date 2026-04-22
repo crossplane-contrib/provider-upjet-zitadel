@@ -1,0 +1,19 @@
+apiVersion: default.zitadel.m.crossplane.io/v1alpha1
+kind: InviteUserMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/inviteusermessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    buttonText: Test Button Text
+    footerText: Test Footer Text
+    greeting: Test Greeting
+    language: en
+    preHeader: Test PreHeader
+    subject: Test Subject
+    text: Test Text
+    title: TEST_ACC_INVITE_TITLE_PLACEHOLDER

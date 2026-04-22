@@ -1,0 +1,23 @@
+apiVersion: system.zitadel.m.crossplane.io/v1alpha1
+kind: Features
+metadata:
+  annotations:
+    meta.upbound.io/example-id: system/v1alpha1/features
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enableBackChannelLogout: true
+    improvedPerformance:
+    - IMPROVED_PERFORMANCE_PROJECT_GRANT
+    - IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED
+    loginDefaultOrg: true
+    loginV2:
+      baseUri: https://login.example.com
+      required: true
+    oidcSingleV1SessionTermination: true
+    oidcTokenExchange: true
+    permissionCheckV2: true
+    userSchema: false

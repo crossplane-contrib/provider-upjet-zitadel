@@ -1,0 +1,22 @@
+apiVersion: email.zitadel.m.crossplane.io/v1alpha1
+kind: ProviderSMTP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: email/v1alpha1/providersmtp
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: SMTP email provider
+    host: localhost:25
+    passwordSecretRef:
+      key: example-key
+      name: example-secret
+    replyToAddress: replyto@example.com
+    senderAddress: sender@example.com
+    senderName: ZITADEL
+    setActive: false
+    tls: true
+    user: user

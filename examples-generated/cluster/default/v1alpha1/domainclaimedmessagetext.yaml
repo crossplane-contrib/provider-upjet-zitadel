@@ -1,0 +1,18 @@
+apiVersion: default.zitadel.crossplane.io/v1alpha1
+kind: DomainClaimedMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/domainclaimedmessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    buttonText: button_text example
+    footerText: footer_text example
+    greeting: greeting example
+    language: en
+    preHeader: pre_header example
+    subject: subject example
+    text: text example
+    title: title example

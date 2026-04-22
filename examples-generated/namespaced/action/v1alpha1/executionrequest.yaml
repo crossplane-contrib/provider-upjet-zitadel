@@ -1,0 +1,33 @@
+apiVersion: action.zitadel.m.crossplane.io/v1alpha1
+kind: ExecutionRequest
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/executionrequest
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    method: /zitadel.session.v2.SessionService/ListSessions
+    targetIds:
+    - ${zitadel_action_target.default.id}
+
+---
+
+apiVersion: action.zitadel.m.crossplane.io/v1alpha1
+kind: Target
+metadata:
+  annotations:
+    meta.upbound.io/example-id: action/v1alpha1/executionrequest
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    endpoint: https://example.com/security/validate
+    interruptOnError: true
+    name: request-interceptor
+    targetType: REST_WEBHOOK
+    timeout: 5s

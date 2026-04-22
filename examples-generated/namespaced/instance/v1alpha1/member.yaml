@@ -1,0 +1,14 @@
+apiVersion: instance.zitadel.m.crossplane.io/v1alpha1
+kind: Member
+metadata:
+  annotations:
+    meta.upbound.io/example-id: instance/v1alpha1/member
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    roles:
+    - IAM_OWNER
+    userId: ${data.zitadel_human_user.default.id}

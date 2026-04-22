@@ -1,0 +1,14 @@
+apiVersion: email.zitadel.m.crossplane.io/v1alpha1
+kind: ProviderHTTP
+metadata:
+  annotations:
+    meta.upbound.io/example-id: email/v1alpha1/providerhttp
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    description: provider description
+    endpoint: https://relay.example.com/provider
+    setActive: false

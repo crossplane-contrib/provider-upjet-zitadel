@@ -1,0 +1,18 @@
+apiVersion: project.zitadel.m.crossplane.io/v1alpha1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: project/v1alpha1/role
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    displayName: display_name2
+    group: role_group
+    orgId: ${data.zitadel_org.default.id}
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_project
+    roleKey: super-user

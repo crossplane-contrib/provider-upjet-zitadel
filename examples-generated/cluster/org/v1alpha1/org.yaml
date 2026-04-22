@@ -1,0 +1,11 @@
+apiVersion: org.zitadel.crossplane.io/v1alpha1
+kind: Org
+metadata:
+  annotations:
+    meta.upbound.io/example-id: org/v1alpha1/org
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    name: terraform-test

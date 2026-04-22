@@ -1,0 +1,19 @@
+apiVersion: default.zitadel.m.crossplane.io/v1alpha1
+kind: VerifyEmailMessageText
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/verifyemailmessagetext
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    buttonText: button_text example
+    footerText: footer_text example
+    greeting: greeting example
+    language: en
+    preHeader: pre_header example
+    subject: subject example
+    text: text example
+    title: title example

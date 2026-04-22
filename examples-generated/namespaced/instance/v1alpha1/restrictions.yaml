@@ -1,0 +1,15 @@
+apiVersion: instance.zitadel.m.crossplane.io/v1alpha1
+kind: Restrictions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: instance/v1alpha1/restrictions
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    allowedLanguages:
+    - en
+    - de
+    disallowPublicOrgRegistration: true

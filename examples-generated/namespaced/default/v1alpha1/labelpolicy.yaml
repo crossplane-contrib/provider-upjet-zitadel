@@ -1,0 +1,33 @@
+apiVersion: default.zitadel.m.crossplane.io/v1alpha1
+kind: LabelPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: default/v1alpha1/labelpolicy
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    backgroundColor: '#fafafa'
+    backgroundColorDark: '#111827'
+    disableWatermark: false
+    fontColor: '#000000'
+    fontColorDark: '#ffffff'
+    fontHash: ${filemd5("/path/to/font.tff")}
+    fontPath: /path/to/font.tff
+    hideLoginNameSuffix: true
+    iconDarkHash: ${filemd5("/path/to/icon_dark.jpg")}
+    iconDarkPath: /path/to/icon_dark.jpg
+    iconHash: ${filemd5("/path/to/icon.jpg")}
+    iconPath: /path/to/icon.jpg
+    logoDarkHash: ${filemd5("/path/to/logo_dark.jpg")}
+    logoDarkPath: /path/to/logo_dark.jpg
+    logoHash: ${filemd5("/path/to/logo.jpg")}
+    logoPath: /path/to/logo.jpg
+    primaryColor: '#5469d4'
+    primaryColorDark: '#a5b4fc'
+    setActive: true
+    themeMode: THEME_MODE_DARK
+    warnColor: '#cd3d56'
+    warnColorDark: '#ff3b5b'
