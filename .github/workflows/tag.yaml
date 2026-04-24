@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   tag:
-    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@89655794e12209e2cd0caea68f13dc4e18e5c4a8 # main
+    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@8965579a213ba2b249225fa311178ac66f107daf # main
     with:
       version: ${{ github.event.inputs.version }}
       message: ${{ github.event.inputs.message }}
