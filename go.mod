@@ -1,6 +1,6 @@
 module github.com/crossplane-contrib/provider-upjet-zitadel
 
-go 1.24.7
+go 1.26.2
 
 require (
 	dario.cat/mergo v1.0.2
