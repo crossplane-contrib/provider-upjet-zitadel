@@ -14,16 +14,8 @@ permissions:
   contents: write
 
 jobs:
-  create-tag:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Create Tag
-        uses: negz/create-tag@39bae1e0932567a58c20dea5a1a0d18358503320 # v1
-        with:
-          version: ${{ github.event.inputs.version }}
-          message: ${{ github.event.inputs.message }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+  tag:
+    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@89655794e12209e2cd0caea68f13dc4e18e5c4a8 # main
+    with:
+      version: ${{ github.event.inputs.version }}
+      message: ${{ github.event.inputs.message }}
