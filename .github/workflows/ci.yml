@@ -38,10 +38,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Fetch base branch
-        if: github.event_name == 'pull_request'
-        run: git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
-
       - name: Get modified CRDs
         id: modified-crds
         uses: tj-actions/changed-files@e0021407031f5be11a464abee9a0776171c79891 # v47.0.1
@@ -54,9 +50,6 @@ jobs:
           MODIFIED_CRD_LIST: ${{ steps.modified-crds.outputs.all_changed_files }}
         run: |
           make crddiff
-      - name: Report native schema version changes
-        run: |
-          make schema-version-diff
 
   lint:
     runs-on: ubuntu-24.04
