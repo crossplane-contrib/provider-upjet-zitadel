@@ -50,6 +50,10 @@ jobs:
           MODIFIED_CRD_LIST: ${{ steps.modified-crds.outputs.all_changed_files }}
         run: |
           make crddiff
+      - name: Report native schema version changes
+        if: ${{ inputs.upjet-based-provider }}
+        run: |
+          make schema-version-diff
 
   lint:
     runs-on: ubuntu-24.04
