@@ -1,3 +1,3 @@
-## Code of Conduct
+## Community Code of Conduct
 
-This project is under [the Apache 2.0 license](LICENSE).
+This project follows the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
