@@ -10,9 +10,12 @@ on:
         description: 'Tag message'
         required: true
 
+permissions:
+  contents: write
+
 jobs:
   tag:
-    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@b09e9133ee577034357057240aa948933d84b002 # main
+    uses: upbound/official-providers-ci/.github/workflows/provider-tag.yml@89655794e12209e2cd0caea68f13dc4e18e5c4a8 # main
     with:
       version: ${{ github.event.inputs.version }}
       message: ${{ github.event.inputs.message }}
