@@ -4,8 +4,14 @@ on:
   pull_request_target:
     types: [closed]
 
+permissions:
+  contents: read
+
 jobs:
   open-pr:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged
     steps:
