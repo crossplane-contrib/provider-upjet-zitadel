@@ -17,38 +17,30 @@ inputs:
     required: false
     default: 'xpkg.upbound.io'
   xpkg-access-id:
-    description: 'Upbound access ID used for registry authentication'
+    description: 'Robot ID or access ID for registry authentication'
     required: true
   xpkg-token:
-    description: 'Upbound token used for registry authentication'
+    description: 'API token for registry authentication'
     required: true
-  up-version:
-    description: 'Version of the Up CLI to install'
-    required: false
-    default: 'v0.39.0'
 
 runs:
   using: composite
   steps:
-    - name: Install up CLI
-      shell: bash
-      env:
-        UP_VERSION: ${{ inputs.up-version }}
-      run: |
-        curl -fsSLo /tmp/up --create-dirs "https://cli.upbound.io/stable/${UP_VERSION}/bin/linux_amd64/up" && \
-        chmod +x /tmp/up
+    - name: Install and login with up
+      uses: upbound/action-up@53fe6395637d884c80d2bbc8c2d75d0ece776ced # v1
+      with:
+        api-token: ${{ inputs.xpkg-token }}
 
     - name: Login to registry
-      shell: bash
-      env:
-        XPKG_ACCESS_ID: ${{ inputs.xpkg-access-id }}
-        XPKG_TOKEN: ${{ inputs.xpkg-token }}
-        REGISTRY: ${{ inputs.registry }}
-      run: echo "${XPKG_TOKEN}" | docker login "${REGISTRY}" -u "${XPKG_ACCESS_ID}" --password-stdin
+      uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.xpkg-access-id }}
+        password: ${{ inputs.xpkg-token }}
 
     - name: Append extensions to package
       shell: bash
       run: |
-        /tmp/up alpha xpkg append \
+        up alpha xpkg append \
           --extensions-root=${{ inputs.extensions-root }} \
           ${{ inputs.package }}:${{ inputs.version }}
