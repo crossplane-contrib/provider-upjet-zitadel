@@ -1,0 +1,25 @@
+name: Append xpkg Extensions
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag of the published package to append extensions to (e.g. v0.1.1)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  append-extensions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Append extensions
+        uses: ./.github/actions/append-xpkg-extensions
+        with:
+          package: xpkg.upbound.io/crossplane-contrib/provider-upjet-zitadel
+          version: ${{ github.event.inputs.version }}
+          xpkg-upbound-token: ${{ secrets.XPKG_TOKEN }}
