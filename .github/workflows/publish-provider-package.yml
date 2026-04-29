@@ -30,3 +30,27 @@ jobs:
       GHCR_PAT: ${{ secrets.GITHUB_TOKEN }}
       XPKG_MIRROR_TOKEN: ${{ secrets.XPKG_TOKEN }}
       XPKG_MIRROR_ACCESS_ID: ${{ secrets.XPKG_ACCESS_ID }}
+
+  append-extensions:
+    needs: publish-provider-package
+    runs-on: ubuntu-latest
+    if: ${{ always() && needs.publish-provider-package.result == 'success' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Determine version
+        id: version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [ -z "$VERSION" ]; then
+            VERSION="${GITHUB_REF_NAME}"
+          fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Append extensions
+        uses: ./.github/actions/append-xpkg-extensions
+        with:
+          package: xpkg.upbound.io/crossplane-contrib/provider-upjet-zitadel
+          version: ${{ steps.version.outputs.version }}
+          xpkg-upbound-token: ${{ secrets.XPKG_TOKEN }}
