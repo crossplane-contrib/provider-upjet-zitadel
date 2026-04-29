@@ -22,14 +22,21 @@ inputs:
   xpkg-token:
     description: 'API token for registry authentication'
     required: true
+  up-version:
+    description: 'Version of the Up CLI to install'
+    required: false
+    default: 'v0.39.0'
 
 runs:
   using: composite
   steps:
-    - name: Install and login with up
-      uses: upbound/action-up@53fe6395637d884c80d2bbc8c2d75d0ece776ced # v1
-      with:
-        api-token: ${{ inputs.xpkg-token }}
+    - name: Install up CLI
+      shell: bash
+      env:
+        UP_VERSION: ${{ inputs.up-version }}
+      run: |
+        curl -fsSLo /tmp/up --create-dirs "https://cli.upbound.io/stable/${UP_VERSION}/bin/linux_amd64/up" && \
+        chmod +x /tmp/up
 
     - name: Login to registry
       uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4
@@ -41,6 +48,6 @@ runs:
     - name: Append extensions to package
       shell: bash
       run: |
-        up alpha xpkg append \
+        /tmp/up alpha xpkg append \
           --extensions-root=${{ inputs.extensions-root }} \
           ${{ inputs.package }}:${{ inputs.version }}
