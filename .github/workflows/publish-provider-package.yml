@@ -34,15 +34,10 @@ jobs:
   append-extensions:
     needs: publish-provider-package
     runs-on: ubuntu-latest
+    if: ${{ always() && needs.publish-provider-package.result == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
-      - name: Install up CLI
-        run: curl -sL https://cli.upbound.io | sh && sudo mv up /usr/local/bin/
-
-      - name: Login to Upbound
-        run: up login --token "${{ secrets.XPKG_TOKEN }}"
 
       - name: Determine version
         id: version
@@ -53,8 +48,9 @@ jobs:
           fi
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
 
-      - name: Append extensions to package
-        run: |
-          up alpha xpkg append \
-            --extensions-root=./extensions \
-            xpkg.upbound.io/crossplane-contrib/provider-upjet-zitadel:${{ steps.version.outputs.version }}
+      - name: Append extensions
+        uses: ./.github/actions/append-xpkg-extensions
+        with:
+          package: xpkg.upbound.io/crossplane-contrib/provider-upjet-zitadel
+          version: ${{ steps.version.outputs.version }}
+          xpkg-upbound-token: ${{ secrets.XPKG_TOKEN }}
