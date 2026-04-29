@@ -12,8 +12,15 @@ inputs:
     description: 'Path to the extensions directory'
     required: false
     default: './extensions'
-  xpkg-upbound-token:
-    description: 'Upbound token used for authentication'
+  registry:
+    description: 'OCI registry to authenticate against'
+    required: false
+    default: 'xpkg.upbound.io'
+  xpkg-access-id:
+    description: 'Robot ID or access ID for registry authentication'
+    required: true
+  xpkg-token:
+    description: 'API token for registry authentication'
     required: true
   up-version:
     description: 'Version of the Up CLI to install'
@@ -31,11 +38,12 @@ runs:
         curl -fsSLo /tmp/up --create-dirs "https://cli.upbound.io/stable/${UP_VERSION}/bin/linux_amd64/up" && \
         chmod +x /tmp/up
 
-    - name: Login to Upbound
-      shell: bash
-      env:
-        UP_TOKEN: ${{ inputs.xpkg-upbound-token }}
-      run: /tmp/up login
+    - name: Login to registry
+      uses: docker/login-action@b45d80f862d83dbcd57f89517bcf500b2ab88fb2 # v4
+      with:
+        registry: ${{ inputs.registry }}
+        username: ${{ inputs.xpkg-access-id }}
+        password: ${{ inputs.xpkg-token }}
 
     - name: Append extensions to package
       shell: bash

@@ -22,4 +22,5 @@ jobs:
         with:
           package: xpkg.upbound.io/crossplane-contrib/provider-upjet-zitadel
           version: ${{ github.event.inputs.version }}
-          xpkg-upbound-token: ${{ secrets.XPKG_TOKEN }}
+          xpkg-access-id: ${{ secrets.XPKG_ACCESS_ID }}
+          xpkg-token: ${{ secrets.XPKG_TOKEN }}
