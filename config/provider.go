@@ -206,6 +206,33 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		}
 	})
 
+	// Login policies reference organization-level identity providers.
+	pc.AddResourceConfigurator("zitadel_login_policy", func(r *ujconfig.Resource) {
+		r.ShortGroup = "login"
+		r.References["idps"] = ujconfig.Reference{
+			TerraformName:     "zitadel_org_idp_google",
+			RefFieldName:      "IdpGoogleRefs",
+			SelectorFieldName: "IdpGoogleSelector",
+		}
+		// The upstream example mixes Google and Azure IDs. Keep the generated
+		// typed-reference example scoped to the supported IdpGoogle target.
+		if r.MetaResource != nil {
+			for i := range r.MetaResource.Examples {
+				if err := r.MetaResource.Examples[i].SetPathValue("idps", []any{"${zitadel_org_idp_google.default.id}"}); err != nil {
+					panic(err)
+				}
+			}
+		}
+	})
+
+	// Trigger configurations reference one or more actions.
+	pc.AddResourceConfigurator("zitadel_trigger_actions", func(r *ujconfig.Resource) {
+		r.ShortGroup = "trigger"
+		r.References["action_ids"] = ujconfig.Reference{
+			TerraformName: "zitadel_action",
+		}
+	})
+
 	// Projects
 	pc.AddResourceConfigurator("zitadel_project", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"

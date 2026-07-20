@@ -18,9 +18,8 @@ spec:
     forceMfa: false
     forceMfaLocalOnly: false
     hidePasswordReset: "false"
-    idps:
-    - ${data.zitadel_idp_google.default.id}
-    - ${data.zitadel_idp_azure_ad.default.id}
+    idpGoogleRefs:
+    - name: default
     ignoreUnknownUsernames: true
     mfaInitSkipLifetime: 720h0m0s
     multiFactorCheckLifetime: 24h0m0s

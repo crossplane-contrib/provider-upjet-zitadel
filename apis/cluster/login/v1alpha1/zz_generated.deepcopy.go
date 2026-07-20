@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -3632,6 +3633,18 @@ func (in *PolicyInitParameters) DeepCopyInto(out *PolicyInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.IdpGoogleRefs != nil {
+		in, out := &in.IdpGoogleRefs, &out.IdpGoogleRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.IdpGoogleSelector != nil {
+		in, out := &in.IdpGoogleSelector, &out.IdpGoogleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Idps != nil {
 		in, out := &in.Idps, &out.Idps
 		*out = make([]*string, len(*in))
@@ -3944,6 +3957,18 @@ func (in *PolicyParameters) DeepCopyInto(out *PolicyParameters) {
 		in, out := &in.HidePasswordReset, &out.HidePasswordReset
 		*out = new(bool)
 		**out = **in
+	}
+	if in.IdpGoogleRefs != nil {
+		in, out := &in.IdpGoogleRefs, &out.IdpGoogleRefs
+		*out = make([]v1.Reference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.IdpGoogleSelector != nil {
+		in, out := &in.IdpGoogleSelector, &out.IdpGoogleSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Idps != nil {
 		in, out := &in.Idps, &out.Idps

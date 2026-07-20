@@ -151,8 +151,8 @@ spec:
                     type: object
                   roles:
                     description: |-
-                      (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-                      List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+                      (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+                      List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
                     items:
                       type: string
                     type: array
@@ -268,8 +268,8 @@ spec:
                     type: object
                   roles:
                     description: |-
-                      (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-                      List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+                      (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+                      List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
                     items:
                       type: string
                     type: array
@@ -367,8 +367,8 @@ spec:
                     type: string
                   roles:
                     description: |-
-                      (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-                      List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+                      (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+                      List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
                     items:
                       type: string
                     type: array

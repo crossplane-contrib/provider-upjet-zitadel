@@ -61,8 +61,8 @@ spec:
                 properties:
                   roles:
                     description: |-
-                      (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-                      List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+                      (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+                      List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
                     items:
                       type: string
                     type: array
@@ -88,8 +88,8 @@ spec:
                 properties:
                   roles:
                     description: |-
-                      (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-                      List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+                      (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+                      List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
                     items:
                       type: string
                     type: array
@@ -177,8 +177,8 @@ spec:
                     type: string
                   roles:
                     description: |-
-                      (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-                      List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+                      (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+                      List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
                     items:
                       type: string
                     type: array

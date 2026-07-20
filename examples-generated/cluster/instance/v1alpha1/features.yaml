@@ -16,7 +16,7 @@ spec:
     - IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED
     loginDefaultOrg: true
     loginV2:
-      baseUri: https://login.example.com
+    - baseUri: https://login.example.com
       required: true
     oidcSingleV1SessionTermination: true
     oidcTokenExchange: true

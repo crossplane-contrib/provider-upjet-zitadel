@@ -18,8 +18,17 @@ type ActionsInitParameters struct {
 
 	// (Set of String) IDs of the triggered actions
 	// IDs of the triggered actions
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/zitadel/v1alpha1.Action
 	// +listType=set
 	ActionIds []*string `json:"actionIds,omitempty" tf:"action_ids,omitempty"`
+
+	// References to Action in zitadel to populate actionIds.
+	// +kubebuilder:validation:Optional
+	ActionIdsRefs []v1.NamespacedReference `json:"actionIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Action in zitadel to populate actionIds.
+	// +kubebuilder:validation:Optional
+	ActionIdsSelector *v1.NamespacedSelector `json:"actionIdsSelector,omitempty" tf:"-"`
 
 	// (String) Type of the flow to which the action triggers belong, supported values: FLOW_TYPE_EXTERNAL_AUTHENTICATION, FLOW_TYPE_CUSTOMISE_TOKEN, FLOW_TYPE_INTERNAL_AUTHENTICATION, FLOW_TYPE_SAML_RESPONSE
 	// Type of the flow to which the action triggers belong, supported values: FLOW_TYPE_EXTERNAL_AUTHENTICATION, FLOW_TYPE_CUSTOMISE_TOKEN, FLOW_TYPE_INTERNAL_AUTHENTICATION, FLOW_TYPE_SAML_RESPONSE
@@ -61,9 +70,18 @@ type ActionsParameters struct {
 
 	// (Set of String) IDs of the triggered actions
 	// IDs of the triggered actions
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/zitadel/v1alpha1.Action
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	ActionIds []*string `json:"actionIds,omitempty" tf:"action_ids,omitempty"`
+
+	// References to Action in zitadel to populate actionIds.
+	// +kubebuilder:validation:Optional
+	ActionIdsRefs []v1.NamespacedReference `json:"actionIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Action in zitadel to populate actionIds.
+	// +kubebuilder:validation:Optional
+	ActionIdsSelector *v1.NamespacedSelector `json:"actionIdsSelector,omitempty" tf:"-"`
 
 	// (String) Type of the flow to which the action triggers belong, supported values: FLOW_TYPE_EXTERNAL_AUTHENTICATION, FLOW_TYPE_CUSTOMISE_TOKEN, FLOW_TYPE_INTERNAL_AUTHENTICATION, FLOW_TYPE_SAML_RESPONSE
 	// Type of the flow to which the action triggers belong, supported values: FLOW_TYPE_EXTERNAL_AUTHENTICATION, FLOW_TYPE_CUSTOMISE_TOKEN, FLOW_TYPE_INTERNAL_AUTHENTICATION, FLOW_TYPE_SAML_RESPONSE
@@ -117,7 +135,6 @@ type ActionsStatus struct {
 type Actions struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.actionIds) || (has(self.initProvider) && has(self.initProvider.actionIds))",message="spec.forProvider.actionIds is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.flowType) || (has(self.initProvider) && has(self.initProvider.flowType))",message="spec.forProvider.flowType is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.triggerType) || (has(self.initProvider) && has(self.initProvider.triggerType))",message="spec.forProvider.triggerType is a required parameter"
 	Spec   ActionsSpec   `json:"spec"`
