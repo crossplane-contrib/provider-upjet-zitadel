@@ -2054,10 +2054,12 @@ resources:
                     "IMPROVED_PERFORMANCE_ORG_DOMAIN_VERIFIED"
                   ],
                   "login_default_org": true,
-                  "login_v2": {
-                    "base_uri": "https://login.example.com",
-                    "required": true
-                  },
+                  "login_v2": [
+                    {
+                      "base_uri": "https://login.example.com",
+                      "required": true
+                    }
+                  ],
                   "oidc_single_v1_session_termination": true,
                   "oidc_token_exchange": true,
                   "permission_check_v2": true,
@@ -2096,7 +2098,7 @@ resources:
                 user_id: data.zitadel_human_user.default.id
         argumentDocs:
             id: (String) The ID of this resource.
-            roles: (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+            roles: (Set of String) List of roles granted. Instance member roles must start with 'IAM_' (e.g., IAM_OWNER, IAM_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
             user_id: (String) ID of the user
         importStatements: []
     zitadel_instance_restrictions:
@@ -3382,7 +3384,7 @@ resources:
         argumentDocs:
             id: (String) The ID of this resource.
             org_id: (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
-            roles: (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+            roles: (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
             user_id: (String) ID of the user
         importStatements: []
     zitadel_org_metadata:
@@ -3815,7 +3817,7 @@ resources:
             id: (String) The ID of this resource.
             org_id: (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
             project_id: (String) ID of the project
-            roles: (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+            roles: (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
             user_id: (String) ID of the user
         importStatements: []
     zitadel_project_role:

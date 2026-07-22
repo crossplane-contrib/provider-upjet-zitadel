@@ -9,6 +9,7 @@
 package v1alpha1
 
 import (
+	"github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -52,6 +53,18 @@ func (in *ActionsInitParameters) DeepCopyInto(out *ActionsInitParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.ActionIdsRefs != nil {
+		in, out := &in.ActionIdsRefs, &out.ActionIdsRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ActionIdsSelector != nil {
+		in, out := &in.ActionIdsSelector, &out.ActionIdsSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.FlowType != nil {
 		in, out := &in.FlowType, &out.FlowType
@@ -171,6 +184,18 @@ func (in *ActionsParameters) DeepCopyInto(out *ActionsParameters) {
 				**out = **in
 			}
 		}
+	}
+	if in.ActionIdsRefs != nil {
+		in, out := &in.ActionIdsRefs, &out.ActionIdsRefs
+		*out = make([]v1.NamespacedReference, len(*in))
+		for i := range *in {
+			(*in)[i].DeepCopyInto(&(*out)[i])
+		}
+	}
+	if in.ActionIdsSelector != nil {
+		in, out := &in.ActionIdsSelector, &out.ActionIdsSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.FlowType != nil {
 		in, out := &in.FlowType, &out.FlowType

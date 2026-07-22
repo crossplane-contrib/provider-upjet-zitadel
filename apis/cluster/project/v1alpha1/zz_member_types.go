@@ -32,8 +32,8 @@ type MemberInitParameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
-	// (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-	// List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+	// (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+	// List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 
@@ -55,8 +55,8 @@ type MemberObservation struct {
 	// ID of the project
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
 
-	// (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-	// List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+	// (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+	// List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 
@@ -86,8 +86,8 @@ type MemberParameters struct {
 	// +kubebuilder:validation:Optional
 	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
-	// (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-	// List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+	// (Set of String) List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+	// List of roles granted. Project member roles must start with 'PROJECT_' (e.g., PROJECT_OWNER, PROJECT_OWNER_VIEWER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`

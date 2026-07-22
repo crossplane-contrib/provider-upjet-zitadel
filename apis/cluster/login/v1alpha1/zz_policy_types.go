@@ -54,8 +54,19 @@ type PolicyInitParameters struct {
 	// defines if password reset link should be shown in the login screen
 	HidePasswordReset *bool `json:"hidePasswordReset,omitempty" tf:"hide_password_reset,omitempty"`
 
+	// References to IdpGoogle in org to populate idps.
+	// +kubebuilder:validation:Optional
+	IdpGoogleRefs []v1.Reference `json:"idpGoogleRefs,omitempty" tf:"-"`
+
+	// Selector for a list of IdpGoogle in org to populate idps.
+	// +kubebuilder:validation:Optional
+	IdpGoogleSelector *v1.Selector `json:"idpGoogleSelector,omitempty" tf:"-"`
+
 	// (Set of String) allowed idps to login or register
 	// allowed idps to login or register
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.IdpGoogle
+	// +crossplane:generate:reference:refFieldName=IdpGoogleRefs
+	// +crossplane:generate:reference:selectorFieldName=IdpGoogleSelector
 	// +listType=set
 	Idps []*string `json:"idps,omitempty" tf:"idps,omitempty"`
 
@@ -237,8 +248,19 @@ type PolicyParameters struct {
 	// +kubebuilder:validation:Optional
 	HidePasswordReset *bool `json:"hidePasswordReset,omitempty" tf:"hide_password_reset,omitempty"`
 
+	// References to IdpGoogle in org to populate idps.
+	// +kubebuilder:validation:Optional
+	IdpGoogleRefs []v1.Reference `json:"idpGoogleRefs,omitempty" tf:"-"`
+
+	// Selector for a list of IdpGoogle in org to populate idps.
+	// +kubebuilder:validation:Optional
+	IdpGoogleSelector *v1.Selector `json:"idpGoogleSelector,omitempty" tf:"-"`
+
 	// (Set of String) allowed idps to login or register
 	// allowed idps to login or register
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.IdpGoogle
+	// +crossplane:generate:reference:refFieldName=IdpGoogleRefs
+	// +crossplane:generate:reference:selectorFieldName=IdpGoogleSelector
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Idps []*string `json:"idps,omitempty" tf:"idps,omitempty"`

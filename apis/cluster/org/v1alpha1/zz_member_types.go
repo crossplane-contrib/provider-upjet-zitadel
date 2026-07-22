@@ -28,8 +28,8 @@ type MemberInitParameters struct {
 	// +kubebuilder:validation:Optional
 	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
-	// (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-	// List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+	// (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+	// List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 
@@ -47,8 +47,8 @@ type MemberObservation struct {
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
-	// (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-	// List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+	// (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+	// List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
 
@@ -73,8 +73,8 @@ type MemberParameters struct {
 	// +kubebuilder:validation:Optional
 	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
-	// (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
-	// List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/managers for available roles.
+	// (Set of String) List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
+	// List of roles granted. Organization member roles must start with 'ORG_' (e.g., ORG_OWNER, ORG_USER_MANAGER). See https://zitadel.com/docs/guides/manage/console/administrators for available roles.
 	// +kubebuilder:validation:Optional
 	// +listType=set
 	Roles []*string `json:"roles,omitempty" tf:"roles,omitempty"`
