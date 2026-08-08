@@ -18,11 +18,29 @@ type GrantMemberInitParameters struct {
 
 	// (String) ID of the grant
 	// ID of the grant
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/project/v1alpha1.Grant
 	GrantID *string `json:"grantId,omitempty" tf:"grant_id,omitempty"`
+
+	// Reference to a Grant in project to populate grantId.
+	// +kubebuilder:validation:Optional
+	GrantIDRef *v1.NamespacedReference `json:"grantIdRef,omitempty" tf:"-"`
+
+	// Selector for a Grant in project to populate grantId.
+	// +kubebuilder:validation:Optional
+	GrantIDSelector *v1.NamespacedSelector `json:"grantIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Org
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Org in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Org in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -78,13 +96,31 @@ type GrantMemberParameters struct {
 
 	// (String) ID of the grant
 	// ID of the grant
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/project/v1alpha1.Grant
 	// +kubebuilder:validation:Optional
 	GrantID *string `json:"grantId,omitempty" tf:"grant_id,omitempty"`
 
+	// Reference to a Grant in project to populate grantId.
+	// +kubebuilder:validation:Optional
+	GrantIDRef *v1.NamespacedReference `json:"grantIdRef,omitempty" tf:"-"`
+
+	// Selector for a Grant in project to populate grantId.
+	// +kubebuilder:validation:Optional
+	GrantIDSelector *v1.NamespacedSelector `json:"grantIdSelector,omitempty" tf:"-"`
+
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Org
 	// +kubebuilder:validation:Optional
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Org in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Org in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -148,7 +184,6 @@ type GrantMemberStatus struct {
 type GrantMember struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.grantId) || (has(self.initProvider) && has(self.initProvider.grantId))",message="spec.forProvider.grantId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roles) || (has(self.initProvider) && has(self.initProvider.roles))",message="spec.forProvider.roles is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
 	Spec   GrantMemberSpec   `json:"spec"`
