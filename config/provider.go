@@ -248,6 +248,11 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
 		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_org",
+		}
+		// No user_id reference: user_grant already references the user group
+		// and the project group, so a project -> user import would cycle.
 	})
 	pc.AddResourceConfigurator("zitadel_project_grant", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"
@@ -260,6 +265,13 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
 		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_org",
+		}
+		r.References["grant_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_project_grant",
+		}
+		// No user_id reference: same import-cycle constraint as project_member.
 	})
 
 	// Organizations
@@ -271,6 +283,8 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["org_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_org",
 		}
+		// No user_id reference: user_grant already references the org group,
+		// so an org -> user reference would close an import cycle.
 	})
 	pc.AddResourceConfigurator("zitadel_org_metadata", func(r *ujconfig.Resource) {
 		r.ShortGroup = "org"
@@ -299,14 +313,31 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	})
 	pc.AddResourceConfigurator("zitadel_user_grant", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.References["user_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_human_user",
+		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_org",
+		}
+		r.References["project_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_project",
+		}
+		r.References["project_grant_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_project_grant",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_user_metadata", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
 	})
 
 	// Instance
+	// instance -> user import is safe: no resource in the user group
+	// references the instance group, so this closes no cycle.
 	pc.AddResourceConfigurator("zitadel_instance_member", func(r *ujconfig.Resource) {
 		r.ShortGroup = "instance"
+		r.References["user_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_human_user",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_instance_features", func(r *ujconfig.Resource) {
 		r.ShortGroup = "instance"
