@@ -57,3 +57,47 @@ func (mg *Domain) ResolveReferences(ctx context.Context, c client.Reader) error 
 
 	return nil
 }
+
+// ResolveReferences of this Metadata.
+func (mg *Metadata) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPINamespacedResolver(c, mg)
+
+	var rsp reference.NamespacedResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.OrganizationID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.ForProvider.OrganizationIDRef,
+		Selector:     mg.Spec.ForProvider.OrganizationIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.OrganizationID")
+	}
+	mg.Spec.ForProvider.OrganizationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.OrganizationIDRef = rsp.ResolvedReference
+
+	rsp, err = r.Resolve(ctx, reference.NamespacedResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.OrganizationID),
+		Extract:      reference.ExternalName(),
+		Namespace:    mg.GetNamespace(),
+		Reference:    mg.Spec.InitProvider.OrganizationIDRef,
+		Selector:     mg.Spec.InitProvider.OrganizationIDSelector,
+		To: reference.To{
+			List:    &v1alpha1.OrganizationList{},
+			Managed: &v1alpha1.Organization{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.InitProvider.OrganizationID")
+	}
+	mg.Spec.InitProvider.OrganizationID = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.InitProvider.OrganizationIDRef = rsp.ResolvedReference
+
+	return nil
+}

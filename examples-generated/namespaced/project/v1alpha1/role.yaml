@@ -11,7 +11,9 @@ spec:
   forProvider:
     displayName: display_name2
     group: role_group
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     projectIdSelector:
       matchLabels:
         testing.upbound.io/example-name: zitadel_project

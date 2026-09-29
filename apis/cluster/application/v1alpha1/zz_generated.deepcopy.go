@@ -362,6 +362,16 @@ func (in *KeyInitParameters) DeepCopyInto(out *KeyInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
@@ -488,6 +498,16 @@ func (in *KeyParameters) DeepCopyInto(out *KeyParameters) {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID

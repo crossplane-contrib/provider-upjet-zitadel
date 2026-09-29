@@ -292,6 +292,16 @@ func (in *MetadataInitParameters) DeepCopyInto(out *MetadataInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrganizationIDRef != nil {
+		in, out := &in.OrganizationIDRef, &out.OrganizationIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationIDSelector != nil {
+		in, out := &in.OrganizationIDSelector, &out.OrganizationIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value
 		*out = new(string)
@@ -388,6 +398,16 @@ func (in *MetadataParameters) DeepCopyInto(out *MetadataParameters) {
 		in, out := &in.OrganizationID, &out.OrganizationID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrganizationIDRef != nil {
+		in, out := &in.OrganizationIDRef, &out.OrganizationIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrganizationIDSelector != nil {
+		in, out := &in.OrganizationIDSelector, &out.OrganizationIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Value != nil {
 		in, out := &in.Value, &out.Value

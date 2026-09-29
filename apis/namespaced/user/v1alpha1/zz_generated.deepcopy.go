@@ -1710,6 +1710,16 @@ func (in *MetadataInitParameters_2) DeepCopyInto(out *MetadataInitParameters_2) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
@@ -1866,6 +1876,16 @@ func (in *MetadataParameters_2) DeepCopyInto(out *MetadataParameters_2) {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.NamespacedReference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.NamespacedSelector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID

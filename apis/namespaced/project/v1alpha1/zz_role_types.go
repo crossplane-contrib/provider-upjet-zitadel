@@ -26,7 +26,16 @@ type RoleInitParameters struct {
 
 	// (String) ID of the organization
 	// ID of the organization
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Organization
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -86,8 +95,17 @@ type RoleParameters struct {
 
 	// (String) ID of the organization
 	// ID of the organization
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -146,7 +164,6 @@ type Role struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.displayName) || (has(self.initProvider) && has(self.initProvider.displayName))",message="spec.forProvider.displayName is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.orgId) || (has(self.initProvider) && has(self.initProvider.orgId))",message="spec.forProvider.orgId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roleKey) || (has(self.initProvider) && has(self.initProvider.roleKey))",message="spec.forProvider.roleKey is a required parameter"
 	Spec   RoleSpec   `json:"spec"`
 	Status RoleStatus `json:"status,omitempty"`

@@ -22,7 +22,16 @@ type MetadataInitParameters struct {
 
 	// (String) ID of the organization
 	// ID of the organization
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Organization
 	OrganizationID *string `json:"organizationId,omitempty" tf:"organization_id,omitempty"`
+
+	// Reference to a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDRef *v1.NamespacedReference `json:"organizationIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDSelector *v1.NamespacedSelector `json:"organizationIdSelector,omitempty" tf:"-"`
 
 	// (String) Value of the metadata entry. For binary data, use base64encode function.
 	// Value of the metadata entry. For binary data, use base64encode function.
@@ -56,8 +65,17 @@ type MetadataParameters struct {
 
 	// (String) ID of the organization
 	// ID of the organization
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrganizationID *string `json:"organizationId,omitempty" tf:"organization_id,omitempty"`
+
+	// Reference to a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDRef *v1.NamespacedReference `json:"organizationIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDSelector *v1.NamespacedSelector `json:"organizationIdSelector,omitempty" tf:"-"`
 
 	// (String) Value of the metadata entry. For binary data, use base64encode function.
 	// Value of the metadata entry. For binary data, use base64encode function.
@@ -102,7 +120,6 @@ type Metadata struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.key) || (has(self.initProvider) && has(self.initProvider.key))",message="spec.forProvider.key is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organizationId) || (has(self.initProvider) && has(self.initProvider.organizationId))",message="spec.forProvider.organizationId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.value) || (has(self.initProvider) && has(self.initProvider.value))",message="spec.forProvider.value is a required parameter"
 	Spec   MetadataSpec   `json:"spec"`
 	Status MetadataStatus `json:"status,omitempty"`
