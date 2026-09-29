@@ -9,5 +9,9 @@ metadata:
 spec:
   forProvider:
     expirationDate: "2519-04-01T08:45:00Z"
-    orgId: ${data.zitadel_org.default.id}
-    userId: ${data.zitadel_machine_user.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_machine_user

@@ -10,7 +10,9 @@ spec:
   forProvider:
     expirationDate: "2519-04-01T08:45:00Z"
     keyType: KEY_TYPE_JSON
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     publicKey: |
       -----BEGIN PUBLIC KEY-----
       MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApj7JHjDLo2TwiJznwMrD
@@ -21,4 +23,6 @@ spec:
       khnqTi0s7j/oLGJNk+DSjMzkcgls0gzXAwPfiEnjEB+Xxw3LnR6k17HyYxqQs7kz
       ZwIDAQAB
       -----END PUBLIC KEY-----
-    userId: ${data.zitadel_machine_user.default.id}
+    userIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_machine_user

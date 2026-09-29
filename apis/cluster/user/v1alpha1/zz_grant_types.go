@@ -17,15 +17,42 @@ type GrantInitParameters struct {
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the granted project
 	// ID of the granted project
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/project/v1alpha1.Grant
 	ProjectGrantID *string `json:"projectGrantId,omitempty" tf:"project_grant_id,omitempty"`
+
+	// Reference to a Grant in project to populate projectGrantId.
+	// +kubebuilder:validation:Optional
+	ProjectGrantIDRef *v1.Reference `json:"projectGrantIdRef,omitempty" tf:"-"`
+
+	// Selector for a Grant in project to populate projectGrantId.
+	// +kubebuilder:validation:Optional
+	ProjectGrantIDSelector *v1.Selector `json:"projectGrantIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/project/v1alpha1.Project
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in project to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a Project in project to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of roles granted
 	// List of roles granted
@@ -68,18 +95,45 @@ type GrantParameters struct {
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
+
 	// (String) ID of the granted project
 	// ID of the granted project
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/project/v1alpha1.Grant
 	// +kubebuilder:validation:Optional
 	ProjectGrantID *string `json:"projectGrantId,omitempty" tf:"project_grant_id,omitempty"`
 
+	// Reference to a Grant in project to populate projectGrantId.
+	// +kubebuilder:validation:Optional
+	ProjectGrantIDRef *v1.Reference `json:"projectGrantIdRef,omitempty" tf:"-"`
+
+	// Selector for a Grant in project to populate projectGrantId.
+	// +kubebuilder:validation:Optional
+	ProjectGrantIDSelector *v1.Selector `json:"projectGrantIdSelector,omitempty" tf:"-"`
+
 	// (String) ID of the project
 	// ID of the project
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/project/v1alpha1.Project
 	// +kubebuilder:validation:Optional
 	ProjectID *string `json:"projectId,omitempty" tf:"project_id,omitempty"`
+
+	// Reference to a Project in project to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+
+	// Selector for a Project in project to populate projectId.
+	// +kubebuilder:validation:Optional
+	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of roles granted
 	// List of roles granted

@@ -10,5 +10,7 @@ metadata:
 spec:
   forProvider:
     domain: example.com
-    organizationId: ${zitadel_organization.default.id}
+    organizationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
     validationType: DOMAIN_VALIDATION_TYPE_DNS

@@ -1,0 +1,74 @@
+# Prerequisites: namespace identity, ProviderConfig/zitadel, ESO, and a
+# ClusterSecretStore/vault with permission to write the destination path.
+apiVersion: org.zitadel.m.crossplane.io/v1alpha1
+kind: Organization
+metadata:
+  name: application
+  namespace: identity
+  labels:
+    example.org/tenant: application
+spec:
+  forProvider:
+    name: application
+  providerConfigRef:
+    name: zitadel
+    kind: ProviderConfig
+---
+apiVersion: user.zitadel.m.crossplane.io/v1alpha1
+kind: MachineUser
+metadata:
+  name: automation
+  namespace: identity
+  labels:
+    example.org/identity: automation
+spec:
+  forProvider:
+    name: automation
+    userName: automation
+    orgIdSelector:
+      matchLabels:
+        example.org/tenant: application
+  providerConfigRef:
+    name: zitadel
+    kind: ProviderConfig
+---
+apiVersion: user.zitadel.m.crossplane.io/v1alpha1
+kind: AccessToken
+metadata:
+  name: automation
+  namespace: identity
+spec:
+  forProvider:
+    orgIdSelector:
+      matchLabels:
+        example.org/tenant: application
+    userIdSelector:
+      matchLabels:
+        example.org/identity: automation
+  writeConnectionSecretToRef:
+    name: automation-pat
+  providerConfigRef:
+    name: zitadel
+    kind: ProviderConfig
+---
+apiVersion: external-secrets.io/v1alpha1
+kind: PushSecret
+metadata:
+  name: automation-pat
+  namespace: identity
+spec:
+  refreshInterval: 1h
+  updatePolicy: Replace
+  deletionPolicy: None
+  secretStoreRefs:
+    - name: vault
+      kind: ClusterSecretStore
+  selector:
+    secret:
+      name: automation-pat
+  data:
+    - match:
+        secretKey: attribute.token
+        remoteRef:
+          remoteKey: application/automation
+          property: access_token

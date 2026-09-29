@@ -21,7 +21,16 @@ type DomainInitParameters struct {
 
 	// (String) ID of the organization
 	// ID of the organization
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	OrganizationID *string `json:"organizationId,omitempty" tf:"organization_id,omitempty"`
+
+	// Reference to a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDRef *v1.Reference `json:"organizationIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDSelector *v1.Selector `json:"organizationIdSelector,omitempty" tf:"-"`
 
 	// (String) Type of domain validation, supported values: DOMAIN_VALIDATION_TYPE_UNSPECIFIED, DOMAIN_VALIDATION_TYPE_HTTP, DOMAIN_VALIDATION_TYPE_DNS
 	// Type of domain validation, supported values: DOMAIN_VALIDATION_TYPE_UNSPECIFIED, DOMAIN_VALIDATION_TYPE_HTTP, DOMAIN_VALIDATION_TYPE_DNS
@@ -75,8 +84,17 @@ type DomainParameters struct {
 
 	// (String) ID of the organization
 	// ID of the organization
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrganizationID *string `json:"organizationId,omitempty" tf:"organization_id,omitempty"`
+
+	// Reference to a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDRef *v1.Reference `json:"organizationIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate organizationId.
+	// +kubebuilder:validation:Optional
+	OrganizationIDSelector *v1.Selector `json:"organizationIdSelector,omitempty" tf:"-"`
 
 	// (String) Type of domain validation, supported values: DOMAIN_VALIDATION_TYPE_UNSPECIFIED, DOMAIN_VALIDATION_TYPE_HTTP, DOMAIN_VALIDATION_TYPE_DNS
 	// Type of domain validation, supported values: DOMAIN_VALIDATION_TYPE_UNSPECIFIED, DOMAIN_VALIDATION_TYPE_HTTP, DOMAIN_VALIDATION_TYPE_DNS
@@ -126,7 +144,6 @@ type Domain struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.domain) || (has(self.initProvider) && has(self.initProvider.domain))",message="spec.forProvider.domain is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.organizationId) || (has(self.initProvider) && has(self.initProvider.organizationId))",message="spec.forProvider.organizationId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.validationType) || (has(self.initProvider) && has(self.initProvider.validationType))",message="spec.forProvider.validationType is a required parameter"
 	Spec   DomainSpec   `json:"spec"`
 	Status DomainStatus `json:"status,omitempty"`
