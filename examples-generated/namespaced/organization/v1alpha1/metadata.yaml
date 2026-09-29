@@ -10,5 +10,7 @@ metadata:
 spec:
   forProvider:
     key: example_key
-    organizationId: ${zitadel_organization.default.id}
+    organizationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
     value: example_value

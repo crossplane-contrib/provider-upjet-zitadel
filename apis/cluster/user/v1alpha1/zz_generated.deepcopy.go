@@ -53,10 +53,30 @@ func (in *AccessTokenInitParameters) DeepCopyInto(out *AccessTokenInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserIDRef != nil {
+		in, out := &in.UserIDRef, &out.UserIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserIDSelector != nil {
+		in, out := &in.UserIDSelector, &out.UserIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -150,10 +170,30 @@ func (in *AccessTokenParameters) DeepCopyInto(out *AccessTokenParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserIDRef != nil {
+		in, out := &in.UserIDRef, &out.UserIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserIDSelector != nil {
+		in, out := &in.UserIDSelector, &out.UserIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -237,15 +277,45 @@ func (in *GrantInitParameters) DeepCopyInto(out *GrantInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectGrantID != nil {
 		in, out := &in.ProjectGrantID, &out.ProjectGrantID
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectGrantIDRef != nil {
+		in, out := &in.ProjectGrantIDRef, &out.ProjectGrantIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectGrantIDSelector != nil {
+		in, out := &in.ProjectGrantIDSelector, &out.ProjectGrantIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectIDRef != nil {
+		in, out := &in.ProjectIDRef, &out.ProjectIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectIDSelector != nil {
+		in, out := &in.ProjectIDSelector, &out.ProjectIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleKeys != nil {
 		in, out := &in.RoleKeys, &out.RoleKeys
@@ -366,15 +436,45 @@ func (in *GrantParameters) DeepCopyInto(out *GrantParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectGrantID != nil {
 		in, out := &in.ProjectGrantID, &out.ProjectGrantID
 		*out = new(string)
 		**out = **in
 	}
+	if in.ProjectGrantIDRef != nil {
+		in, out := &in.ProjectGrantIDRef, &out.ProjectGrantIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectGrantIDSelector != nil {
+		in, out := &in.ProjectGrantIDSelector, &out.ProjectGrantIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.ProjectID != nil {
 		in, out := &in.ProjectID, &out.ProjectID
 		*out = new(string)
 		**out = **in
+	}
+	if in.ProjectIDRef != nil {
+		in, out := &in.ProjectIDRef, &out.ProjectIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.ProjectIDSelector != nil {
+		in, out := &in.ProjectIDSelector, &out.ProjectIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleKeys != nil {
 		in, out := &in.RoleKeys, &out.RoleKeys
@@ -542,6 +642,16 @@ func (in *HumanUserInitParameters) DeepCopyInto(out *HumanUserInitParameters) {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Phone != nil {
 		in, out := &in.Phone, &out.Phone
@@ -814,6 +924,16 @@ func (in *HumanUserParameters) DeepCopyInto(out *HumanUserParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Phone != nil {
 		in, out := &in.Phone, &out.Phone
 		*out = new(string)
@@ -1021,6 +1141,16 @@ func (in *KeyInitParameters) DeepCopyInto(out *KeyInitParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PublicKey != nil {
 		in, out := &in.PublicKey, &out.PublicKey
 		*out = new(string)
@@ -1030,6 +1160,16 @@ func (in *KeyInitParameters) DeepCopyInto(out *KeyInitParameters) {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserIDRef != nil {
+		in, out := &in.UserIDRef, &out.UserIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserIDSelector != nil {
+		in, out := &in.UserIDSelector, &out.UserIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1138,6 +1278,16 @@ func (in *KeyParameters) DeepCopyInto(out *KeyParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PublicKey != nil {
 		in, out := &in.PublicKey, &out.PublicKey
 		*out = new(string)
@@ -1147,6 +1297,16 @@ func (in *KeyParameters) DeepCopyInto(out *KeyParameters) {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
 		**out = **in
+	}
+	if in.UserIDRef != nil {
+		in, out := &in.UserIDRef, &out.UserIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.UserIDSelector != nil {
+		in, out := &in.UserIDSelector, &out.UserIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1244,6 +1404,16 @@ func (in *MachineUserInitParameters) DeepCopyInto(out *MachineUserInitParameters
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
@@ -1403,6 +1573,16 @@ func (in *MachineUserParameters) DeepCopyInto(out *MachineUserParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
 		*out = new(string)
@@ -1529,6 +1709,16 @@ func (in *MetadataInitParameters_2) DeepCopyInto(out *MetadataInitParameters_2) 
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID
@@ -1686,6 +1876,16 @@ func (in *MetadataParameters_2) DeepCopyInto(out *MetadataParameters_2) {
 		in, out := &in.OrgID, &out.OrgID
 		*out = new(string)
 		**out = **in
+	}
+	if in.OrgIDRef != nil {
+		in, out := &in.OrgIDRef, &out.OrgIDRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.OrgIDSelector != nil {
+		in, out := &in.OrgIDSelector, &out.OrgIDSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.UserID != nil {
 		in, out := &in.UserID, &out.UserID

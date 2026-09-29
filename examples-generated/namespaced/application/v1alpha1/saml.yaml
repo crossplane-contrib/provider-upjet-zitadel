@@ -13,7 +13,9 @@ spec:
       key: example-key
       name: example-secret
     name: applicationapi
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     projectIdSelector:
       matchLabels:
         testing.upbound.io/example-name: zitadel_project

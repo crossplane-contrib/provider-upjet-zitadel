@@ -21,7 +21,9 @@ spec:
     isPhoneVerified: true
     lastName: lastname
     nickName: nickname
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     phone: "+41799999999"
     preferredLanguage: de
     userName: humanfull@localhost.com

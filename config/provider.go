@@ -186,11 +186,17 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
 		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_application_oidc", func(r *ujconfig.Resource) {
 		r.ShortGroup = "application"
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
+		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
 		}
 	})
 	pc.AddResourceConfigurator("zitadel_application_saml", func(r *ujconfig.Resource) {
@@ -198,11 +204,17 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
 		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_application_key", func(r *ujconfig.Resource) {
 		r.ShortGroup = "application"
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
+		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
 		}
 	})
 
@@ -236,11 +248,17 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	// Projects
 	pc.AddResourceConfigurator("zitadel_project", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_project_role", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
+		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
 		}
 	})
 	pc.AddResourceConfigurator("zitadel_project_member", func(r *ujconfig.Resource) {
@@ -248,17 +266,32 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
 		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_project_grant", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
 		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+		r.References["granted_org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_project_grant_member", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"
 		r.References["project_id"] = ujconfig.Reference{
 			TerraformName: "zitadel_project",
+		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+		r.References["grant_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_project_grant",
 		}
 	})
 
@@ -281,27 +314,67 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	pc.AddResourceConfigurator("zitadel_organization", func(r *ujconfig.Resource) {
 		r.ShortGroup = "org"
 	})
+	pc.AddResourceConfigurator("zitadel_organization_domain", func(r *ujconfig.Resource) {
+		r.References["organization_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_organization_metadata", func(r *ujconfig.Resource) {
+		r.References["organization_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
 
 	// Users
 	pc.AddResourceConfigurator("zitadel_human_user", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
 		r.Kind = "HumanUser"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_machine_user", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
 		r.Kind = "MachineUser"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_machine_key", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+		r.References["user_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_machine_user",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_personal_access_token", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+		r.References["user_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_machine_user",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_user_grant", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+		r.References["project_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_project",
+		}
+		r.References["project_grant_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_project_grant",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_user_metadata", func(r *ujconfig.Resource) {
 		r.ShortGroup = "user"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 	})
 
 	// Instance

@@ -11,6 +11,8 @@ spec:
   forProvider:
     description: a machine user
     name: name
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     userName: machine@example.com
     withSecret: false

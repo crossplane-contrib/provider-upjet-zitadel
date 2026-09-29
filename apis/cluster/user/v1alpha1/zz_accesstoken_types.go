@@ -21,11 +21,29 @@ type AccessTokenInitParameters struct {
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the user
 	// ID of the user
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/user/v1alpha1.MachineUser
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a MachineUser in user to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a MachineUser in user to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 type AccessTokenObservation struct {
@@ -55,13 +73,31 @@ type AccessTokenParameters struct {
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
 
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
+
 	// (String) ID of the user
 	// ID of the user
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/user/v1alpha1.MachineUser
 	// +kubebuilder:validation:Optional
 	UserID *string `json:"userId,omitempty" tf:"user_id,omitempty"`
+
+	// Reference to a MachineUser in user to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDRef *v1.Reference `json:"userIdRef,omitempty" tf:"-"`
+
+	// Selector for a MachineUser in user to populate userId.
+	// +kubebuilder:validation:Optional
+	UserIDSelector *v1.Selector `json:"userIdSelector,omitempty" tf:"-"`
 }
 
 // AccessTokenSpec defines the desired state of AccessToken
@@ -100,9 +136,8 @@ type AccessTokenStatus struct {
 type AccessToken struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.userId) || (has(self.initProvider) && has(self.initProvider.userId))",message="spec.forProvider.userId is a required parameter"
-	Spec   AccessTokenSpec   `json:"spec"`
-	Status AccessTokenStatus `json:"status,omitempty"`
+	Spec              AccessTokenSpec   `json:"spec"`
+	Status            AccessTokenStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

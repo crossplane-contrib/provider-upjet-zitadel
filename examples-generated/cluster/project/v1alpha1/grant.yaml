@@ -8,8 +8,12 @@ metadata:
   name: default
 spec:
   forProvider:
-    grantedOrgId: ${data.zitadel_org.granted_org.id}
-    orgId: ${data.zitadel_org.default.id}
+    grantedOrgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     projectIdSelector:
       matchLabels:
         testing.upbound.io/example-name: zitadel_project
