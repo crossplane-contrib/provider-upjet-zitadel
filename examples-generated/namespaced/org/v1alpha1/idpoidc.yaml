@@ -21,7 +21,9 @@ spec:
     isLinkingAllowed: false
     issuer: https://example.com
     name: My Generic OIDC IDP
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     scopes:
     - openid
     - profile

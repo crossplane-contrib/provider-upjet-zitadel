@@ -12,7 +12,9 @@ spec:
     footerText: footer_text example
     greeting: greeting example
     language: en
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     preHeader: pre_header example
     subject: subject example
     text: text example

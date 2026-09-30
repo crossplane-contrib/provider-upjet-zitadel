@@ -23,7 +23,9 @@ spec:
     isLinkingAllowed: false
     lastNameAttribute: lastname
     name: LDAP
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     servers:
     - ldaps://my.primary.server:389
     - ldaps://my.secondary.server:389

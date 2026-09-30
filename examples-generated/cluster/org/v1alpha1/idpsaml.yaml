@@ -48,7 +48,9 @@ spec:
       </md:EntityDescriptor>
     name: My Generic SAML IDP
     nameIdFormat: SAML_NAME_ID_FORMAT_EMAIL_ADDRESS
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     signatureAlgorithm: SAML_SIGNATURE_RSA_SHA256
     transientMappingAttributeName: ""
     withSignedRequest: true

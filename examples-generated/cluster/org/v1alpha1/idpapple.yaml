@@ -16,7 +16,9 @@ spec:
     isLinkingAllowed: false
     keyId: FGHIJ67890
     name: Apple
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     privateKeySecretRef:
       key: example-key
       name: example-secret
