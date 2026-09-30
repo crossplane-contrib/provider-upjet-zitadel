@@ -57,3 +57,10 @@ make build
 
 For filing bugs, suggesting improvements, or requesting new features, please
 open an [issue](https://github.com/crossplane-contrib/provider-upjet-zitadel/issues).
+
+## Instance observation
+
+For Helm-bootstrapped installations, a provider-native read-only `Instance` can
+discover the existing instance ID. `CustomDomain` and `TrustedDomain` can then
+use native `instanceIdRef`/`instanceIdSelector` dependencies without a discovery
+Job or injected IDs. See [the example and lifecycle guidance](examples/instance/README.md).

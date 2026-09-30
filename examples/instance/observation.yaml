@@ -1,0 +1,45 @@
+# The Helm chart bootstraps the instance. This resource only observes it.
+# The default ClusterProviderConfig must authenticate an instance administrator.
+apiVersion: instance.zitadel.m.crossplane.io/v1alpha1
+kind: Instance
+metadata:
+  name: installed
+  namespace: crossplane-system
+  labels:
+    example.org/instance: installed
+spec:
+  managementPolicies: [Observe]
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig
+---
+# Domain writes require a System API credential. The observer can use a separate
+# IAM-admin credential, provided both ProviderConfigs target the same instance.
+apiVersion: instance.zitadel.m.crossplane.io/v1alpha1
+kind: CustomDomain
+metadata:
+  name: application-auth
+  namespace: crossplane-system
+spec:
+  forProvider:
+    domain: auth.application.example.com
+    instanceIdRef:
+      name: installed
+  providerConfigRef:
+    name: system-domains
+    kind: ProviderConfig
+---
+apiVersion: instance.zitadel.m.crossplane.io/v1alpha1
+kind: TrustedDomain
+metadata:
+  name: application-browser
+  namespace: crossplane-system
+spec:
+  forProvider:
+    domain: application.example.com
+    instanceIdSelector:
+      matchLabels:
+        example.org/instance: installed
+  providerConfigRef:
+    name: default
+    kind: ClusterProviderConfig

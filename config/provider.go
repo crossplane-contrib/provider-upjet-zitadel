@@ -386,6 +386,11 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	})
 	pc.AddResourceConfigurator("zitadel_instance_custom_domain", func(r *ujconfig.Resource) {
 		r.ShortGroup = "instance"
+		// Instance is a provider-native observer, not a Terraform resource.
+		r.References["instance_id"] = ujconfig.Reference{
+			Type:      "Instance",
+			Extractor: modulePath + "/apis/observation.InstanceID()",
+		}
 	})
 	pc.AddResourceConfigurator("zitadel_instance_restrictions", func(r *ujconfig.Resource) {
 		r.ShortGroup = "instance"
@@ -395,6 +400,11 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	})
 	pc.AddResourceConfigurator("zitadel_instance_trusted_domain", func(r *ujconfig.Resource) {
 		r.ShortGroup = "instance"
+		// Instance is a provider-native observer, not a Terraform resource.
+		r.References["instance_id"] = ujconfig.Reference{
+			Type:      "Instance",
+			Extractor: modulePath + "/apis/observation.InstanceID()",
+		}
 	})
 
 	pc.ConfigureResources()

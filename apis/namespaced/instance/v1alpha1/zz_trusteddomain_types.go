@@ -22,7 +22,17 @@ type TrustedDomainInitParameters struct {
 
 	// (String) The ID of the instance. If not provided, the instance from the current context will be used.
 	// The ID of the instance. If not provided, the instance from the current context will be used.
+	// +crossplane:generate:reference:type=Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-upjet-zitadel/apis/observation.InstanceID()
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a Instance to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
 }
 
 type TrustedDomainObservation struct {
@@ -48,8 +58,18 @@ type TrustedDomainParameters struct {
 
 	// (String) The ID of the instance. If not provided, the instance from the current context will be used.
 	// The ID of the instance. If not provided, the instance from the current context will be used.
+	// +crossplane:generate:reference:type=Instance
+	// +crossplane:generate:reference:extractor=github.com/crossplane-contrib/provider-upjet-zitadel/apis/observation.InstanceID()
 	// +kubebuilder:validation:Optional
 	InstanceID *string `json:"instanceId,omitempty" tf:"instance_id,omitempty"`
+
+	// Reference to a Instance to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDRef *v1.NamespacedReference `json:"instanceIdRef,omitempty" tf:"-"`
+
+	// Selector for a Instance to populate instanceId.
+	// +kubebuilder:validation:Optional
+	InstanceIDSelector *v1.NamespacedSelector `json:"instanceIdSelector,omitempty" tf:"-"`
 }
 
 // TrustedDomainSpec defines the desired state of TrustedDomain
@@ -89,7 +109,6 @@ type TrustedDomain struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.domain) || (has(self.initProvider) && has(self.initProvider.domain))",message="spec.forProvider.domain is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.instanceId) || (has(self.initProvider) && has(self.initProvider.instanceId))",message="spec.forProvider.instanceId is a required parameter"
 	Spec   TrustedDomainSpec   `json:"spec"`
 	Status TrustedDomainStatus `json:"status,omitempty"`
 }
