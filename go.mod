@@ -12,6 +12,8 @@ require (
 	github.com/zitadel/oidc/v3 v3.45.1
 	github.com/zitadel/terraform-provider-zitadel/v2 v2.12.8
 	github.com/zitadel/zitadel-go/v3 v3.26.1
+	golang.org/x/net v0.48.0
+	golang.org/x/oauth2 v0.34.0
 	google.golang.org/grpc v1.79.3
 	k8s.io/api v0.35.0
 	k8s.io/apiextensions-apiserver v0.35.0
@@ -121,8 +123,6 @@ require (
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/exp v0.0.0-20240808152545-0cdaa3abc0fa // indirect
 	golang.org/x/mod v0.31.0 // indirect
-	golang.org/x/net v0.48.0 // indirect
-	golang.org/x/oauth2 v0.34.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
 	golang.org/x/sys v0.39.0 // indirect
 	golang.org/x/term v0.38.0 // indirect

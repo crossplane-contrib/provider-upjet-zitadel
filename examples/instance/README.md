@@ -22,6 +22,10 @@ PAT, JWT profile and System API credentials. It does not use Terraform's
 reading. This controller adds the discovery step above the existing Terraform
 resource controllers.
 
+JWT-profile discovery and token exchange use the reconcile context, including
+cancellation, and a dedicated HTTP client with a 30-second fallback timeout.
+Other authentication methods retain the Terraform helper's behavior.
+
 `GetMyInstance` is a deprecated Admin API in the current Zitadel documentation;
 it remains available in the pinned SDK and was verified against Zitadel v4.13.1.
 Using it keeps discovery compatible with the provider's existing authentication

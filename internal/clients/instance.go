@@ -8,13 +8,18 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"time"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	"github.com/zitadel/oidc/v3/pkg/client/profile"
 	"github.com/zitadel/oidc/v3/pkg/oidc"
 	tfhelper "github.com/zitadel/terraform-provider-zitadel/v2/zitadel/helper"
+	zitadelclient "github.com/zitadel/zitadel-go/v3/pkg/client"
 	"github.com/zitadel/zitadel-go/v3/pkg/client/admin"
 	"github.com/zitadel/zitadel-go/v3/pkg/client/zitadel"
 	adminpb "github.com/zitadel/zitadel-go/v3/pkg/client/zitadel/admin"
+	"golang.org/x/oauth2"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"github.com/crossplane-contrib/provider-upjet-zitadel/apis/observation"
@@ -98,11 +103,45 @@ func instanceClientFromCredentials(ctx context.Context, data []byte) (InstanceCl
 	if err != nil {
 		return nil, fmt.Errorf("cannot configure instance authentication")
 	}
+	if info.KeyPath != "" || len(info.Data) != 0 {
+		// The helper's JWT-profile builder captures context.Background(). Replace
+		// only that option, retaining its endpoint and transport configuration.
+		info.Options = append(info.Options, zitadel.WithJWTProfileTokenSource(func(issuer string, scopes []string) (oauth2.TokenSource, error) {
+			var key *zitadelclient.KeyFile
+			var err error
+			if info.KeyPath != "" {
+				key, err = zitadelclient.ConfigFromKeyFile(info.KeyPath)
+			} else {
+				key, err = zitadelclient.ConfigFromKeyFileData(info.Data)
+			}
+			if err != nil {
+				return nil, err
+			}
+			source, err := profile.NewJWTProfileTokenSource(ctx, issuer, key.UserID, key.KeyID, key.Key, scopes,
+				profile.WithHTTPClient(&http.Client{Timeout: 30 * time.Second}))
+			if err != nil {
+				return nil, err
+			}
+			return &instanceJWTTokenSource{ctx: ctx, source: source}, nil
+		}))
+	}
 	api, err := admin.NewClient(ctx, info.Issuer, info.Domain, []string{oidc.ScopeOpenID, zitadel.ScopeZitadelAPI()}, info.Options...)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create instance client")
 	}
 	return &instanceClient{client: api}, nil
+}
+
+// The SDK's interceptor calls Token(), which otherwise uses a background
+// context. Each instance client lives for one reconcile, so its context must
+// also bound token exchanges (including refreshes), not just discovery.
+type instanceJWTTokenSource struct {
+	ctx    context.Context
+	source profile.TokenSource
+}
+
+func (s *instanceJWTTokenSource) Token() (*oauth2.Token, error) {
+	return s.source.TokenCtx(s.ctx)
 }
 
 func (c *instanceClient) Observe(ctx context.Context) (observation.Instance, error) {
