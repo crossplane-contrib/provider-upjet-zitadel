@@ -43,6 +43,10 @@ reference-resolution retries before Terraform calls. Existing explicit
 `policy.resolve: Always` when intentionally following an observation; changing an
 instance ID can replace a domain resource.
 
+Crossplane persists the resolved ID/reference in the live domain spec. Seeing
+`instanceId` alongside a reference or selector is expected; only the reference
+or selector needs to be authored in the input manifest.
+
 Namespaced references/selectors default to the consumer's namespace and support
 explicit namespace targeting. Cluster-scoped consumers reference cluster-scoped
 observers. Labels must uniquely identify the intended observation; standard
@@ -59,60 +63,3 @@ ESO PushSecrets as in `../identity/labels-and-vault.yaml`.
 For deletion, remove dependent domain resources and wait for their finalizers
 before removing the observer or its namespace. This preserves provider access
 while remote domain cleanup runs.
-
-## Reproduce with Hops from source
-
-Start the local control plane from your Hops cluster configuration first:
-
-```sh
-hops local up /path/to/local/cluster.yaml --context kind-hops
-```
-
-That configuration must install Crossplane, deploy a working Zitadel instance
-(for example through its Helm chart), and configure provider credentials. Wait
-for setup and credentials to be ready. Stop the `hops local up` watcher while
-leaving the cluster running so its release pin does not overwrite the test build.
-If it runs as a service, stop that service instead.
-
-From this provider checkout:
-
-```sh
-go test ./...
-go vet ./...
-hops provider install --path "$PWD" --context kind-hops \
-  --cluster-provider kind --docker-provider dory --version-prefix v0.999.4
-```
-
-Use your Docker backend instead of `dory` if different. When Dory's socket is not
-your default Docker endpoint, set `DOCKER_HOST=unix://$HOME/.dory/dory.sock`.
-Check Provider/ProviderRevision health and the running pod's image ID against the
-fresh local build; the presence of new CRDs alone does not establish that the new
-controller is running.
-
-Edit `observation.yaml` to use a test namespace, unique domain names, an IAM-admin
-ProviderConfig for discovery/trusted domains, and a System API ProviderConfig for
-custom domains. Apply it and wait for all three resources to become Ready/Synced:
-
-```sh
-kubectl --context kind-hops apply -f examples/instance/observation.yaml
-kubectl --context kind-hops get instances.instance.zitadel.m.crossplane.io \
-  -n crossplane-system -o yaml
-kubectl --context kind-hops get customdomains.instance.zitadel.m.crossplane.io,trusteddomains.instance.zitadel.m.crossplane.io \
-  -n crossplane-system -o yaml
-```
-
-Both domain specs should resolve `instanceId` to the observer's typed ID even
-though the input manifest has only a reference or selector. Crossplane persists
-the resolved ID/reference in the live spec; this is expected. For an ordering
-test, apply the domain documents first, check their unresolved conditions and
-absence of external IDs, then apply the observer. They should recover without
-manual ID patches. Reapply unchanged manifests and check IDs/generations stay
-stable. The legacy API supports the same test using cluster-scoped resources and
-legacy `ProviderConfig` references.
-
-Clean up the domains first, wait for their finalizers, then delete the observer.
-Recreating only the observer must report the same remote instance ID. Remove the
-test observer again, restore your prior released Provider package/runtime config,
-remove the source install's ImageConfig/runtime config/RBAC overrides, and restart
-the local watcher. Existing identity IDs and credential Secret data should remain
-unchanged throughout.
