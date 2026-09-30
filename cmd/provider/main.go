@@ -40,6 +40,7 @@ import (
 	"github.com/crossplane-contrib/provider-upjet-zitadel/config"
 	"github.com/crossplane-contrib/provider-upjet-zitadel/internal/clients"
 	controllerCluster "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster"
+	instanceController "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/instance"
 	controllerNamespaced "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/namespaced"
 	"github.com/crossplane-contrib/provider-upjet-zitadel/internal/features"
 )
@@ -186,10 +187,12 @@ func main() {
 		}), "Cannot setup CRD gate")
 		kingpin.FatalIfError(controllerCluster.SetupGated(mgr, clusterOpts), "Cannot setup cluster-scoped Zitadel controllers")
 		kingpin.FatalIfError(controllerNamespaced.SetupGated(mgr, namespacedOpts), "Cannot setup namespaced Zitadel controllers")
+		kingpin.FatalIfError(instanceController.SetupGated(mgr, namespacedOpts), "Cannot setup instance observers")
 	} else {
 		log.Info("Provider has missing RBAC permissions for watching CRDs, controller SafeStart capability will be disabled")
 		kingpin.FatalIfError(controllerCluster.Setup(mgr, clusterOpts), "Cannot setup cluster-scoped Zitadel controllers")
 		kingpin.FatalIfError(controllerNamespaced.Setup(mgr, namespacedOpts), "Cannot setup namespaced Zitadel controllers")
+		kingpin.FatalIfError(instanceController.Setup(mgr, namespacedOpts), "Cannot setup instance observers")
 	}
 
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")

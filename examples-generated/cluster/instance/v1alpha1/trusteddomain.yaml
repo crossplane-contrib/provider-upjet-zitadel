@@ -9,4 +9,6 @@ metadata:
 spec:
   forProvider:
     domain: idp.partner.com
-    instanceId: "123456789012345678"
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
