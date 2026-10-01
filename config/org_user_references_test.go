@@ -111,6 +111,8 @@ func TestIdentityArgumentsAreNotReferences(t *testing.T) {
 		{"zitadel_organization", "org_id"},
 		{"zitadel_webkey", "org_id"},
 		{"zitadel_active_webkey", "org_id"},
+		{"zitadel_human_user", "user_id"},
+		{"zitadel_machine_user", "user_id"},
 	} {
 		for scope, p := range bothProviders() {
 			if ref, ok := p.Resources[tc.resource].References[tc.field]; ok {
@@ -158,5 +160,34 @@ func TestClusterDomainPolicyOrganizationReference(t *testing.T) {
 	}
 	if got := policy.Spec.ForProvider.OrgID; got == nil || *got != "organization-id" {
 		t.Fatalf("resolved unexpected organization: %v", got)
+	}
+}
+
+// Org members and org metadata keep resolving org_id from the Org kind, so
+// existing references are unchanged. (Organization-managed orgs set orgId
+// directly until an Organization-scoped administrator resource exists.)
+func TestOrgMemberAndMetadataKeepOrgReference(t *testing.T) {
+	for _, resource := range []string{"zitadel_org_member", "zitadel_org_metadata"} {
+		assertReference(t, resource, "org_id", ujconfig.Reference{TerraformName: "zitadel_org"})
+	}
+}
+
+// user_id on members, grants and metadata accepts a HumanUser or a
+// MachineUser. A cross-resource reference resolves exactly one kind, so these
+// stay literal; compositions resolve them from either kind.
+func TestMembershipUserIDIsNotAReference(t *testing.T) {
+	for _, resource := range []string{
+		"zitadel_instance_member",
+		"zitadel_org_member",
+		"zitadel_project_grant_member",
+		"zitadel_project_member",
+		"zitadel_user_grant",
+		"zitadel_user_metadata",
+	} {
+		for scope, p := range bothProviders() {
+			if ref, ok := p.Resources[resource].References["user_id"]; ok {
+				t.Errorf("%s: %s.user_id unexpectedly references %s", scope, resource, ref.TerraformName)
+			}
+		}
 	}
 }
