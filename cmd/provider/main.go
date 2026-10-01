@@ -38,6 +38,7 @@ import (
 	apisCluster "github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster"
 	apisNamespaced "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced"
 	"github.com/crossplane-contrib/provider-upjet-zitadel/config"
+	resolverapis "github.com/crossplane-contrib/provider-upjet-zitadel/internal/apis"
 	"github.com/crossplane-contrib/provider-upjet-zitadel/internal/clients"
 	controllerCluster "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster"
 	instanceController "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/instance"
@@ -122,6 +123,8 @@ func main() {
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apisCluster.AddToScheme(mgr.GetScheme()), "Cannot add cluster-scoped Zitadel APIs to scheme")
 	kingpin.FatalIfError(apisNamespaced.AddToScheme(mgr.GetScheme()), "Cannot add namespaced Zitadel APIs to scheme")
+	kingpin.FatalIfError(resolverapis.BuildScheme(apisCluster.AddToSchemes), "Cannot register cluster-scoped Zitadel APIs with the API resolver's runtime scheme")
+	kingpin.FatalIfError(resolverapis.BuildScheme(apisNamespaced.AddToSchemes), "Cannot register namespaced Zitadel APIs with the API resolver's runtime scheme")
 	kingpin.FatalIfError(apiextensionsv1.AddToScheme(mgr.GetScheme()), "Cannot add apiextensions APIs to scheme")
 	kingpin.FatalIfError(authv1.AddToScheme(mgr.GetScheme()), "Cannot add k8s authorization APIs to scheme")
 

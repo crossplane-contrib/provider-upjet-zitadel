@@ -72,7 +72,16 @@ type PolicyInitParameters struct {
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Organization
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) hex value for primary color
 	// hex value for primary color
@@ -276,8 +285,17 @@ type PolicyParameters struct {
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) hex value for primary color
 	// hex value for primary color

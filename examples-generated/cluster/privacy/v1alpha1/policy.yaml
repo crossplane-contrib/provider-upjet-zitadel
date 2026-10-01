@@ -9,7 +9,9 @@ metadata:
 spec:
   forProvider:
     helpLink: https://example.com/help
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     privacyLink: https://example.com/privacy
     supportEmail: support@example.com
     tosLink: https://example.com/tos

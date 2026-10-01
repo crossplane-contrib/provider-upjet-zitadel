@@ -130,7 +130,9 @@ spec:
       chooseOther: example
       otp: example
       u2f: example
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     passwordChangeDoneText:
       description: example
       nextButtonText: example
