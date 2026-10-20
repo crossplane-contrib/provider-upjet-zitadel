@@ -13,12 +13,14 @@ import (
 	v1alpha1 "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/action/v1alpha1"
 	v1alpha1active "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/active/v1alpha1"
 	v1alpha1application "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/application/v1alpha1"
+	v1alpha1authorization "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/authorization/v1alpha1"
 	v1alpha1default "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/default/v1alpha1"
 	v1alpha1domain "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/domain/v1alpha1"
 	v1alpha1email "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/email/v1alpha1"
 	v1alpha1idp "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/idp/v1alpha1"
 	v1alpha1init "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/init/v1alpha1"
 	v1alpha1instance "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/instance/v1alpha1"
+	v1alpha1internalpermission "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/internalpermission/v1alpha1"
 	v1alpha1label "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/label/v1alpha1"
 	v1alpha1lockout "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/lockout/v1alpha1"
 	v1alpha1login "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/login/v1alpha1"
@@ -45,12 +47,14 @@ func init() {
 		v1alpha1.SchemeBuilder.AddToScheme,
 		v1alpha1active.SchemeBuilder.AddToScheme,
 		v1alpha1application.SchemeBuilder.AddToScheme,
+		v1alpha1authorization.SchemeBuilder.AddToScheme,
 		v1alpha1default.SchemeBuilder.AddToScheme,
 		v1alpha1domain.SchemeBuilder.AddToScheme,
 		v1alpha1email.SchemeBuilder.AddToScheme,
 		v1alpha1idp.SchemeBuilder.AddToScheme,
 		v1alpha1init.SchemeBuilder.AddToScheme,
 		v1alpha1instance.SchemeBuilder.AddToScheme,
+		v1alpha1internalpermission.SchemeBuilder.AddToScheme,
 		v1alpha1label.SchemeBuilder.AddToScheme,
 		v1alpha1lockout.SchemeBuilder.AddToScheme,
 		v1alpha1login.SchemeBuilder.AddToScheme,

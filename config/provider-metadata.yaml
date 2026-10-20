@@ -238,6 +238,53 @@ resources:
             key_id: (String) The ID of the webkey to be active.
             org_id: (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
         importStatements: []
+    zitadel_administrator:
+        subCategory: ""
+        description: 'One user''s complete administrator role set on one explicit target, using stable InternalPermission v2. Import format: userid:instance, userid:organization:orgid, userid:project:projectid, or userid:projectgrant:projectid:org_id. Percent-encode colons in IDs. Only one resource may manage a given user/target tuple.'
+        name: zitadel_administrator
+        title: zitadel_administrator Resource - terraform-provider-zitadel
+        examples:
+            - name: default
+              manifest: |-
+                {
+                  "org_id": "${zitadel_organization.default.id}",
+                  "resource_type": "organization",
+                  "roles": [
+                    "ORG_USER_MANAGER"
+                  ],
+                  "user_id": "${zitadel_machine_user.default.id}"
+                }
+              references:
+                org_id: zitadel_organization.default.id
+                user_id: zitadel_machine_user.default.id
+            - name: project_grant
+              manifest: |-
+                {
+                  "org_id": "${zitadel_organization.grantee.id}",
+                  "project_id": "${zitadel_project_v2.default.id}",
+                  "resource_type": "project_grant",
+                  "roles": [
+                    "PROJECT_GRANT_OWNER"
+                  ],
+                  "user_id": "${zitadel_machine_user.default.id}"
+                }
+              references:
+                org_id: zitadel_organization.grantee.id
+                project_id: zitadel_project_v2.default.id
+                user_id: zitadel_machine_user.default.id
+        argumentDocs:
+            id: (String) The ID of this resource.
+            org_id: (String) Organization target, or grantee organization for project_grant. Forbidden for instance/project scope.
+            project_id: (String) Project target or project owning the grant. Forbidden for instance/organization scope.
+            resource_type: '(String) Explicit administrator scope: instance, organization, project or project_grant. There is no default scope.'
+            roles: (Set of String) Complete administrator role set. Roles are validated by Zitadel for the selected scope; updates revoke omitted roles.
+            user_id: (String) ID of the human or machine user.
+        importStatements:
+            - |-
+              terraform import zitadel_administrator.imported 'user-id:organization:organization-id'
+              terraform import zitadel_administrator.imported 'user-id:project:project-id'
+              terraform import zitadel_administrator.imported 'user-id:project_grant:project-id:grantee-org-id'
+              terraform import zitadel_administrator.imported 'user-id:instance'
     zitadel_application_api:
         subCategory: ""
         description: Resource representing an API application belonging to a project, with all configuration possibilities.
@@ -392,6 +439,116 @@ resources:
             org_id: (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
             project_id: (String) ID of the project
         importStatements: []
+    zitadel_application_v2:
+        subCategory: ""
+        description: Resource representing an application belonging to a project. Exposes the unified Zitadel Application v2 API; the application type is selected by populating exactly one of the oidc/saml/api configuration blocks.
+        name: zitadel_application_v2
+        title: zitadel_application_v2 Resource - terraform-provider-zitadel
+        examples:
+            - name: default
+              manifest: |-
+                {
+                  "name": "applicationv2",
+                  "oidc": [
+                    {
+                      "access_token_role_assertion": false,
+                      "access_token_type": "OIDC_TOKEN_TYPE_BEARER",
+                      "additional_origins": [],
+                      "app_type": "OIDC_APP_TYPE_WEB",
+                      "auth_method_type": "OIDC_AUTH_METHOD_TYPE_BASIC",
+                      "clock_skew": "0s",
+                      "dev_mode": true,
+                      "grant_types": [
+                        "OIDC_GRANT_TYPE_AUTHORIZATION_CODE"
+                      ],
+                      "id_token_role_assertion": false,
+                      "id_token_userinfo_assertion": false,
+                      "post_logout_redirect_uris": [
+                        "https://localhost.com"
+                      ],
+                      "redirect_uris": [
+                        "https://localhost.com"
+                      ],
+                      "response_types": [
+                        "OIDC_RESPONSE_TYPE_CODE"
+                      ],
+                      "skip_native_app_success_page": false,
+                      "version": "OIDC_VERSION_1_0"
+                    }
+                  ],
+                  "org_id": "${data.zitadel_org.default.id}",
+                  "project_id": "${data.zitadel_project.default.id}"
+                }
+              references:
+                org_id: data.zitadel_org.default.id
+                project_id: data.zitadel_project.default.id
+        argumentDocs:
+            access_token_role_assertion: (Boolean)
+            access_token_type: '(String) Access token type, supported values: OIDC_TOKEN_TYPE_BEARER, OIDC_TOKEN_TYPE_JWT'
+            additional_origins: (List of String) Additional allowed origins.
+            api: '(Block List, Max: 1) API configuration. Mutually exclusive with oidc and saml. (see below for nested schema)'
+            app_type: '(String) Application type, supported values: OIDC_APP_TYPE_WEB, OIDC_APP_TYPE_USER_AGENT, OIDC_APP_TYPE_NATIVE'
+            auth_method_type: '(String) API auth method type, supported values: API_AUTH_METHOD_TYPE_BASIC, API_AUTH_METHOD_TYPE_PRIVATE_KEY_JWT'
+            back_channel_logout_uri: (String) Back-channel logout URI used by ZITADEL to notify the application of terminated sessions (OIDC Back-Channel Logout). Computed if not set, so the server-side default flows back into state.
+            base_uri: (String) Optional base URI of a custom Login UI V2. If unset, the instance default is used.
+            client_id: (String, Sensitive) Generated client ID.
+            client_secret: (String, Sensitive) Generated client secret (only returned on create).
+            clock_skew: (String) Allowed clock skew (Go duration string, e.g. 5s).
+            compliance_problems: (List of Object) List of OIDC specification compliance problems detected by ZITADEL for this configuration. Empty when the configuration is compliant. (see below for nested schema)
+            dev_mode: (Boolean) Development mode (relaxes redirect-URI validation).
+            grant_types: '(List of String) Grant types, supported values: OIDC_GRANT_TYPE_AUTHORIZATION_CODE, OIDC_GRANT_TYPE_IMPLICIT, OIDC_GRANT_TYPE_REFRESH_TOKEN, OIDC_GRANT_TYPE_DEVICE_CODE, OIDC_GRANT_TYPE_TOKEN_EXCHANGE'
+            id: (String) The ID of this resource.
+            id_token_role_assertion: (Boolean)
+            id_token_userinfo_assertion: (Boolean)
+            key: (String)
+            login_v1: (Boolean) Use the legacy Login UI (V1).
+            login_v2: '(Block List, Max: 1) Use the Login UI V2. (see below for nested schema)'
+            login_version: '(Block List, Max: 1) Login UI version to use for this application. Exactly one of login_v1 and login_v2 may be set. Computed so that the server-side default flows back into state when the user omits this block. (see below for nested schema)'
+            message: (String)
+            metadata_url: (String) URL from which SAML metadata can be fetched. Mutually exclusive with metadata_xml.
+            metadata_xml: (String, Sensitive) SAML metadata as raw XML. Mutually exclusive with metadata_url. Marked sensitive because SAML metadata documents commonly embed signing/encryption certificates.
+            name: (String) Name of the application.
+            none_compliant: (Boolean) Whether the OIDC configuration violates the OIDC specification, as determined by ZITADEL. See compliance_problems for the individual findings.
+            oidc: '(Block List, Max: 1) OIDC configuration. Mutually exclusive with saml and api. (see below for nested schema)'
+            org_id: (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
+            post_logout_redirect_uris: (List of String) Post-logout redirect URIs.
+            project_id: (String) ID of the project this application belongs to.
+            redirect_uris: '(List of String) Allowed redirect URIs. Required: OIDC clients cannot function without at least one redirect URI, and the Zitadel API rejects creation otherwise. Matches the v1 zitadel_application_oidc requirement.'
+            response_types: '(List of String) Response types, supported values: OIDC_RESPONSE_TYPE_UNSPECIFIED, OIDC_RESPONSE_TYPE_CODE, OIDC_RESPONSE_TYPE_ID_TOKEN, OIDC_RESPONSE_TYPE_ID_TOKEN_TOKEN'
+            saml: '(Block List, Max: 1) SAML configuration. Mutually exclusive with oidc and api. (see below for nested schema)'
+            skip_native_app_success_page: (Boolean)
+            state: (String) State of the application.
+            version: '(String) OIDC version, supported values: OIDC_VERSION_1_0'
+        importStatements: []
+    zitadel_authorization:
+        subCategory: ""
+        description: One user's complete application role assignment, using the stable Authorization v2 API. Import an existing authorization by ID. Only one resource may manage a given user/project/organization assignment.
+        name: zitadel_authorization
+        title: zitadel_authorization Resource - terraform-provider-zitadel
+        examples:
+            - name: default
+              manifest: |-
+                {
+                  "org_id": "${zitadel_organization.default.id}",
+                  "project_id": "${zitadel_project_v2.default.id}",
+                  "role_keys": [
+                    "reader"
+                  ],
+                  "user_id": "${zitadel_human_user.default.id}"
+                }
+              references:
+                org_id: zitadel_organization.default.id
+                project_id: zitadel_project_v2.default.id
+                user_id: zitadel_human_user.default.id
+        argumentDocs:
+            id: (String) The ID of this resource.
+            org_id: (String) ID of the organization the authorization belongs to. It must own the project or already have a project grant; it need not be the user's organization.
+            project_id: (String) ID of the project.
+            role_keys: (Set of String) Complete set of role keys. Updating this set revokes roles omitted from it.
+            state: (String) Observed authorization state. This resource does not activate or deactivate authorizations.
+            user_id: (String) ID of the human or machine user.
+        importStatements:
+            - terraform import zitadel_authorization.imported 'existing-authorization-id'
     zitadel_default_domain_claimed_message_text:
         subCategory: ""
         name: zitadel_default_domain_claimed_message_text
@@ -3845,6 +4002,35 @@ resources:
             org_id: (String) ID of the organization
             project_id: (String) ID of the project
             role_key: (String) Key used for project role
+        importStatements: []
+    zitadel_project_v2:
+        subCategory: ""
+        description: Resource representing the project, which can then be granted to different organizations or users directly, containing different applications.
+        name: zitadel_project_v2
+        title: zitadel_project_v2 Resource - terraform-provider-zitadel
+        examples:
+            - name: default
+              manifest: |-
+                {
+                  "has_project_check": true,
+                  "name": "projectname",
+                  "org_id": "${data.zitadel_org.default.id}",
+                  "private_labeling_setting": "PRIVATE_LABELING_SETTING_ENFORCE_PROJECT_RESOURCE_OWNER_POLICY",
+                  "project_role_assertion": true,
+                  "project_role_check": true
+                }
+              references:
+                org_id: data.zitadel_org.default.id
+        argumentDocs:
+            has_project_check: (Boolean) Whether ZITADEL checks that the user's organization is granted access to this project before issuing a token.
+            id: (String) The ID of this resource.
+            name: (String) Name of the project
+            org_id: (String) ID of the organization the project belongs to. Required because the v2 CreateProject API takes the organization as an explicit request field.
+            private_labeling_setting: '(String) Defines from where the private labeling should be triggered, supported values: PRIVATE_LABELING_SETTING_UNSPECIFIED, PRIVATE_LABELING_SETTING_ENFORCE_PROJECT_RESOURCE_OWNER_POLICY, PRIVATE_LABELING_SETTING_ALLOW_LOGIN_USER_RESOURCE_OWNER_POLICY'
+            project_id: (String) The ID of this resource. Optionally set a custom unique ID. If omitted, ZITADEL will generate one.
+            project_role_assertion: (Boolean) Whether the roles assigned to a user are asserted (added) in the access and ID tokens issued for this project.
+            project_role_check: (Boolean) Whether ZITADEL checks that the authenticating user has at least one role granted on this project before issuing a token.
+            state: (String) State of the project
         importStatements: []
     zitadel_sms_provider_http:
         subCategory: ""

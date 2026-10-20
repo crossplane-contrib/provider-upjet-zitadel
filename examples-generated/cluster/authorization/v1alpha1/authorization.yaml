@@ -1,0 +1,19 @@
+apiVersion: authorization.zitadel.crossplane.io/v1alpha1
+kind: Authorization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: authorization/v1alpha1/authorization
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
+    projectIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
+    roleKeys:
+    - reader
+    userId: ${zitadel_human_user.default.id}

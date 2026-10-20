@@ -143,10 +143,11 @@ func main() {
 				MRStateMetrics:          stateMetrics,
 			},
 		},
-		Provider:       config.GetProvider(),
-		WorkspaceStore: terraform.NewWorkspaceStore(log),
-		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
-		StartWebhooks:  *certsDir != "",
+		Provider:              config.GetProvider(),
+		OperationTrackerStore: tjcontroller.NewOperationStore(log),
+		WorkspaceStore:        terraform.NewWorkspaceStore(log),
+		SetupFn:               clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
+		StartWebhooks:         *certsDir != "",
 	}
 
 	namespacedOpts := tjcontroller.Options{
@@ -162,10 +163,11 @@ func main() {
 				MRStateMetrics:          stateMetrics,
 			},
 		},
-		Provider:       config.GetProviderNamespaced(),
-		WorkspaceStore: terraform.NewWorkspaceStore(log),
-		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
-		StartWebhooks:  *certsDir != "",
+		Provider:              config.GetProviderNamespaced(),
+		OperationTrackerStore: tjcontroller.NewOperationStore(log),
+		WorkspaceStore:        terraform.NewWorkspaceStore(log),
+		SetupFn:               clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
+		StartWebhooks:         *certsDir != "",
 	}
 
 	if *enableManagementPolicies {

@@ -23,8 +23,6 @@ import (
 	"testing"
 	"time"
 
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 	"google.golang.org/grpc"
 
 	adminpb "github.com/zitadel/zitadel-go/v3/pkg/client/zitadel/admin"
@@ -159,7 +157,7 @@ func TestInstanceJWTProfileObservesWithValidCredentials(t *testing.T) {
 			adminpb.RegisterAdminServiceServer(grpcServer, api)
 			t.Cleanup(grpcServer.Stop)
 			var server *httptest.Server
-			server = httptest.NewServer(h2c.NewHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			server = httptest.NewUnstartedServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				if r.ProtoMajor == 2 && strings.HasPrefix(r.Header.Get("Content-Type"), "application/grpc") {
 					grpcServer.ServeHTTP(w, r)
 					return
@@ -179,7 +177,11 @@ func TestInstanceJWTProfileObservesWithValidCredentials(t *testing.T) {
 				default:
 					http.NotFound(w, r)
 				}
-			}), &http2.Server{}))
+			}))
+			server.Config.Protocols = new(http.Protocols)
+			server.Config.Protocols.SetHTTP1(true)
+			server.Config.Protocols.SetUnencryptedHTTP2(true)
+			server.Start()
 			t.Cleanup(server.Close)
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()

@@ -108,6 +108,7 @@ build.init: $(CROSSPLANE_CLI) check-terraform-version
 TERRAFORM := $(TOOLS_HOST_DIR)/terraform-$(TERRAFORM_VERSION)
 TERRAFORM_WORKDIR := $(WORK_DIR)/terraform
 TERRAFORM_PROVIDER_SCHEMA := config/schema.json
+SDK_SCHEMA_WORKDIR := $(WORK_DIR)/sdk-v2-schema
 
 check-terraform-version:
 ifneq ($(TERRAFORM_VERSION_VALID),1)
@@ -129,7 +130,20 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 	@echo '{"terraform":[{"required_providers":[{"provider":{"source":"'"$(TERRAFORM_PROVIDER_SOURCE)"'","version":"'"$(TERRAFORM_PROVIDER_VERSION)"'"}}],"required_version":"'"$(TERRAFORM_VERSION)"'"}]}' > $(TERRAFORM_WORKDIR)/main.tf.json
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) init > $(TERRAFORM_WORKDIR)/terraform-logs.txt 2>&1
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt
+	@$(MAKE) schema.sdk-v2
 	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
+
+# Keep the CLI-backed resources pinned while generating the four new resources
+# from the exact embedded SDK dependency. This target only exports schemas.
+.PHONY: schema.sdk-v2
+schema.sdk-v2: $(TERRAFORM)
+	@mkdir -p $(SDK_SCHEMA_WORKDIR)/bin
+	@go build -o $(SDK_SCHEMA_WORKDIR)/bin/terraform-provider-zitadel github.com/zitadel/terraform-provider-zitadel/v2
+	@printf '%s\n' 'provider_installation {' '  dev_overrides {' '    "zitadel/zitadel" = "$(abspath $(SDK_SCHEMA_WORKDIR))/bin"' '  }' '  direct {}' '}' > $(SDK_SCHEMA_WORKDIR)/terraform.rc
+	@echo '{"terraform":{"required_providers":{"zitadel":{"source":"zitadel/zitadel"}}}}' > $(SDK_SCHEMA_WORKDIR)/main.tf.json
+	@TF_CLI_CONFIG_FILE=$(abspath $(SDK_SCHEMA_WORKDIR))/terraform.rc $(TERRAFORM) -chdir=$(SDK_SCHEMA_WORKDIR) providers schema -json=true > $(SDK_SCHEMA_WORKDIR)/schema.json
+	@jq -cS --slurpfile sdk $(SDK_SCHEMA_WORKDIR)/schema.json '.provider_schemas["registry.terraform.io/zitadel/zitadel"].resource_schemas += ($$sdk[0].provider_schemas["registry.terraform.io/zitadel/zitadel"].resource_schemas | with_entries(select(.key == "zitadel_authorization" or .key == "zitadel_administrator" or .key == "zitadel_project_v2" or .key == "zitadel_application_v2")))' $(TERRAFORM_PROVIDER_SCHEMA) > $(SDK_SCHEMA_WORKDIR)/merged.json
+	@mv $(SDK_SCHEMA_WORKDIR)/merged.json $(TERRAFORM_PROVIDER_SCHEMA)
 
 pull-docs:
 	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
@@ -137,6 +151,11 @@ pull-docs:
 		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
 	fi
 	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
+	@go mod download github.com/zitadel/terraform-provider-zitadel/v2
+	@provider_dir=$$(go list -mod=mod -m -f '{{.Dir}}' github.com/zitadel/terraform-provider-zitadel/v2); \
+	for resource in authorization administrator project_v2 application_v2; do \
+		cp "$$provider_dir/docs/resources/$$resource.md" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)/$$resource.md"; \
+	done
 
 # Terraform resource names for schema-version-diff (native state schema versions).
 config/generated.lst: $(TERRAFORM_PROVIDER_SCHEMA)

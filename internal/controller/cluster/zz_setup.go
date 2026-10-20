@@ -17,9 +17,11 @@ import (
 	targetpublickey "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/action/targetpublickey"
 	webkey "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/active/webkey"
 	api "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/application/api"
+	application "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/application/application"
 	key "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/application/key"
 	oidc "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/application/oidc"
 	saml "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/application/saml"
+	authorization "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/authorization/authorization"
 	domainclaimedmessagetext "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/default/domainclaimedmessagetext"
 	domainpolicy "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/default/domainpolicy"
 	initmessagetext "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/default/initmessagetext"
@@ -63,6 +65,7 @@ import (
 	restrictions "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/instance/restrictions"
 	secretgenerator "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/instance/secretgenerator"
 	trusteddomain "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/instance/trusteddomain"
+	administrator "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/internalpermission/administrator"
 	policylabel "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/label/policy"
 	policylockout "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/lockout/policy"
 	policylogin "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/login/policy"
@@ -96,6 +99,7 @@ import (
 	grantmember "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/project/grantmember"
 	memberproject "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/project/member"
 	project "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/project/project"
+	projectv2 "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/project/projectv2"
 	role "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/project/role"
 	providerconfig "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/providerconfig"
 	providerhttpsms "github.com/crossplane-contrib/provider-upjet-zitadel/internal/controller/cluster/sms/providerhttp"
@@ -130,9 +134,11 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		targetpublickey.Setup,
 		webkey.Setup,
 		api.Setup,
+		application.Setup,
 		key.Setup,
 		oidc.Setup,
 		saml.Setup,
+		authorization.Setup,
 		domainclaimedmessagetext.Setup,
 		domainpolicy.Setup,
 		initmessagetext.Setup,
@@ -176,6 +182,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		restrictions.Setup,
 		secretgenerator.Setup,
 		trusteddomain.Setup,
+		administrator.Setup,
 		policylabel.Setup,
 		policylockout.Setup,
 		policylogin.Setup,
@@ -209,6 +216,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		grantmember.Setup,
 		memberproject.Setup,
 		project.Setup,
+		projectv2.Setup,
 		role.Setup,
 		providerconfig.Setup,
 		providerhttpsms.Setup,
@@ -249,9 +257,11 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		targetpublickey.SetupGated,
 		webkey.SetupGated,
 		api.SetupGated,
+		application.SetupGated,
 		key.SetupGated,
 		oidc.SetupGated,
 		saml.SetupGated,
+		authorization.SetupGated,
 		domainclaimedmessagetext.SetupGated,
 		domainpolicy.SetupGated,
 		initmessagetext.SetupGated,
@@ -295,6 +305,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		restrictions.SetupGated,
 		secretgenerator.SetupGated,
 		trusteddomain.SetupGated,
+		administrator.SetupGated,
 		policylabel.SetupGated,
 		policylockout.SetupGated,
 		policylogin.SetupGated,
@@ -328,6 +339,7 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		grantmember.SetupGated,
 		memberproject.SetupGated,
 		project.SetupGated,
+		projectv2.SetupGated,
 		role.SetupGated,
 		providerconfig.SetupGated,
 		providerhttpsms.SetupGated,
