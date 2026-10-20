@@ -225,6 +225,11 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 
 e2e: local-deploy uptest
 
+.PHONY: test-e2e-bindings
+test-e2e-bindings:
+	@test -n "$(ZITADEL_E2E_CONTEXT)" -a -n "$(ZITADEL_E2E_API_URL)" -a -n "$(ZITADEL_E2E_CREDENTIALS_SECRET)" || (echo "Set ZITADEL_E2E_CONTEXT, ZITADEL_E2E_API_URL and ZITADEL_E2E_CREDENTIALS_SECRET"; exit 1)
+	python3 tests/live/test_bindings.py
+
 crddiff:
 	@$(INFO) Checking breaking CRD schema changes
 	@for crd in $${MODIFIED_CRD_LIST}; do \
