@@ -8,6 +8,7 @@ require (
 	github.com/crossplane/crossplane-runtime/v2 v2.0.0-20250730220209-c306b1c8b181
 	github.com/crossplane/crossplane-tools v0.0.0-20250731192036-00d407d8b7ec
 	github.com/crossplane/upjet/v2 v2.2.0
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.1
 	github.com/pkg/errors v0.9.1
 	github.com/zitadel/oidc/v3 v3.49.2
 	github.com/zitadel/terraform-provider-zitadel/v2 v2.12.8
@@ -81,7 +82,6 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.29.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.10.0 // indirect
 	github.com/hashicorp/terraform-plugin-mux v0.21.0 // indirect
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.38.1 // indirect
 	github.com/hashicorp/terraform-registry-address v0.4.0 // indirect
 	github.com/hashicorp/terraform-svchost v0.1.1 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
@@ -158,6 +158,6 @@ require (
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
 
-replace github.com/zitadel/terraform-provider-zitadel/v2 => github.com/patrickleet/terraform-provider-zitadel/v2 v2.12.9-0.20261020150206-cfa983dee593
+replace github.com/zitadel/terraform-provider-zitadel/v2 => github.com/patrickleet/terraform-provider-zitadel/v2 v2.12.9-0.20261020181957-6c0ee16dd537
 
 tool github.com/zitadel/terraform-provider-zitadel/v2
