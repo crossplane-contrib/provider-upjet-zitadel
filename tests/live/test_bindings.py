@@ -42,7 +42,10 @@ class NativeBindings(LiveSuite):
         self.delete(resource, 'public-client')
         with self.assertRaises(urllib.error.HTTPError) as missing:
             self.api('application.v2.ApplicationService', 'GetApplication', {'applicationId': app_id})
-        self.assertEqual(missing.exception.code, 404)
+        try:
+            self.assertEqual(missing.exception.code, 404)
+        finally:
+            missing.exception.close()
 
     def test_authorization_lifecycle(self):
         resource = 'authorizations.authorization.zitadel.m.crossplane.io'
