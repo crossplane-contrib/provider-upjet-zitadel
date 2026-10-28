@@ -1,0 +1,18 @@
+apiVersion: internalpermission.zitadel.m.crossplane.io/v1alpha1
+kind: Administrator
+metadata:
+  annotations:
+    meta.upbound.io/example-id: internalpermission/v1alpha1/administrator
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+  namespace: crossplane-system
+spec:
+  forProvider:
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
+    resourceType: organization
+    roles:
+    - ORG_USER_MANAGER
+    userId: ${zitadel_machine_user.default.id}

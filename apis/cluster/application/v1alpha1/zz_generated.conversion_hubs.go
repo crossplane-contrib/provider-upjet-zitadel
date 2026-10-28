@@ -10,6 +10,9 @@ package v1alpha1
 func (tr *API) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *Application) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Key) Hub() {}
 
 // Hub marks this type as a conversion hub.

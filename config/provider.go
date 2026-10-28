@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	tfprovider "github.com/zitadel/terraform-provider-zitadel/v2/zitadel"
 )
 
 const (
@@ -25,6 +26,10 @@ var providerMetadata string
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]ujconfig.ExternalName{
+	"zitadel_authorization":  ujconfig.IdentifierFromProvider,
+	"zitadel_administrator":  ujconfig.IdentifierFromProvider,
+	"zitadel_project_v2":     ujconfig.IdentifierFromProvider,
+	"zitadel_application_v2": ujconfig.IdentifierFromProvider,
 	// Actions
 	"zitadel_action":                    ujconfig.IdentifierFromProvider,
 	"zitadel_action_execution_event":    ujconfig.IdentifierFromProvider,
@@ -160,7 +165,9 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithRootGroup(rootGroup),
 		ujconfig.WithShortName("zitadel"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithIncludeList(terraformCLIConfigured()),
+		ujconfig.WithTerraformProvider(tfprovider.Provider()),
+		ujconfig.WithTerraformPluginSDKIncludeList(sdkV2Resources),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithBasePackages(ujconfig.BasePackages{
 			APIVersion: []string{
@@ -181,6 +188,35 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		))
 
 	// Applications reference a project
+	pc.AddResourceConfigurator("zitadel_application_v2", func(r *ujconfig.Resource) {
+		r.UseAsync = false
+		r.ShortGroup = "application"
+		r.Kind = "Application"
+		r.References["project_id"] = ujconfig.Reference{TerraformName: "zitadel_project_v2"}
+		r.References["org_id"] = ujconfig.Reference{TerraformName: "zitadel_organization"}
+	})
+	pc.AddResourceConfigurator("zitadel_project_v2", func(r *ujconfig.Resource) {
+		r.UseAsync = false
+		r.ShortGroup = "project"
+		r.Kind = "ProjectV2"
+		r.References["org_id"] = ujconfig.Reference{TerraformName: "zitadel_organization"}
+	})
+	pc.AddResourceConfigurator("zitadel_authorization", func(r *ujconfig.Resource) {
+		r.UseAsync = false
+		r.ShortGroup = "authorization"
+		r.Kind = "Authorization"
+		r.References["project_id"] = ujconfig.Reference{TerraformName: "zitadel_project_v2"}
+		r.References["org_id"] = ujconfig.Reference{TerraformName: "zitadel_organization"}
+		// user_id can name a HumanUser or MachineUser. Keep it literal and let
+		// a relationship XR resolve that union instead of choosing one kind.
+	})
+	pc.AddResourceConfigurator("zitadel_administrator", func(r *ujconfig.Resource) {
+		r.UseAsync = false
+		r.ShortGroup = "internalpermission"
+		r.Kind = "Administrator"
+		r.References["project_id"] = ujconfig.Reference{TerraformName: "zitadel_project_v2"}
+		r.References["org_id"] = ujconfig.Reference{TerraformName: "zitadel_organization"}
+	})
 	pc.AddResourceConfigurator("zitadel_application_api", func(r *ujconfig.Resource) {
 		r.ShortGroup = "application"
 		r.References["project_id"] = ujconfig.Reference{

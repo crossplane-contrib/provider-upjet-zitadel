@@ -7,14 +7,19 @@ package clients
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/json"
+	"sync"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
+	ujresource "github.com/crossplane/upjet/v2/pkg/resource"
 	"github.com/crossplane/upjet/v2/pkg/terraform"
+	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	tfprovider "github.com/zitadel/terraform-provider-zitadel/v2/zitadel"
 
 	clusterv1beta1 "github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/v1beta1"
 	namespacedv1beta1 "github.com/crossplane-contrib/provider-upjet-zitadel/apis/namespaced/v1beta1"
@@ -30,6 +35,15 @@ const (
 
 // TerraformSetupBuilder builds a terraform.SetupFn which returns Terraform provider setup configuration.
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
+	// SDK clients own gRPC connections. Reuse metadata across reconciles of a
+	// ProviderConfig, replacing it when credential contents change. Constructing
+	// metadata for every reconcile would leave a new connection behind each time.
+	type sdkMetadata struct {
+		credentials [sha256.Size]byte
+		meta        any
+	}
+	var sdkMu sync.Mutex
+	sdkCache := map[string]sdkMetadata{}
 	return func(ctx context.Context, crClient client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
 			Version: version,
@@ -53,8 +67,42 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
+		if r, ok := mg.(ujresource.Terraformed); ok {
+			switch r.GetTerraformResourceType() {
+			case "zitadel_authorization", "zitadel_administrator", "zitadel_project_v2", "zitadel_application_v2":
+				// SDK connectors receive Setup.Meta directly; unlike the CLI they
+				// do not configure the Terraform provider themselves.
+				key := sdkProviderConfigKey(mg)
+				signature := sha256.Sum256(data)
+				sdkMu.Lock()
+				defer sdkMu.Unlock()
+				if cached, ok := sdkCache[key]; ok && cached.credentials == signature {
+					ps.Meta = cached.meta
+					break
+				}
+				p := tfprovider.Provider()
+				if diagnostics := p.Configure(ctx, tfsdk.NewResourceConfigRaw(ps.Configuration)); diagnostics.HasError() {
+					return ps, errors.New("cannot configure embedded Zitadel SDK provider: " + diagnostics[0].Summary)
+				}
+				ps.Meta = p.Meta()
+				sdkCache[key] = sdkMetadata{credentials: signature, meta: ps.Meta}
+			}
+		}
+
 		return ps, nil
 	}
+}
+
+func sdkProviderConfigKey(mg resource.Managed) string {
+	if modern, ok := mg.(resource.ModernManaged); ok {
+		ref := modern.GetProviderConfigReference()
+		namespace := mg.GetNamespace()
+		if ref.Kind == "ClusterProviderConfig" {
+			namespace = ""
+		}
+		return ref.Kind + "/" + namespace + "/" + ref.Name
+	}
+	return "legacy/" + mg.(resource.LegacyManaged).GetProviderConfigReference().Name
 }
 
 func toSharedPCSpec(pc *clusterv1beta1.ProviderConfig) (*namespacedv1beta1.ProviderConfigSpec, error) {
