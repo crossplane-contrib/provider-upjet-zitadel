@@ -10,8 +10,8 @@ metadata:
 spec:
   forProvider:
     method: /zitadel.user.v2.UserService/GetUser
-    targetIds:
-    - ${zitadel_action_target.default.id}
+    targetIdsRefs:
+    - name: default
 
 ---
 

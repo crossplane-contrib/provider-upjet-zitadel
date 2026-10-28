@@ -9,8 +9,8 @@ metadata:
 spec:
   forProvider:
     method: /zitadel.session.v2.SessionService/ListSessions
-    targetIds:
-    - ${zitadel_action_target.default.id}
+    targetIdsRefs:
+    - name: default
 
 ---
 

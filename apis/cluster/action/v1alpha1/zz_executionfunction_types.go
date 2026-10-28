@@ -21,7 +21,16 @@ type ExecutionFunctionInitParameters struct {
 
 	// (List of String) The list of target IDs to call.
 	// The list of target IDs to call.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/action/v1alpha1.Target
 	TargetIds []*string `json:"targetIds,omitempty" tf:"target_ids,omitempty"`
+
+	// References to Target in action to populate targetIds.
+	// +kubebuilder:validation:Optional
+	TargetIdsRefs []v1.Reference `json:"targetIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Target in action to populate targetIds.
+	// +kubebuilder:validation:Optional
+	TargetIdsSelector *v1.Selector `json:"targetIdsSelector,omitempty" tf:"-"`
 }
 
 type ExecutionFunctionObservation struct {
@@ -47,8 +56,17 @@ type ExecutionFunctionParameters struct {
 
 	// (List of String) The list of target IDs to call.
 	// The list of target IDs to call.
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/action/v1alpha1.Target
 	// +kubebuilder:validation:Optional
 	TargetIds []*string `json:"targetIds,omitempty" tf:"target_ids,omitempty"`
+
+	// References to Target in action to populate targetIds.
+	// +kubebuilder:validation:Optional
+	TargetIdsRefs []v1.Reference `json:"targetIdsRefs,omitempty" tf:"-"`
+
+	// Selector for a list of Target in action to populate targetIds.
+	// +kubebuilder:validation:Optional
+	TargetIdsSelector *v1.Selector `json:"targetIdsSelector,omitempty" tf:"-"`
 }
 
 // ExecutionFunctionSpec defines the desired state of ExecutionFunction

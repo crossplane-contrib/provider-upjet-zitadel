@@ -245,6 +245,32 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		}
 	})
 
+	// Execution configurations reference one or more targets.
+	pc.AddResourceConfigurator("zitadel_action_execution_event", func(r *ujconfig.Resource) {
+		r.ShortGroup = "action"
+		r.References["target_ids"] = ujconfig.Reference{
+			TerraformName: "zitadel_action_target",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_action_execution_function", func(r *ujconfig.Resource) {
+		r.ShortGroup = "action"
+		r.References["target_ids"] = ujconfig.Reference{
+			TerraformName: "zitadel_action_target",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_action_execution_request", func(r *ujconfig.Resource) {
+		r.ShortGroup = "action"
+		r.References["target_ids"] = ujconfig.Reference{
+			TerraformName: "zitadel_action_target",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_action_execution_response", func(r *ujconfig.Resource) {
+		r.ShortGroup = "action"
+		r.References["target_ids"] = ujconfig.Reference{
+			TerraformName: "zitadel_action_target",
+		}
+	})
+
 	// Projects
 	pc.AddResourceConfigurator("zitadel_project", func(r *ujconfig.Resource) {
 		r.ShortGroup = "project"

@@ -9,8 +9,8 @@ metadata:
 spec:
   forProvider:
     name: preaccesstoken
-    targetIds:
-    - ${zitadel_action_target.default.id}
+    targetIdsRefs:
+    - name: default
 
 ---
 
