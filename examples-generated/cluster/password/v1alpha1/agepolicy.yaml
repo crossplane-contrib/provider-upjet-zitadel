@@ -10,4 +10,6 @@ spec:
   forProvider:
     expireWarnDays: 5
     maxAgeDays: 30
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org

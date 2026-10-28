@@ -221,6 +221,9 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 	// Login policies reference organization-level identity providers.
 	pc.AddResourceConfigurator("zitadel_login_policy", func(r *ujconfig.Resource) {
 		r.ShortGroup = "login"
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
 		r.References["idps"] = ujconfig.Reference{
 			TerraformName:     "zitadel_org_idp_google",
 			RefFieldName:      "IdpGoogleRefs",
@@ -242,6 +245,9 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.ShortGroup = "trigger"
 		r.References["action_ids"] = ujconfig.Reference{
 			TerraformName: "zitadel_action",
+		}
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
 		}
 	})
 
@@ -404,6 +410,176 @@ func newProvider(rootGroup string) *ujconfig.Provider {
 		r.References["instance_id"] = ujconfig.Reference{
 			Type:      "Instance",
 			Extractor: modulePath + "/apis/observation.InstanceID()",
+		}
+	})
+
+	// Org-scoped resources resolve their owning organization's org_id from an
+	// Organization. zitadel_webkey and zitadel_active_webkey are not
+	// configured: web keys are instance-scoped and their org_id only sets the
+	// request's organization context.
+
+	// Actions belong to an organization.
+	pc.AddResourceConfigurator("zitadel_action", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+
+	// Organization domains (legacy domain resource).
+	pc.AddResourceConfigurator("zitadel_domain", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+
+	// Org-level policies.
+	pc.AddResourceConfigurator("zitadel_domain_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_label_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_lockout_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_notification_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_password_age_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_password_complexity_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_privacy_policy", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+
+	// Org-level login and message texts.
+	pc.AddResourceConfigurator("zitadel_login_texts", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_domain_claimed_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_init_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_password_change_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_password_reset_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_passwordless_registration_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_verify_email_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_verify_email_otp_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_verify_phone_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_verify_sms_otp_message_text", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+
+	// Org-level identity providers.
+	pc.AddResourceConfigurator("zitadel_org_idp_apple", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_azure_ad", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_github", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_github_es", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_gitlab", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_gitlab_self_hosted", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_google", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_jwt", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_ldap", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_oauth", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_oidc", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
+		}
+	})
+	pc.AddResourceConfigurator("zitadel_org_idp_saml", func(r *ujconfig.Resource) {
+		r.References["org_id"] = ujconfig.Reference{
+			TerraformName: "zitadel_organization",
 		}
 	})
 

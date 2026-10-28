@@ -14,5 +14,7 @@ spec:
     jwtEndpoint: https://jwtendpoint.com/jwt
     keysEndpoint: https://jwtendpoint.com/keys
     name: jwtidp
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     stylingType: STYLING_TYPE_UNSPECIFIED

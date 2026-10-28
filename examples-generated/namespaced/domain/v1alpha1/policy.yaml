@@ -9,7 +9,9 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     smtpSenderAddressMatchesInstanceDomain: true
     userLoginMustBeDomain: false
     validateOrgDomains: true

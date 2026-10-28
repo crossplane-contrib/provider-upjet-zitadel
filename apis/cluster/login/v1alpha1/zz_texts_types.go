@@ -2438,7 +2438,16 @@ type TextsInitParameters struct {
 	MfaProvidersText *MfaProvidersTextInitParameters `json:"mfaProvidersText,omitempty" tf:"mfa_providers_text,omitempty"`
 
 	// (String)
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (Attributes) (see below for nested schema)
 	PasswordChangeDoneText *PasswordChangeDoneTextInitParameters `json:"passwordChangeDoneText,omitempty" tf:"password_change_done_text,omitempty"`
@@ -2688,8 +2697,17 @@ type TextsParameters struct {
 	MfaProvidersText *MfaProvidersTextParameters `json:"mfaProvidersText,omitempty" tf:"mfa_providers_text,omitempty"`
 
 	// (String)
+	// +crossplane:generate:reference:type=github.com/crossplane-contrib/provider-upjet-zitadel/apis/cluster/org/v1alpha1.Organization
 	// +kubebuilder:validation:Optional
 	OrgID *string `json:"orgId,omitempty" tf:"org_id,omitempty"`
+
+	// Reference to a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+
+	// Selector for a Organization in org to populate orgId.
+	// +kubebuilder:validation:Optional
+	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (Attributes) (see below for nested schema)
 	// +kubebuilder:validation:Optional
@@ -3003,7 +3021,6 @@ type Texts struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.language) || (has(self.initProvider) && has(self.initProvider.language))",message="spec.forProvider.language is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.orgId) || (has(self.initProvider) && has(self.initProvider.orgId))",message="spec.forProvider.orgId is a required parameter"
 	Spec   TextsSpec   `json:"spec"`
 	Status TextsStatus `json:"status,omitempty"`
 }

@@ -26,7 +26,9 @@ spec:
     multiFactorCheckLifetime: 24h0m0s
     multiFactors:
     - MULTI_FACTOR_TYPE_U2F_WITH_VERIFICATION
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     passwordCheckLifetime: 240h0m0s
     passwordlessType: PASSWORDLESS_TYPE_ALLOWED
     secondFactorCheckLifetime: 24h0m0s

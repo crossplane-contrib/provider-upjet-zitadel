@@ -8,5 +8,7 @@ metadata:
   name: default
 spec:
   forProvider:
-    orgId: ${data.zitadel_org.default.id}
+    orgIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: zitadel_org
     passwordChange: false

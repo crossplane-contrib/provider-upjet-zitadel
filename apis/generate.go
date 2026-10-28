@@ -35,6 +35,13 @@ Copyright 2024 The Crossplane Authors.
 // reference.FromFloatPtrValue/reference.ToFloatPtrValue (crossplane-runtime/pkg/reference).
 //go:generate bash ../hack/fix-angryjet-float.sh
 
+// Rewrite the generated resolvers to look up reference targets through
+// internal/apis instead of importing their API packages. Cross-group
+// references (e.g. org.Member -> user.HumanUser -> org.Organization) would
+// otherwise create import cycles. See https://github.com/crossplane/upjet/issues/96
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g zitadel.crossplane.io -a github.com/crossplane-contrib/provider-upjet-zitadel/internal/apis -s -p ./cluster/...
+//go:generate go run github.com/crossplane/upjet/v2/cmd/resolver -g zitadel.m.crossplane.io -a github.com/crossplane-contrib/provider-upjet-zitadel/internal/apis -s -p ./namespaced/...
+
 package apis
 
 import (
