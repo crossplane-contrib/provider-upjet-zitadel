@@ -9,8 +9,8 @@ metadata:
 spec:
   forProvider:
     event: user.human.added
-    targetIds:
-    - ${zitadel_action_target.default.id}
+    targetIdsRefs:
+    - name: default
 
 ---
 

@@ -57,6 +57,26 @@ func TestRequiredCrossResourceReferences(t *testing.T) {
 			field:    "action_ids",
 			want:     "zitadel_action",
 		},
+		"execution_event targets": {
+			resource: "zitadel_action_execution_event",
+			field:    "target_ids",
+			want:     "zitadel_action_target",
+		},
+		"execution_function targets": {
+			resource: "zitadel_action_execution_function",
+			field:    "target_ids",
+			want:     "zitadel_action_target",
+		},
+		"execution_request targets": {
+			resource: "zitadel_action_execution_request",
+			field:    "target_ids",
+			want:     "zitadel_action_target",
+		},
+		"execution_response targets": {
+			resource: "zitadel_action_execution_response",
+			field:    "target_ids",
+			want:     "zitadel_action_target",
+		},
 	}
 
 	for name, tt := range tests {
