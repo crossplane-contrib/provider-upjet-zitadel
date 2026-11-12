@@ -11,6 +11,8 @@ import (
 	"strings"
 	"sync/atomic"
 	"testing"
+
+	ujterraform "github.com/crossplane/upjet/v2/pkg/terraform"
 )
 
 func TestLoginPolicyID(t *testing.T) {
@@ -45,14 +47,20 @@ func TestPrincipalOrganization(t *testing.T) {
 	defer server.Close()
 	host, port, _ := net.SplitHostPort(strings.TrimPrefix(server.URL, "http://"))
 	setup := map[string]any{"access_token": "test-only", "domain": host, "port": port, "insecure": true, "transport_headers": map[string]any{"x-zitadel-instance-host": "auth.example.test"}}
-	for i := 0; i < 2; i++ {
-		parameters := map[string]any{}
-		id, err := loginPolicyExternalName.GetIDFn(context.Background(), "", parameters, map[string]any{"configuration": setup})
-		if err != nil || id != "system-org" || parameters["org_id"] != "system-org" {
-			t.Fatalf("got %q, %v", id, err)
+	setups := []map[string]any{
+		{"configuration": setup},
+		(ujterraform.Setup{Configuration: ujterraform.ProviderConfiguration(setup)}).Map(),
+	}
+	for _, configured := range setups {
+		for i := 0; i < 2; i++ {
+			parameters := map[string]any{}
+			id, err := loginPolicyExternalName.GetIDFn(context.Background(), "", parameters, configured)
+			if err != nil || id != "system-org" || parameters["org_id"] != "system-org" {
+				t.Fatalf("got %q, %v", id, err)
+			}
 		}
 	}
-	if calls.Load() != 2 {
+	if calls.Load() != 4 {
 		t.Fatalf("expected repeatable read-only discovery; calls=%d", calls.Load())
 	}
 }
