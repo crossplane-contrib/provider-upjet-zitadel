@@ -64,3 +64,26 @@ For Helm-bootstrapped installations, a provider-native read-only `Instance` can
 discover the existing instance ID. `CustomDomain` and `TrustedDomain` can then
 use native `instanceIdRef`/`instanceIdSelector` dependencies without a discovery
 Job or injected IDs. See [the example and lifecycle guidance](examples/instance/README.md).
+
+### Organization login-policy bootstrap
+
+Login policies use their organization ID as their singleton resource ID. Before
+initial observation, the provider now uses an explicit `org_id` (including a
+resolved organization reference), or discovers the authenticated organization
+through a read-only Management API request for PAT-backed provider configs.
+Existing imported external names remain authoritative. The discovered ID also
+fills the Terraform `org_id` parameter so a successful creation returns an ID.
+This allows normal observation to adopt a pre-existing policy after a partial
+creation, rather than repeatedly issuing AddCustomLoginPolicy.
+
+Existing policies and MFA settings are not replaced by this discovery. Provider
+transport headers preserve virtual-instance routing; redirects are rejected and
+error responses/credentials are not included in errors. Other authentication
+methods retain their previous discovery behavior and can supply an explicit
+organization ID/reference or import an external name.
+
+`go test ./config` covers retained IDs, explicit organization IDs, PAT discovery,
+repeat lookup, scoped transport headers and sanitized failures. The optional
+`TestLiveLoginPolicyOrganization` reads test configuration from stdin only and
+checks read-only discovery against an expected retained policy ID. It does not
+claim a complete live create/update/delete lifecycle test.

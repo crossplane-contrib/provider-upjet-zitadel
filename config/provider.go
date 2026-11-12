@@ -123,7 +123,7 @@ var ExternalNameConfigs = map[string]ujconfig.ExternalName{
 	"zitadel_init_message_text":                      ujconfig.IdentifierFromProvider,
 	"zitadel_label_policy":                           ujconfig.IdentifierFromProvider,
 	"zitadel_lockout_policy":                         ujconfig.IdentifierFromProvider,
-	"zitadel_login_policy":                           ujconfig.IdentifierFromProvider,
+	"zitadel_login_policy":                           loginPolicyExternalName,
 	"zitadel_login_texts":                            ujconfig.IdentifierFromProvider,
 	"zitadel_notification_policy":                    ujconfig.IdentifierFromProvider,
 	"zitadel_password_age_policy":                    ujconfig.IdentifierFromProvider,
