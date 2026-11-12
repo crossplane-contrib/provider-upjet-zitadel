@@ -64,7 +64,7 @@ func TestPrincipalOrganizationFailsClosed(t *testing.T) {
 		body   string
 	}{{"unauthorized", 401, `sensitive response`}, {"invalid JSON", 200, `sensitive response`}, {"missing org", 200, `{}`}, {"redirect", 302, `sensitive response`}} {
 		t.Run(test.name, func(t *testing.T) {
-			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 				w.Header().Set("Location", "https://untrusted.example")
 				w.WriteHeader(test.status)
 				_, _ = w.Write([]byte(test.body))
