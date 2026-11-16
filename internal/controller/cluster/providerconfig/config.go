@@ -44,3 +44,9 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	}, v1beta1.ProviderConfigGroupVersionKind, v1beta1.ProviderConfigUsageGroupVersionKind)
 	return nil
 }
+
+// SetupWebhookWithManager registers the provider configuration webhook builders.
+// These single-version types currently need no conversion webhook.
+func SetupWebhookWithManager(mgr ctrl.Manager) error {
+	return ctrl.NewWebhookManagedBy(mgr, &v1beta1.ProviderConfig{}).Complete()
+}

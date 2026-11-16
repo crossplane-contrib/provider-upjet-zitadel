@@ -10,12 +10,12 @@ import (
 	"fmt"
 	"time"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/event"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/ratelimiter"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reconciler/managed"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	tjcontroller "github.com/crossplane/upjet/v2/pkg/controller"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -85,7 +85,7 @@ func (c *connector) Connect(ctx context.Context, mg resource.Managed) (managed.E
 		return nil, fmt.Errorf("managed resource is not an Instance")
 	}
 	for _, policy := range mg.GetManagementPolicies() {
-		if policy != xpv1.ManagementActionObserve {
+		if policy != xpv2.ManagementActionObserve {
 			return nil, fmt.Errorf("instance permits only Observe management policy")
 		}
 	}
@@ -108,18 +108,18 @@ func (e *external) Observe(ctx context.Context, mg resource.Managed) (managed.Ex
 	}
 	observed, err := e.api.Observe(ctx)
 	if err != nil {
-		inst.SetConditions(xpv1.Unavailable())
+		inst.SetConditions(xpv2.Unavailable())
 		return managed.ExternalObservation{}, err
 	}
 	if observed.ID == "" {
-		inst.SetConditions(xpv1.Unavailable())
+		inst.SetConditions(xpv2.Unavailable())
 		return managed.ExternalObservation{}, fmt.Errorf("empty instance ID")
 	}
 	// An endpoint/credential change or restored database must not silently
 	// retarget dependent domains to a different instance. Recreate the observer
 	// explicitly when accepting a different external identity.
 	if bound := meta.GetExternalName(inst); bound != "" && bound != observed.ID {
-		inst.SetConditions(xpv1.Unavailable())
+		inst.SetConditions(xpv2.Unavailable())
 		return managed.ExternalObservation{}, fmt.Errorf("observed instance ID differs from the bound external identity; explicit adoption is required")
 	}
 	if meta.GetExternalName(inst) == "" {
@@ -129,7 +129,7 @@ func (e *external) Observe(ctx context.Context, mg resource.Managed) (managed.Ex
 		}
 	}
 	inst.SetInstanceObservation(observed)
-	inst.SetConditions(xpv1.Available())
+	inst.SetConditions(xpv2.Available())
 	return managed.ExternalObservation{ResourceExists: true, ResourceUpToDate: true}, nil
 }
 

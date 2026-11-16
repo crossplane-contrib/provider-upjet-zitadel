@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ConfigInitParameters struct {
@@ -26,7 +25,7 @@ type ConfigInitParameters struct {
 
 	// (String, Sensitive) Password used to communicate with your SMTP server.
 	// Password used to communicate with your SMTP server.
-	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) Address to reply to.
 	// Address to reply to.
@@ -106,7 +105,7 @@ type ConfigParameters struct {
 	// (String, Sensitive) Password used to communicate with your SMTP server.
 	// Password used to communicate with your SMTP server.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.LocalSecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (String) Address to reply to.
 	// Address to reply to.
@@ -158,8 +157,8 @@ type ConfigSpec struct {
 
 // ConfigStatus defines the observed state of Config.
 type ConfigStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ConfigObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ConfigObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type EmailMessageTextInitParameters struct {
@@ -34,11 +33,11 @@ type EmailMessageTextInitParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String)
 	PreHeader *string `json:"preHeader,omitempty" tf:"pre_header,omitempty"`
@@ -111,11 +110,11 @@ type EmailMessageTextParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String)
 	// +kubebuilder:validation:Optional
@@ -153,8 +152,8 @@ type EmailMessageTextSpec struct {
 
 // EmailMessageTextStatus defines the observed state of EmailMessageText.
 type EmailMessageTextStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        EmailMessageTextObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               EmailMessageTextObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

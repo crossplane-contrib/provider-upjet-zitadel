@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MetadataInitParameters struct {
@@ -27,11 +26,11 @@ type MetadataInitParameters struct {
 
 	// Reference to a Org in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Org in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) The string representation of a metadata entry value. For binary data, use the base64encode function.
 	// The string representation of a metadata entry value. For binary data, use the base64encode function.
@@ -71,11 +70,11 @@ type MetadataParameters struct {
 
 	// Reference to a Org in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Org in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) The string representation of a metadata entry value. For binary data, use the base64encode function.
 	// The string representation of a metadata entry value. For binary data, use the base64encode function.
@@ -102,8 +101,8 @@ type MetadataSpec struct {
 
 // MetadataStatus defines the observed state of Metadata.
 type MetadataStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetadataObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetadataObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

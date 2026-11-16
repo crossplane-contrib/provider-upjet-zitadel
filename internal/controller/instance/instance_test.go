@@ -9,9 +9,9 @@ import (
 	"errors"
 	"testing"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -66,7 +66,7 @@ func TestObservationLifecycle(t *testing.T) {
 			if inst.GetInstanceObservation() != api.value || meta.GetExternalName(inst) != "external-instance" {
 				t.Fatal("observation was not recorded/bound")
 			}
-			inst.SetConditions(xpv1.ReconcileSuccess())
+			inst.SetConditions(xpv2.ReconcileSuccess())
 			if observation.InstanceID()(inst) != "external-instance" {
 				t.Fatal("healthy observation is not referenceable")
 			}
@@ -96,7 +96,7 @@ func TestObservationFailureAndIdentityChange(t *testing.T) {
 			inst := &namespaced.Instance{ObjectMeta: metav1.ObjectMeta{Name: "existing", Namespace: "tenant"}}
 			meta.SetExternalName(inst, "original")
 			inst.Status.AtProvider = observation.Instance{ID: "original"}
-			inst.SetConditions(xpv1.Available(), xpv1.ReconcileSuccess())
+			inst.SetConditions(xpv2.Available(), xpv2.ReconcileSuccess())
 			api := &fakeAPI{}
 			if failure == "unavailable" {
 				api.err = errors.New("API unavailable")
@@ -128,7 +128,7 @@ func TestObservationFailureAndIdentityChange(t *testing.T) {
 }
 
 func TestConnectRejectsMutatingPoliciesBeforeCredentials(t *testing.T) {
-	for _, policy := range []xpv1.ManagementAction{xpv1.ManagementActionAll, xpv1.ManagementActionCreate, xpv1.ManagementActionDelete, xpv1.ManagementActionUpdate, xpv1.ManagementActionLateInitialize} {
+	for _, policy := range []xpv2.ManagementAction{xpv2.ManagementActionAll, xpv2.ManagementActionCreate, xpv2.ManagementActionDelete, xpv2.ManagementActionUpdate, xpv2.ManagementActionLateInitialize} {
 		t.Run(string(policy), func(t *testing.T) {
 			called := false
 			c := &connector{newClient: func(context.Context, client.Client, resource.Managed) (clients.InstanceClient, error) {
@@ -136,7 +136,7 @@ func TestConnectRejectsMutatingPoliciesBeforeCredentials(t *testing.T) {
 				return nil, nil
 			}}
 			inst := &namespaced.Instance{}
-			inst.Spec.ManagementPolicies = xpv1.ManagementPolicies{policy}
+			inst.Spec.ManagementPolicies = xpv2.ManagementPolicies{policy}
 			if _, err := c.Connect(context.Background(), inst); err == nil || called {
 				t.Fatal("mutating policy reached the credential/client path")
 			}

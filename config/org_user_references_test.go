@@ -9,7 +9,7 @@ import (
 	"sync"
 	"testing"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -138,7 +138,7 @@ func refClient(t *testing.T, objs ...client.Object) client.Client {
 
 func TestDomainPolicyOrganizationSelector(t *testing.T) {
 	policy := &domain.Policy{ObjectMeta: metav1.ObjectMeta{Name: "login-must-be-domain", Namespace: "tenant"}}
-	policy.Spec.ForProvider.OrgIDSelector = &xpv1.NamespacedSelector{MatchLabels: tenantLabels}
+	policy.Spec.ForProvider.OrgIDSelector = &xpv2.NamespacedSelector{MatchLabels: tenantLabels}
 	c := refClient(t, namespacedOrganization("tenant", "organization-id"), namespacedOrganization("other-tenant", "wrong-organization"))
 	if err := policy.ResolveReferences(context.Background(), c); err != nil {
 		t.Fatal(err)
@@ -154,7 +154,7 @@ func TestClusterDomainPolicyOrganizationReference(t *testing.T) {
 		Annotations: map[string]string{"crossplane.io/external-name": "organization-id"},
 	}}
 	policy := &clusterdomain.Policy{ObjectMeta: metav1.ObjectMeta{Name: "login-must-be-domain"}}
-	policy.Spec.ForProvider.OrgIDRef = &xpv1.Reference{Name: organization.Name}
+	policy.Spec.ForProvider.OrgIDRef = &xpv2.Reference{Name: organization.Name}
 	if err := policy.ResolveReferences(context.Background(), refClient(t, organization)); err != nil {
 		t.Fatal(err)
 	}

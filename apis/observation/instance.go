@@ -6,9 +6,9 @@
 package observation
 
 import (
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/reference"
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 // Instance contains non-secret metadata returned by Zitadel.
@@ -31,7 +31,7 @@ type ObservedInstance interface {
 func InstanceID() reference.ExtractValueFn {
 	return func(mg resource.Managed) string {
 		inst, ok := mg.(ObservedInstance)
-		if !ok || inst.GetCondition(xpv1.TypeReady).Status != "True" || inst.GetCondition(xpv1.TypeSynced).Status != "True" || inst.GetCondition(xpv1.TypeSynced).ObservedGeneration < inst.GetGeneration() || inst.GetDeletionTimestamp() != nil {
+		if !ok || inst.GetCondition(xpv2.TypeReady).Status != "True" || inst.GetCondition(xpv2.TypeSynced).Status != "True" || inst.GetCondition(xpv2.TypeSynced).ObservedGeneration < inst.GetGeneration() || inst.GetDeletionTimestamp() != nil {
 			return ""
 		}
 		return inst.GetInstanceObservation().ID

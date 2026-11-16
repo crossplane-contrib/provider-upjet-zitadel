@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type LoginVersionLoginV2InitParameters struct {
@@ -47,7 +47,7 @@ type SAMLInitParameters struct {
 
 	// (String, Sensitive) Metadata as XML file
 	// Metadata as XML file
-	MetadataXMLSecretRef *v1.SecretKeySelector `json:"metadataXmlSecretRef,omitempty" tf:"-"`
+	MetadataXMLSecretRef *v2.SecretKeySelector `json:"metadataXmlSecretRef,omitempty" tf:"-"`
 
 	// (String) Name of the application
 	// Name of the application
@@ -60,11 +60,11 @@ type SAMLInitParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.Reference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -73,11 +73,11 @@ type SAMLInitParameters struct {
 
 	// Reference to a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+	ProjectIDRef *v2.Reference `json:"projectIdRef,omitempty" tf:"-"`
 
 	// Selector for a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *v2.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 }
 
 type SAMLLoginVersionInitParameters struct {
@@ -156,7 +156,7 @@ type SAMLParameters struct {
 	// (String, Sensitive) Metadata as XML file
 	// Metadata as XML file
 	// +kubebuilder:validation:Optional
-	MetadataXMLSecretRef *v1.SecretKeySelector `json:"metadataXmlSecretRef,omitempty" tf:"-"`
+	MetadataXMLSecretRef *v2.SecretKeySelector `json:"metadataXmlSecretRef,omitempty" tf:"-"`
 
 	// (String) Name of the application
 	// Name of the application
@@ -171,11 +171,11 @@ type SAMLParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.Reference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -185,17 +185,17 @@ type SAMLParameters struct {
 
 	// Reference to a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.Reference `json:"projectIdRef,omitempty" tf:"-"`
+	ProjectIDRef *v2.Reference `json:"projectIdRef,omitempty" tf:"-"`
 
 	// Selector for a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.Selector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *v2.Selector `json:"projectIdSelector,omitempty" tf:"-"`
 }
 
 // SAMLSpec defines the desired state of SAML
 type SAMLSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SAMLParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SAMLParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -211,8 +211,8 @@ type SAMLSpec struct {
 
 // SAMLStatus defines the observed state of SAML.
 type SAMLStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SAMLObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SAMLObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

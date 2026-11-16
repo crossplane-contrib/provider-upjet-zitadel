@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type TargetInitParameters struct {
@@ -118,8 +118,8 @@ type TargetParameters struct {
 
 // TargetSpec defines the desired state of Target
 type TargetSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     TargetParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   TargetParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -135,8 +135,8 @@ type TargetSpec struct {
 
 // TargetStatus defines the observed state of Target.
 type TargetStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        TargetObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               TargetObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

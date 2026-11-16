@@ -8,7 +8,7 @@ import (
 	"context"
 	"testing"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -48,7 +48,7 @@ func TestMachineUserOrganizationSelector(t *testing.T) {
 	other := namespacedOrganization("other-tenant", "wrong-organization")
 	c := newFakeClient(t, organization, other)
 	machine := &user.MachineUser{ObjectMeta: metav1.ObjectMeta{Name: "bot", Namespace: "tenant"}}
-	machine.Spec.ForProvider.OrgIDSelector = &xpv1.NamespacedSelector{MatchLabels: tenantLabels}
+	machine.Spec.ForProvider.OrgIDSelector = &xpv2.NamespacedSelector{MatchLabels: tenantLabels}
 	if err := machine.ResolveReferences(context.Background(), c); err != nil {
 		t.Fatal(err)
 	}
@@ -68,7 +68,7 @@ func TestMachineUserLiteralOrganizationPreserved(t *testing.T) {
 	literal := "literal-organization"
 	machine := &user.MachineUser{ObjectMeta: metav1.ObjectMeta{Name: "bot", Namespace: "tenant"}}
 	machine.Spec.ForProvider.OrgID = &literal
-	machine.Spec.ForProvider.OrgIDSelector = &xpv1.NamespacedSelector{MatchLabels: tenantLabels}
+	machine.Spec.ForProvider.OrgIDSelector = &xpv2.NamespacedSelector{MatchLabels: tenantLabels}
 	if err := machine.ResolveReferences(context.Background(), c); err != nil {
 		t.Fatal(err)
 	}
@@ -90,7 +90,7 @@ func TestMachineUserUnresolvedOrganizationSelector(t *testing.T) {
 	for name, objs := range cases {
 		t.Run(name, func(t *testing.T) {
 			machine := &user.MachineUser{ObjectMeta: metav1.ObjectMeta{Name: "bot", Namespace: "tenant"}}
-			machine.Spec.ForProvider.OrgIDSelector = &xpv1.NamespacedSelector{MatchLabels: tenantLabels}
+			machine.Spec.ForProvider.OrgIDSelector = &xpv2.NamespacedSelector{MatchLabels: tenantLabels}
 			if err := machine.ResolveReferences(context.Background(), newFakeClient(t, objs...)); err == nil {
 				t.Fatal("expected an error for an unresolved organization selector")
 			}
@@ -112,7 +112,7 @@ func TestClusterMachineUserOrganizationSelector(t *testing.T) {
 	}}
 	c := newFakeClient(t, organization, unlabelled)
 	machine := &clusteruser.MachineUser{ObjectMeta: metav1.ObjectMeta{Name: "bot"}}
-	machine.Spec.ForProvider.OrgIDSelector = &xpv1.Selector{MatchLabels: tenantLabels}
+	machine.Spec.ForProvider.OrgIDSelector = &xpv2.Selector{MatchLabels: tenantLabels}
 	if err := machine.ResolveReferences(context.Background(), c); err != nil {
 		t.Fatal(err)
 	}

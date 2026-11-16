@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DomainPolicyInitParameters struct {
@@ -81,8 +80,8 @@ type DomainPolicySpec struct {
 
 // DomainPolicyStatus defines the observed state of DomainPolicy.
 type DomainPolicyStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DomainPolicyObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DomainPolicyObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

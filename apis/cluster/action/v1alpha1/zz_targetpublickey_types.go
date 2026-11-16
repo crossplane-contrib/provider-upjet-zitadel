@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type TargetPublicKeyInitParameters struct {
@@ -82,8 +82,8 @@ type TargetPublicKeyParameters struct {
 
 // TargetPublicKeySpec defines the desired state of TargetPublicKey
 type TargetPublicKeySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     TargetPublicKeyParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   TargetPublicKeyParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -99,8 +99,8 @@ type TargetPublicKeySpec struct {
 
 // TargetPublicKeyStatus defines the observed state of TargetPublicKey.
 type TargetPublicKeyStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        TargetPublicKeyObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               TargetPublicKeyObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

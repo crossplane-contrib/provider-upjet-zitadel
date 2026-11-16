@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type HumanUserInitParameters struct {
@@ -37,11 +37,11 @@ type HumanUserInitParameters struct {
 
 	// (String, Sensitive) Initial hashed password for the user, not changeable after creation. Being able to pass an initial hashed password is useful in migration scenarios.
 	// Initial hashed password for the user, not changeable after creation. Being able to pass an initial hashed password is useful in migration scenarios.
-	InitialHashedPasswordSecretRef *v1.SecretKeySelector `json:"initialHashedPasswordSecretRef,omitempty" tf:"-"`
+	InitialHashedPasswordSecretRef *v2.SecretKeySelector `json:"initialHashedPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Initially set password for the user, not changeable after creation
 	// Initially set password for the user, not changeable after creation
-	InitialPasswordSecretRef *v1.SecretKeySelector `json:"initialPasswordSecretRef,omitempty" tf:"-"`
+	InitialPasswordSecretRef *v2.SecretKeySelector `json:"initialPasswordSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Whether the user has to change the password on first login.
 	// Whether the user has to change the password on first login.
@@ -74,11 +74,11 @@ type HumanUserInitParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.Reference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) Phone of the user
 	// Phone of the user
@@ -90,7 +90,7 @@ type HumanUserInitParameters struct {
 
 	// factor authentication. Only used during creation. Useful for migration scenarios.
 	// TOTP secret for two-factor authentication. Only used during creation. Useful for migration scenarios.
-	TotpSecretSecretRef *v1.SecretKeySelector `json:"totpSecretSecretRef,omitempty" tf:"-"`
+	TotpSecretSecretRef *v2.SecretKeySelector `json:"totpSecretSecretRef,omitempty" tf:"-"`
 
 	// (String) The ID of this resource. Optionally set a custom unique ID. If omitted, ZITADEL will generate one.
 	// The ID of this resource. Optionally set a custom unique ID. If omitted, ZITADEL will generate one.
@@ -213,12 +213,12 @@ type HumanUserParameters struct {
 	// (String, Sensitive) Initial hashed password for the user, not changeable after creation. Being able to pass an initial hashed password is useful in migration scenarios.
 	// Initial hashed password for the user, not changeable after creation. Being able to pass an initial hashed password is useful in migration scenarios.
 	// +kubebuilder:validation:Optional
-	InitialHashedPasswordSecretRef *v1.SecretKeySelector `json:"initialHashedPasswordSecretRef,omitempty" tf:"-"`
+	InitialHashedPasswordSecretRef *v2.SecretKeySelector `json:"initialHashedPasswordSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Initially set password for the user, not changeable after creation
 	// Initially set password for the user, not changeable after creation
 	// +kubebuilder:validation:Optional
-	InitialPasswordSecretRef *v1.SecretKeySelector `json:"initialPasswordSecretRef,omitempty" tf:"-"`
+	InitialPasswordSecretRef *v2.SecretKeySelector `json:"initialPasswordSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Whether the user has to change the password on first login.
 	// Whether the user has to change the password on first login.
@@ -258,11 +258,11 @@ type HumanUserParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.Reference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.Reference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.Selector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.Selector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) Phone of the user
 	// Phone of the user
@@ -277,7 +277,7 @@ type HumanUserParameters struct {
 	// factor authentication. Only used during creation. Useful for migration scenarios.
 	// TOTP secret for two-factor authentication. Only used during creation. Useful for migration scenarios.
 	// +kubebuilder:validation:Optional
-	TotpSecretSecretRef *v1.SecretKeySelector `json:"totpSecretSecretRef,omitempty" tf:"-"`
+	TotpSecretSecretRef *v2.SecretKeySelector `json:"totpSecretSecretRef,omitempty" tf:"-"`
 
 	// (String) The ID of this resource. Optionally set a custom unique ID. If omitted, ZITADEL will generate one.
 	// The ID of this resource. Optionally set a custom unique ID. If omitted, ZITADEL will generate one.
@@ -375,8 +375,8 @@ type MetadataParameters struct {
 
 // HumanUserSpec defines the desired state of HumanUser
 type HumanUserSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     HumanUserParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   HumanUserParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -392,8 +392,8 @@ type HumanUserSpec struct {
 
 // HumanUserStatus defines the observed state of HumanUser.
 type HumanUserStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        HumanUserObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               HumanUserObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

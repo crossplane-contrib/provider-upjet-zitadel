@@ -5,7 +5,7 @@
 package v1alpha1
 
 import (
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/crossplane-contrib/provider-upjet-zitadel/apis/observation"
@@ -20,21 +20,21 @@ type InstanceSpec struct {
 	// +optional
 	// +kubebuilder:default={"Observe"}
 	// +kubebuilder:validation:XValidation:rule="self.all(p, p == 'Observe')",message="Instance supports only Observe or an empty policy list"
-	ManagementPolicies v1.ManagementPolicies `json:"managementPolicies,omitempty"`
+	ManagementPolicies v2.ManagementPolicies `json:"managementPolicies,omitempty"`
 	// ProviderConfigReference selects credentials and endpoint for observation.
 	// +optional
 	// +kubebuilder:default={"name":"default"}
-	ProviderConfigReference *v1.Reference `json:"providerConfigRef,omitempty"`
+	ProviderConfigReference *v2.Reference `json:"providerConfigRef,omitempty"`
 	// WriteConnectionSecretToReference is retained for managed-resource interface
 	// compatibility. Instance observation does not publish credentials.
 	// +optional
-	WriteConnectionSecretToReference *v1.SecretReference `json:"writeConnectionSecretToRef,omitempty"`
+	WriteConnectionSecretToReference *v2.SecretReference `json:"writeConnectionSecretToRef,omitempty"`
 }
 
 // InstanceStatus contains the observed instance identity and conditions.
 type InstanceStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        observation.Instance `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               observation.Instance `json:"atProvider,omitempty"`
 }
 
 // Instance observes a Helm-bootstrapped Zitadel instance without owning its
