@@ -51,10 +51,11 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 
 func setup(mgr ctrl.Manager, o tjcontroller.Options, gvk schema.GroupVersionKind) error {
 	name := managed.ControllerName(gvk.String())
+	recorder := mgr.GetEventRecorderFor(name) // The released SDK APIRecorder requires the legacy event recorder.
 	opts := []managed.ReconcilerOption{
-		managed.WithExternalConnecter(&connector{kube: mgr.GetClient(), newClient: clients.NewInstanceClient}),
+		managed.WithExternalConnector(&connector{kube: mgr.GetClient(), newClient: clients.NewInstanceClient}),
 		managed.WithLogger(o.Logger.WithValues("controller", name)),
-		managed.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name))),
+		managed.WithRecorder(event.NewAPIRecorder(recorder)),
 		managed.WithInitializers(), // Kubernetes name is not a Zitadel ID.
 		managed.WithManagementPolicies(),
 		managed.WithPollInterval(o.PollInterval),

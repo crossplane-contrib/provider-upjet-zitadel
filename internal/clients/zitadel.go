@@ -74,7 +74,7 @@ func toSharedPCSpec(pc *clusterv1beta1.ProviderConfig) (*namespacedv1beta1.Provi
 
 func resolveProviderConfig(ctx context.Context, crClient client.Client, mg resource.Managed) (*namespacedv1beta1.ProviderConfigSpec, error) {
 	switch m := mg.(type) {
-	case resource.LegacyManaged:
+	case resource.LegacyManaged: //nolint:staticcheck // Existing cluster-scoped MRs require the SDK legacy usage tracker.
 		return resolveLegacy(ctx, crClient, m)
 	case resource.ModernManaged:
 		return resolveModern(ctx, crClient, m)
@@ -83,6 +83,7 @@ func resolveProviderConfig(ctx context.Context, crClient client.Client, mg resou
 	}
 }
 
+//nolint:staticcheck // The SDK usage tracker requires this interface for existing cluster-scoped MRs.
 func resolveLegacy(ctx context.Context, crClient client.Client, mg resource.LegacyManaged) (*namespacedv1beta1.ProviderConfigSpec, error) {
 	configRef := mg.GetProviderConfigReference()
 	if configRef == nil {

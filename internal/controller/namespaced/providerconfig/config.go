@@ -26,6 +26,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 
 func setupCluster(mgr ctrl.Manager, o controller.Options) error {
 	name := providerconfig.ControllerName(v1beta1.ClusterProviderConfigGroupKind)
+	recorder := mgr.GetEventRecorderFor(name) // The released SDK APIRecorder requires the legacy event recorder.
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ClusterProviderConfigGroupVersionKind,
@@ -40,11 +41,12 @@ func setupCluster(mgr ctrl.Manager, o controller.Options) error {
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
-			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+			providerconfig.WithRecorder(event.NewAPIRecorder(recorder))))
 }
 
 func setupNamespaced(mgr ctrl.Manager, o controller.Options) error {
 	name := providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind)
+	recorder := mgr.GetEventRecorderFor(name) // The released SDK APIRecorder requires the legacy event recorder.
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ProviderConfigGroupVersionKind,
@@ -59,7 +61,7 @@ func setupNamespaced(mgr ctrl.Manager, o controller.Options) error {
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
-			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+			providerconfig.WithRecorder(event.NewAPIRecorder(recorder))))
 }
 
 // SetupGated registers gated setup for namespaced provider config controllers.
