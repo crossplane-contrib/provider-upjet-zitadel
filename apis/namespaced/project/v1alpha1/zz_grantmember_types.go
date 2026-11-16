@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GrantMemberInitParameters struct {
@@ -23,11 +22,11 @@ type GrantMemberInitParameters struct {
 
 	// Reference to a Grant in project to populate grantId.
 	// +kubebuilder:validation:Optional
-	GrantIDRef *v1.NamespacedReference `json:"grantIdRef,omitempty" tf:"-"`
+	GrantIDRef *v2.NamespacedReference `json:"grantIdRef,omitempty" tf:"-"`
 
 	// Selector for a Grant in project to populate grantId.
 	// +kubebuilder:validation:Optional
-	GrantIDSelector *v1.NamespacedSelector `json:"grantIdSelector,omitempty" tf:"-"`
+	GrantIDSelector *v2.NamespacedSelector `json:"grantIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
@@ -36,11 +35,11 @@ type GrantMemberInitParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -49,11 +48,11 @@ type GrantMemberInitParameters struct {
 
 	// Reference to a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.NamespacedReference `json:"projectIdRef,omitempty" tf:"-"`
+	ProjectIDRef *v2.NamespacedReference `json:"projectIdRef,omitempty" tf:"-"`
 
 	// Selector for a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.NamespacedSelector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *v2.NamespacedSelector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of roles granted
 	// List of roles granted
@@ -102,11 +101,11 @@ type GrantMemberParameters struct {
 
 	// Reference to a Grant in project to populate grantId.
 	// +kubebuilder:validation:Optional
-	GrantIDRef *v1.NamespacedReference `json:"grantIdRef,omitempty" tf:"-"`
+	GrantIDRef *v2.NamespacedReference `json:"grantIdRef,omitempty" tf:"-"`
 
 	// Selector for a Grant in project to populate grantId.
 	// +kubebuilder:validation:Optional
-	GrantIDSelector *v1.NamespacedSelector `json:"grantIdSelector,omitempty" tf:"-"`
+	GrantIDSelector *v2.NamespacedSelector `json:"grantIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the organization. If not provided, the organization of the authenticated user/service account is used.
 	// ID of the organization. If not provided, the organization of the authenticated user/service account is used.
@@ -116,11 +115,11 @@ type GrantMemberParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) ID of the project
 	// ID of the project
@@ -130,11 +129,11 @@ type GrantMemberParameters struct {
 
 	// Reference to a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDRef *v1.NamespacedReference `json:"projectIdRef,omitempty" tf:"-"`
+	ProjectIDRef *v2.NamespacedReference `json:"projectIdRef,omitempty" tf:"-"`
 
 	// Selector for a Project in project to populate projectId.
 	// +kubebuilder:validation:Optional
-	ProjectIDSelector *v1.NamespacedSelector `json:"projectIdSelector,omitempty" tf:"-"`
+	ProjectIDSelector *v2.NamespacedSelector `json:"projectIdSelector,omitempty" tf:"-"`
 
 	// (Set of String) List of roles granted
 	// List of roles granted
@@ -167,8 +166,8 @@ type GrantMemberSpec struct {
 
 // GrantMemberStatus defines the observed state of GrantMember.
 type GrantMemberStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GrantMemberObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GrantMemberObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

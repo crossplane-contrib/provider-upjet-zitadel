@@ -18,6 +18,7 @@ import (
 // Setup adds a controller that reconciles ProviderConfigs.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	name := providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind)
+	recorder := mgr.GetEventRecorderFor(name) // The released SDK APIRecorder requires the legacy event recorder.
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ProviderConfigGroupVersionKind,
@@ -32,7 +33,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
-			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+			providerconfig.WithRecorder(event.NewAPIRecorder(recorder))))
 }
 
 // SetupGated registers Setup behind a gate that fires once the required CRDs are installed.
@@ -43,4 +44,10 @@ func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 		}
 	}, v1beta1.ProviderConfigGroupVersionKind, v1beta1.ProviderConfigUsageGroupVersionKind)
 	return nil
+}
+
+// SetupWebhookWithManager registers the provider configuration webhook builders.
+// These single-version types currently need no conversion webhook.
+func SetupWebhookWithManager(mgr ctrl.Manager) error {
+	return ctrl.NewWebhookManagedBy(mgr, &v1beta1.ProviderConfig{}).Complete()
 }

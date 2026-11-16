@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type IdpSAMLInitParameters struct {
@@ -67,11 +66,11 @@ type IdpSAMLInitParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) Signature Algorithm used to sign SAML requests and responses. Can be used only if with_signed_request is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
 	// Signature Algorithm used to sign SAML requests and responses. Can be used only if `with_signed_request` is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
@@ -217,11 +216,11 @@ type IdpSAMLParameters struct {
 
 	// Reference to a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDRef *v1.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
+	OrgIDRef *v2.NamespacedReference `json:"orgIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate orgId.
 	// +kubebuilder:validation:Optional
-	OrgIDSelector *v1.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
+	OrgIDSelector *v2.NamespacedSelector `json:"orgIdSelector,omitempty" tf:"-"`
 
 	// (String) Signature Algorithm used to sign SAML requests and responses. Can be used only if with_signed_request is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
 	// Signature Algorithm used to sign SAML requests and responses. Can be used only if `with_signed_request` is true., supported values: SAML_SIGNATURE_UNSPECIFIED, SAML_SIGNATURE_RSA_SHA1, SAML_SIGNATURE_RSA_SHA256, SAML_SIGNATURE_RSA_SHA512
@@ -258,8 +257,8 @@ type IdpSAMLSpec struct {
 
 // IdpSAMLStatus defines the observed state of IdpSAML.
 type IdpSAMLStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        IdpSAMLObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               IdpSAMLObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

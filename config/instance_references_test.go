@@ -9,7 +9,7 @@ import (
 	"errors"
 	"testing"
 
-	xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -34,7 +34,7 @@ func instanceRefClient(t *testing.T, objects ...client.Object) client.Client {
 func instanceTarget(ns, id string) *namespaced.Instance {
 	i := &namespaced.Instance{ObjectMeta: metav1.ObjectMeta{Name: "installed", Namespace: ns, Labels: map[string]string{"example.org/instance": "installed"}}}
 	i.Status.AtProvider = observation.Instance{ID: id}
-	i.SetConditions(xpv1.Available(), xpv1.ReconcileSuccess())
+	i.SetConditions(xpv2.Available(), xpv2.ReconcileSuccess())
 	return i
 }
 
@@ -46,13 +46,13 @@ func TestNamespacedInstanceReferences(t *testing.T) {
 			d := &namespaced.CustomDomain{ObjectMeta: metav1.ObjectMeta{Name: "domain", Namespace: "tenant"}}
 			switch method {
 			case "reference":
-				d.Spec.ForProvider.InstanceIDRef = &xpv1.NamespacedReference{Name: "installed"}
+				d.Spec.ForProvider.InstanceIDRef = &xpv2.NamespacedReference{Name: "installed"}
 			case "selector":
-				d.Spec.ForProvider.InstanceIDSelector = &xpv1.NamespacedSelector{MatchLabels: target.Labels}
+				d.Spec.ForProvider.InstanceIDSelector = &xpv2.NamespacedSelector{MatchLabels: target.Labels}
 			case "cross namespace":
 				ns := "tenant"
 				d.Namespace = "consumer"
-				d.Spec.ForProvider.InstanceIDRef = &xpv1.NamespacedReference{Name: "installed", Namespace: ns}
+				d.Spec.ForProvider.InstanceIDRef = &xpv2.NamespacedReference{Name: "installed", Namespace: ns}
 			}
 			if err := d.ResolveReferences(context.Background(), c); err != nil {
 				t.Fatal(err)
@@ -74,9 +74,9 @@ func TestUnobservedInstanceCannotResolve(t *testing.T) {
 			case "empty ID":
 				target.Status.AtProvider.ID = ""
 			case "not Ready":
-				target.SetConditions(xpv1.Unavailable())
+				target.SetConditions(xpv2.Unavailable())
 			case "not Synced":
-				target.SetConditions(xpv1.ReconcileError(errors.New("not synced")))
+				target.SetConditions(xpv2.ReconcileError(errors.New("not synced")))
 			case "stale generation":
 				target.Generation = 2
 			case "deleting":
@@ -89,7 +89,7 @@ func TestUnobservedInstanceCannotResolve(t *testing.T) {
 				objs = nil
 			}
 			d := &namespaced.TrustedDomain{ObjectMeta: metav1.ObjectMeta{Name: "browser", Namespace: "tenant"}}
-			d.Spec.ForProvider.InstanceIDSelector = &xpv1.NamespacedSelector{MatchLabels: target.Labels}
+			d.Spec.ForProvider.InstanceIDSelector = &xpv2.NamespacedSelector{MatchLabels: target.Labels}
 			if err := d.ResolveReferences(context.Background(), instanceRefClient(t, objs...)); err == nil {
 				t.Fatal("expected unresolved instance")
 			}
@@ -104,7 +104,7 @@ func TestLiteralInstanceIDRemainsSupported(t *testing.T) {
 	literal := "existing-instance"
 	d := &namespaced.TrustedDomain{ObjectMeta: metav1.ObjectMeta{Name: "browser", Namespace: "tenant"}}
 	d.Spec.ForProvider.InstanceID = &literal
-	d.Spec.ForProvider.InstanceIDSelector = &xpv1.NamespacedSelector{MatchLabels: instanceTarget("tenant", "").Labels}
+	d.Spec.ForProvider.InstanceIDSelector = &xpv2.NamespacedSelector{MatchLabels: instanceTarget("tenant", "").Labels}
 	if err := d.ResolveReferences(context.Background(), instanceRefClient(t)); err != nil {
 		t.Fatal(err)
 	}
@@ -116,14 +116,14 @@ func TestLiteralInstanceIDRemainsSupported(t *testing.T) {
 func TestClusterInstanceReferences(t *testing.T) {
 	target := &cluster.Instance{ObjectMeta: metav1.ObjectMeta{Name: "installed", Labels: map[string]string{"example.org/instance": "installed"}}}
 	target.Status.AtProvider = observation.Instance{ID: "cluster-instance"}
-	target.SetConditions(xpv1.Available(), xpv1.ReconcileSuccess())
+	target.SetConditions(xpv2.Available(), xpv2.ReconcileSuccess())
 	for _, method := range []string{"reference", "selector"} {
 		t.Run(method, func(t *testing.T) {
 			d := &cluster.CustomDomain{}
 			if method == "reference" {
-				d.Spec.ForProvider.InstanceIDRef = &xpv1.Reference{Name: target.Name}
+				d.Spec.ForProvider.InstanceIDRef = &xpv2.Reference{Name: target.Name}
 			} else {
-				d.Spec.ForProvider.InstanceIDSelector = &xpv1.Selector{MatchLabels: target.Labels}
+				d.Spec.ForProvider.InstanceIDSelector = &xpv2.Selector{MatchLabels: target.Labels}
 			}
 			if err := d.ResolveReferences(context.Background(), instanceRefClient(t, target)); err != nil {
 				t.Fatal(err)

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ProviderTwilioInitParameters struct {
@@ -33,7 +33,7 @@ type ProviderTwilioInitParameters struct {
 
 	// (String, Sensitive) Token used to communicate with Twilio.
 	// Token used to communicate with Twilio.
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 
 	// (String) Twilio Verify Service SID used for phone verification.
 	// Twilio Verify Service SID used for phone verification.
@@ -91,7 +91,7 @@ type ProviderTwilioParameters struct {
 	// (String, Sensitive) Token used to communicate with Twilio.
 	// Token used to communicate with Twilio.
 	// +kubebuilder:validation:Optional
-	TokenSecretRef v1.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
+	TokenSecretRef v2.SecretKeySelector `json:"tokenSecretRef" tf:"-"`
 
 	// (String) Twilio Verify Service SID used for phone verification.
 	// Twilio Verify Service SID used for phone verification.
@@ -101,8 +101,8 @@ type ProviderTwilioParameters struct {
 
 // ProviderTwilioSpec defines the desired state of ProviderTwilio
 type ProviderTwilioSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ProviderTwilioParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ProviderTwilioParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -118,8 +118,8 @@ type ProviderTwilioSpec struct {
 
 // ProviderTwilioStatus defines the observed state of ProviderTwilio.
 type ProviderTwilioStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProviderTwilioObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ProviderTwilioObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

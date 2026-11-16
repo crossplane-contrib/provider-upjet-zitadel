@@ -6,104 +6,104 @@
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this ProviderHTTP.
-func (mg *ProviderHTTP) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *ProviderHTTP) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this ProviderHTTP.
-func (mg *ProviderHTTP) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *ProviderHTTP) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this ProviderHTTP.
-func (mg *ProviderHTTP) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *ProviderHTTP) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ProviderHTTP.
-func (mg *ProviderHTTP) GetProviderConfigReference() *xpv1.Reference {
+func (mg *ProviderHTTP) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this ProviderHTTP.
-func (mg *ProviderHTTP) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *ProviderHTTP) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this ProviderHTTP.
-func (mg *ProviderHTTP) SetConditions(c ...xpv1.Condition) {
+func (mg *ProviderHTTP) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this ProviderHTTP.
-func (mg *ProviderHTTP) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *ProviderHTTP) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this ProviderHTTP.
-func (mg *ProviderHTTP) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *ProviderHTTP) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ProviderHTTP.
-func (mg *ProviderHTTP) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *ProviderHTTP) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this ProviderHTTP.
-func (mg *ProviderHTTP) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *ProviderHTTP) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
 
 // GetCondition of this ProviderSMTP.
-func (mg *ProviderSMTP) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *ProviderSMTP) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this ProviderSMTP.
-func (mg *ProviderSMTP) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *ProviderSMTP) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this ProviderSMTP.
-func (mg *ProviderSMTP) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *ProviderSMTP) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this ProviderSMTP.
-func (mg *ProviderSMTP) GetProviderConfigReference() *xpv1.Reference {
+func (mg *ProviderSMTP) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this ProviderSMTP.
-func (mg *ProviderSMTP) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *ProviderSMTP) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this ProviderSMTP.
-func (mg *ProviderSMTP) SetConditions(c ...xpv1.Condition) {
+func (mg *ProviderSMTP) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this ProviderSMTP.
-func (mg *ProviderSMTP) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *ProviderSMTP) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this ProviderSMTP.
-func (mg *ProviderSMTP) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *ProviderSMTP) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this ProviderSMTP.
-func (mg *ProviderSMTP) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *ProviderSMTP) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this ProviderSMTP.
-func (mg *ProviderSMTP) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *ProviderSMTP) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }

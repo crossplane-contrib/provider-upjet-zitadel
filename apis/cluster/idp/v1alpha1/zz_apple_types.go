@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AppleInitParameters struct {
@@ -49,7 +49,7 @@ type AppleInitParameters struct {
 
 	// (String, Sensitive) Apple Private Key from your Apple Developer Account
 	// Apple Private Key from your Apple Developer Account
-	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 
 	// (Set of String) the scopes requested by ZITADEL during the request on the identity provider
 	// the scopes requested by ZITADEL during the request on the identity provider
@@ -153,7 +153,7 @@ type AppleParameters struct {
 	// (String, Sensitive) Apple Private Key from your Apple Developer Account
 	// Apple Private Key from your Apple Developer Account
 	// +kubebuilder:validation:Optional
-	PrivateKeySecretRef v1.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
+	PrivateKeySecretRef v2.SecretKeySelector `json:"privateKeySecretRef" tf:"-"`
 
 	// (Set of String) the scopes requested by ZITADEL during the request on the identity provider
 	// the scopes requested by ZITADEL during the request on the identity provider
@@ -169,8 +169,8 @@ type AppleParameters struct {
 
 // AppleSpec defines the desired state of Apple
 type AppleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AppleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AppleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -186,8 +186,8 @@ type AppleSpec struct {
 
 // AppleStatus defines the observed state of Apple.
 type AppleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AppleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AppleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

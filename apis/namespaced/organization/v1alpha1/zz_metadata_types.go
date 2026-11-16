@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type MetadataInitParameters struct {
@@ -27,11 +26,11 @@ type MetadataInitParameters struct {
 
 	// Reference to a Organization in org to populate organizationId.
 	// +kubebuilder:validation:Optional
-	OrganizationIDRef *v1.NamespacedReference `json:"organizationIdRef,omitempty" tf:"-"`
+	OrganizationIDRef *v2.NamespacedReference `json:"organizationIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate organizationId.
 	// +kubebuilder:validation:Optional
-	OrganizationIDSelector *v1.NamespacedSelector `json:"organizationIdSelector,omitempty" tf:"-"`
+	OrganizationIDSelector *v2.NamespacedSelector `json:"organizationIdSelector,omitempty" tf:"-"`
 
 	// (String) Value of the metadata entry. For binary data, use base64encode function.
 	// Value of the metadata entry. For binary data, use base64encode function.
@@ -71,11 +70,11 @@ type MetadataParameters struct {
 
 	// Reference to a Organization in org to populate organizationId.
 	// +kubebuilder:validation:Optional
-	OrganizationIDRef *v1.NamespacedReference `json:"organizationIdRef,omitempty" tf:"-"`
+	OrganizationIDRef *v2.NamespacedReference `json:"organizationIdRef,omitempty" tf:"-"`
 
 	// Selector for a Organization in org to populate organizationId.
 	// +kubebuilder:validation:Optional
-	OrganizationIDSelector *v1.NamespacedSelector `json:"organizationIdSelector,omitempty" tf:"-"`
+	OrganizationIDSelector *v2.NamespacedSelector `json:"organizationIdSelector,omitempty" tf:"-"`
 
 	// (String) Value of the metadata entry. For binary data, use base64encode function.
 	// Value of the metadata entry. For binary data, use base64encode function.
@@ -102,8 +101,8 @@ type MetadataSpec struct {
 
 // MetadataStatus defines the observed state of Metadata.
 type MetadataStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        MetadataObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               MetadataObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -6,54 +6,54 @@
 
 package v1alpha1
 
-import xpv1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+import xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 
 // GetCondition of this Webkey.
-func (mg *Webkey) GetCondition(ct xpv1.ConditionType) xpv1.Condition {
+func (mg *Webkey) GetCondition(ct xpv2.ConditionType) xpv2.Condition {
 	return mg.Status.GetCondition(ct)
 }
 
 // GetDeletionPolicy of this Webkey.
-func (mg *Webkey) GetDeletionPolicy() xpv1.DeletionPolicy {
+func (mg *Webkey) GetDeletionPolicy() xpv2.DeletionPolicy {
 	return mg.Spec.DeletionPolicy
 }
 
 // GetManagementPolicies of this Webkey.
-func (mg *Webkey) GetManagementPolicies() xpv1.ManagementPolicies {
+func (mg *Webkey) GetManagementPolicies() xpv2.ManagementPolicies {
 	return mg.Spec.ManagementPolicies
 }
 
 // GetProviderConfigReference of this Webkey.
-func (mg *Webkey) GetProviderConfigReference() *xpv1.Reference {
+func (mg *Webkey) GetProviderConfigReference() *xpv2.Reference {
 	return mg.Spec.ProviderConfigReference
 }
 
 // GetWriteConnectionSecretToReference of this Webkey.
-func (mg *Webkey) GetWriteConnectionSecretToReference() *xpv1.SecretReference {
+func (mg *Webkey) GetWriteConnectionSecretToReference() *xpv2.SecretReference {
 	return mg.Spec.WriteConnectionSecretToReference
 }
 
 // SetConditions of this Webkey.
-func (mg *Webkey) SetConditions(c ...xpv1.Condition) {
+func (mg *Webkey) SetConditions(c ...xpv2.Condition) {
 	mg.Status.SetConditions(c...)
 }
 
 // SetDeletionPolicy of this Webkey.
-func (mg *Webkey) SetDeletionPolicy(r xpv1.DeletionPolicy) {
+func (mg *Webkey) SetDeletionPolicy(r xpv2.DeletionPolicy) {
 	mg.Spec.DeletionPolicy = r
 }
 
 // SetManagementPolicies of this Webkey.
-func (mg *Webkey) SetManagementPolicies(r xpv1.ManagementPolicies) {
+func (mg *Webkey) SetManagementPolicies(r xpv2.ManagementPolicies) {
 	mg.Spec.ManagementPolicies = r
 }
 
 // SetProviderConfigReference of this Webkey.
-func (mg *Webkey) SetProviderConfigReference(r *xpv1.Reference) {
+func (mg *Webkey) SetProviderConfigReference(r *xpv2.Reference) {
 	mg.Spec.ProviderConfigReference = r
 }
 
 // SetWriteConnectionSecretToReference of this Webkey.
-func (mg *Webkey) SetWriteConnectionSecretToReference(r *xpv1.SecretReference) {
+func (mg *Webkey) SetWriteConnectionSecretToReference(r *xpv2.SecretReference) {
 	mg.Spec.WriteConnectionSecretToReference = r
 }
